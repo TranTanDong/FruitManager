@@ -15,8 +15,7 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:onClick="choosePicture">
+            android:layout_gravity="center">
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
@@ -40,15 +39,14 @@
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
-                    <EditText
+                    <AutoCompleteTextView
+                        android:id="@+id/edt_SU_Email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Số điện thoại"
+                        android:hint="Email"
                         android:textColorHint="@color/colorAccent"
-                        android:textColor="@color/colorPrimary"
                         android:layout_marginBottom="20dp"
-                        android:id="@+id/signUp_edtEmail"
-                        android:drawableLeft="@android:drawable/ic_menu_call"
+                        android:drawableLeft="@drawable/ic_perm_identity_black_24dp"
                         android:drawablePadding="8dp"
                         android:inputType="textEmailAddress"
                         app:errorEnabled="true"/>
@@ -58,22 +56,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
                     <EditText
+                        android:id="@+id/edt_SU_Pass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Mật khẩu mong muốn"
-                        android:textColor="@color/colorPrimary"
                         android:drawableLeft="@drawable/ic_lock_black_24dp"
                         android:layout_marginBottom="20dp"
-                        android:id="@+id/signUp_edtPass"
                         android:drawablePadding="8dp"
                         android:inputType="textPassword"
                         app:errorEnabled="true"/>
                 </android.support.design.widget.TextInputLayout>
                 <Button
+                    android:id="@+id/btn_SU_signUp"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:text="Đăng ký"
-                    android:id="@+id/login_btnLogin"
                     android:layout_marginBottom="20dp"/>
             </LinearLayout>
         </android.support.v7.widget.CardView>
