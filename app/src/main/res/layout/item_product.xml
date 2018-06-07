@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="110dp"
+    android:background="#fff"
+    android:layout_margin="3dp"
+    android:padding="2dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/img_product"
+        android:layout_width="105dp"
+        android:layout_height="105dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_cam" />
+
+    <TextView
+        android:id="@+id/tv_productName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingStart="5dp"
+        android:maxLines="1"
+        android:text="Cam Thái Lan"
+        android:textColor="@color/colorAccent"
+        android:textSize="12dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_productPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="5dp"
+        android:text="40.000đ/kg"
+        android:textColor="@color/colorAccent"
+        android:textSize="10dp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tv_productSource"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:text="Sóc Trăng"
+        android:textSize="8dp"
+        android:paddingEnd="5dp" />
+
+    <Button
+        android:id="@+id/btn_productBuy"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#f29898"
+        android:text="Thêm vào giỏ hàng"
+        android:textSize="8dp" />
+
+
+
+
+</LinearLayout>

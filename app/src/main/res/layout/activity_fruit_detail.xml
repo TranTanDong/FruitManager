@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#8dcaff"
     tools:context=".FruitDetail">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        app:title="Chi tiết sản phẩm"
+        app:titleTextColor="#fff"></android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -16,6 +24,7 @@
             android:src="@drawable/ic_cam"
             android:layout_width="160dp"
             android:layout_height="160dp" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -28,32 +37,35 @@
                 android:layout_height="wrap_content"
                 android:text="Cam sành"
                 android:textStyle="bold"
-                android:textSize="24dp"
-                android:textColor="@android:color/holo_red_dark"/>
+                android:textSize="20dp"
+                android:textColor="@color/colorAccent"
+                android:paddingStart="5dp" />
 
-            <TextView
-                android:background="@android:color/holo_red_dark"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="40.000đ/kg"
-                android:textSize="20dp"
-                android:textColor="@android:color/holo_red_dark"/>
+                android:text="Giá: 40.000đ/kg"
+                android:textSize="16dp"
+                android:textColor="@color/colorAccent"
+                android:paddingStart="5dp" />
 
             <TextView
-                android:background="@android:color/holo_red_dark"
-                android:layout_width="match_parent"
-                android:layout_height="1dp" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Xuất xứ: Việt Nam"
+                android:textSize="16dp"
+                android:textColor="#000"
+                android:paddingStart="5dp" />
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Còn hàng"
-                android:textStyle="italic"
-                android:textColor="@android:color/holo_red_dark"/>
+                android:textColor="#000"
+                android:paddingStart="5dp"
+                android:textStyle="italic" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,20 +105,20 @@
     </LinearLayout>
 
    <TextView
-       android:background="#00cc00"
+       android:background="@color/colorAccent"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:text="Mô tả"
        android:textSize="18dp"
        android:textStyle="italic|bold"
        android:paddingStart="10dp"
-       android:textColor="@android:color/holo_red_dark"/>
+       android:textColor="#fff"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="8dp"
-        android:textColor="@android:color/holo_red_dark"
+        android:textColor="#000"
         android:text="      Cam sành là một giống cây ăn quả thuộc chi Cam chanh có quả gần như quả cam, có nguồn gốc từ Việt Nam. Quả cam sành rất dễ nhận ra nhờ lớp vỏ dày, sần sùi giống bề mặt mảnh sành, và thường có màu lục nhạt (khi chín có sắc cam), các múi thịt có màu cam."
         android:textSize="15dp"/>
 

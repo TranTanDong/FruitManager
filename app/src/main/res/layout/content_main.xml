@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/background_login"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
     tools:showIn="@layout/app_bar_main">
@@ -12,7 +13,8 @@
     <ImageView
         android:src="@drawable/img_traicay"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,18 +25,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sản phẩm mới"
-            android:textSize="18dp"
-            android:textColor="@android:color/holo_red_dark"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginStart="10dp"/>
 
-        <GridView
-            android:id="@+id/gv_listSanPham"
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcv_productList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:numColumns="3"
-            tools:listitem="@layout/item_sanpham">
-        </GridView>
+            tools:listitem="@layout/item_product">
+        </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
 

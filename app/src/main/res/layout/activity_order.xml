@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="#8dcaff"
     tools:context=".Order">
+
+    <android.support.v7.widget.Toolbar
+        app:title="Giỏ hàng"
+        app:titleTextColor="#fff"
+        android:background="@color/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"></android.support.v7.widget.Toolbar>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rcv_order"
@@ -24,8 +32,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Tổng cộng:"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="18dp"/>
+            android:textColor="@color/colorAccent"
+            android:textSize="16dp"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -34,21 +42,24 @@
             android:gravity="right"
             android:layout_marginRight="5dp"
             android:text="180.000đ"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="18dp"/>
+            android:textColor="@color/colorAccent"
+            android:textSize="16dp"/>
 
     </LinearLayout>
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginBottom="5dp"
+        android:background="@color/colorPrimary"
         android:text="Thanh toán giỏ hàng"
-        android:textColor="@android:color/holo_red_dark"/>
+        android:textColor="#fff"/>
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary"
         android:text="Tiếp tục mua hàng"
-        android:textColor="@android:color/holo_red_dark"/>
+        android:textColor="#fff"/>
 
 </LinearLayout>

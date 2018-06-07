@@ -16,43 +16,52 @@
             android:layout_width="120dp"
             android:layout_height="120dp" />
 
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginStart="5dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:paddingStart="5dp"
                 android:text="Dâu tây"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="24dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/holo_orange_dark" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="70.000đ/kg"
-                android:textColor="@android:color/holo_red_dark"
-                android:textSize="20dp" />
+                android:paddingStart="5dp"
+                android:text="Giá: 70.000đ/kg"
+                android:textColor="@color/colorAccent"
+                android:textSize="16dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="5dp"
+                android:text="Xuất xứ: Việt Nam"
+                android:textColor="#000"
+                android:textSize="16dp" />
+
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@android:color/holo_orange_dark" />
+                android:paddingStart="5dp"
+                android:layout_height="wrap_content"
+                android:text="Ngày mua: 20-12-2018"
+                android:textColor="#000"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
@@ -64,6 +73,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:text="2"
+                    android:textColor="#000"
                     android:gravity="center"
                     android:textSize="20dp" />
 
@@ -74,7 +84,8 @@
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="140.000đ"
-                    android:textColor="@android:color/holo_red_dark"
+                    android:textColor="#000"
+                    android:paddingEnd="5dp"
                     android:textSize="20dp" />
 
 
