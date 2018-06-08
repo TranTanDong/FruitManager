@@ -57,6 +57,13 @@
                 android:textSize="16dp"
                 android:textColor="#000"
                 android:paddingStart="5dp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HSD: 3"
+                android:textSize="16dp"
+                android:textColor="#000"
+                android:paddingStart="5dp" />
 
 
             <TextView
@@ -71,7 +78,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 android:gravity="center"
                 android:layout_gravity="center_horizontal">
 
@@ -108,7 +115,7 @@
        android:background="@color/colorAccent"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="Mô tả"
+       android:text="Mô tả chi tiết"
        android:textSize="18dp"
        android:textStyle="italic|bold"
        android:paddingStart="10dp"

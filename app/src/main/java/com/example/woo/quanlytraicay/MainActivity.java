@@ -51,14 +51,14 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -71,14 +71,14 @@ public class MainActivity extends AppCompatActivity
 
         //======================================================================================//
 
-        dsProduct.add(new Product("Cam", "Hinh1", "Mô tả cam", "Xuất xứ cam", 40000, 10));
-        dsProduct.add(new Product("Xoài", "Hinh2", "Mô tả Xoài", "Xuất xứ Xoài", 40000, 10));
-        dsProduct.add(new Product("Mận", "Hinh3", "Mô tả Mận", "Xuất xứ Mận", 40000, 10));
-        dsProduct.add(new Product("Dâu", "Hinh4", "Mô tả Dâu", "Xuất xứ Dâu", 40000, 10));
-        dsProduct.add(new Product("Cam", "Hinh1", "Mô tả cam", "Xuất xứ cam", 40000, 10));
-        dsProduct.add(new Product("Xoài", "Hinh2", "Mô tả Xoài", "Xuất xứ Xoài", 40000, 10));
-        dsProduct.add(new Product("Mận", "Hinh3", "Mô tả Mận", "Xuất xứ Mận", 40000, 10));
-        dsProduct.add(new Product("Dâu", "Hinh4", "Mô tả Dâu", "Xuất xứ Dâu", 40000, 10));
+        dsProduct.add(new Product("1", "Cam", R.drawable.ic_cam, "Mô tả cam", "Xuất xứ cam", 40000, 10));
+        dsProduct.add(new Product("2","Xoài", R.drawable.ic_xoai, "Mô tả Xoài", "Xuất xứ Xoài", 25000, 10));
+        dsProduct.add(new Product("3", "Mận", R.drawable.ic_man, "Mô tả Mận", "Xuất xứ Mận", 15000, 10));
+        dsProduct.add(new Product("4", "Dâu", R.drawable.dau, "Mô tả Dâu", "Xuất xứ Dâu", 70000, 10));
+        dsProduct.add(new Product("5", "Cam", R.drawable.ic_cam, "Mô tả cam", "Xuất xứ cam", 40000, 10));
+        dsProduct.add(new Product("6", "Xoài", R.drawable.ic_xoai, "Mô tả Xoài", "Xuất xứ Xoài", 25000, 10));
+        dsProduct.add(new Product("7", "Mận", R.drawable.ic_man, "Mô tả Mận", "Xuất xứ Mận", 15000, 10));
+        dsProduct.add(new Product("8", "Dâu", R.drawable.dau, "Mô tả Dâu", "Xuất xứ Dâu", 70000, 10));
         //Setup RecyclerView
         rcv_productList  = findViewById(R.id.rcv_productList);
         rcv_productList.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
@@ -128,22 +128,19 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_history) {
             // Handle the camera action
             startActivityForResult(new Intent(MainActivity.this, HistoryActivity.class), 4);
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_fruitList) {
             startActivityForResult(new Intent(MainActivity.this, FruitList.class), 5);
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_home) {
+            startActivityForResult(new Intent(getApplicationContext(), MainActivity.class), 6);
+        } else if (id == R.id.nav_logout) {
             mAuth.signOut();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

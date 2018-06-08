@@ -38,12 +38,14 @@
                 android:layout_height="wrap_content"
                 android:text="Giá: 30.000đ/kg"
                 android:paddingStart="5dp"
+                android:textColor="#000"
                 android:textSize="16dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Xuất xứ: Việt Nam"
+                android:textColor="#000"
                 android:paddingStart="5dp"
                 android:textSize="16dp" />
 
@@ -52,6 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Còn hàng"
+                android:textColor="#000"
                 android:paddingStart="5dp"
                 android:textStyle="italic" />
 
@@ -74,6 +77,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:text="2"
+                    android:textColor="#000"
                     android:textSize="16dp" />
 
                 <ImageView
