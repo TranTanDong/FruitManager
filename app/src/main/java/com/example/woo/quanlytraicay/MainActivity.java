@@ -149,7 +149,15 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void ClickItemProduct(int p) {
-        startActivityForResult(new Intent(MainActivity.this, FruitDetail.class), 3);
+        Intent mIntent = new Intent(MainActivity.this, FruitDetail.class);
+        mIntent.putExtra("P_ID", dsProduct.get(p).getId());
+        mIntent.putExtra("P_TEN", dsProduct.get(p).getTen());
+        mIntent.putExtra("P_GIA", dsProduct.get(p).getGia());
+        mIntent.putExtra("P_XX", dsProduct.get(p).getXuatXu());
+        mIntent.putExtra("P_MOTA", dsProduct.get(p).getMoTa());
+        mIntent.putExtra("P_HSD", dsProduct.get(p).gethSD());
+        mIntent.putExtra("P_HINH", dsProduct.get(p).getHinh());
+        startActivityForResult(mIntent, 3);
         //Toast.makeText(MainActivity.this, "Chi tiết sp"+dsProduct.get(p).getTen(), Toast.LENGTH_SHORT).show();
     }
 }
