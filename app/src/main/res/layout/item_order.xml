@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#b1b1b1"
         android:orientation="horizontal">
 
         <ImageView
@@ -37,23 +36,62 @@
                 android:textStyle="bold" />
 
 
-            <TextView
-                android:id="@+id/tv_orderPrice"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Giá: 30.000đ/kg"
                 android:paddingStart="5dp"
-                android:textColor="#000"
-                android:textSize="16dp" />
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/tv_orderOrigin"
-                android:layout_width="wrap_content"
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="#000"
+                    android:text="Giá: "
+                    />
+
+                <TextView
+                    android:id="@+id/tv_orderPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30.000"
+                    android:textColor="#000"
+                    android:textSize="16dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:textColor="#000"
+                    android:text="đ/kg"
+                    />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Xuất xứ: Việt Nam"
-                android:textColor="#000"
-                android:paddingStart="5dp"
-                android:textSize="16dp" />
+                android:orientation="horizontal"
+                android:paddingStart="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000"
+                    android:text="Xuất xứ: "
+                    android:textSize="16dp"/>
+
+                <TextView
+                    android:id="@+id/tv_orderOrigin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Việt Nam"
+                    android:textColor="#000"
+                    android:textSize="16dp" />
+
+            </LinearLayout>
+
 
 
             <TextView

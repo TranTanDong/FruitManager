@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.example.woo.quanlytraicay.Model.Order;
+import com.example.woo.quanlytraicay.Model.Product;
 
 import java.text.DecimalFormat;
+import java.util.Calendar;
 
 public class FruitDetail extends AppCompatActivity {
     private TextView tv_detailName, tv_detailPrice, tv_detailOrigin, tv_detailExpiry, tv_detailExist, tv_detailAmount, tv_detailDescribe;
@@ -64,6 +68,7 @@ public class FruitDetail extends AppCompatActivity {
     }
 
     private void addEvents() {
+        //Giảm số lượng
         btn_detailMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +80,7 @@ public class FruitDetail extends AppCompatActivity {
             }
         });
 
+        //Tăng số lượng
         btn_detailPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +89,15 @@ public class FruitDetail extends AppCompatActivity {
                     a++;
                     tv_detailAmount.setText(a+"");
                 }
+            }
+        });
+
+        //Thêm vào giỏ hàng
+        btn_detailBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OrderActivity.orders.add(new Order("", id+name, Calendar.getInstance().getTime()+"", "", 1,price, image));
+                Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
             }
         });
     }
