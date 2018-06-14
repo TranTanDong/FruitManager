@@ -1,4 +1,4 @@
-package com.example.woo.quanlytraicay;
+package com.example.woo.quanlytraicay.FruitManager;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.example.woo.quanlytraicay.Adapter.AdapterOrder;
 import com.example.woo.quanlytraicay.Model.Order;
+import com.example.woo.quanlytraicay.R;
 
 import java.util.ArrayList;
 

@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "956769896203",
+    "firebase_url": "https://fruitmanager-a7e5f.firebaseio.com",
+    "project_id": "fruitmanager-a7e5f",
+    "storage_bucket": "fruitmanager-a7e5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956769896203:android:23c6786ea406c44c",
+        "android_client_info": {
+          "package_name": "com.example.woo.quanlytraicay"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956769896203-sdeeju43jado1h48sfd25b5erkak7hhp.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "956769896203-sdeeju43jado1h48sfd25b5erkak7hhp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXwkhMR8Iy051kRsG478r0FgdHhbOUuao"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

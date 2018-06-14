@@ -1,51 +1,30 @@
-package com.example.woo.quanlytraicay;
+package com.example.woo.quanlytraicay.FruitManager;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Paint;
+import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
-import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.app.LoaderManager.LoaderCallbacks;
 
-import android.content.CursorLoader;
-import android.content.Loader;
-import android.database.Cursor;
-import android.net.Uri;
-import android.os.AsyncTask;
-
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.widget.CardView;
-import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.UnderlineSpan;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
-import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.woo.quanlytraicay.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.Manifest.permission.READ_CONTACTS;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -54,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText edt_LI_Pass;
     private CardView btn_LI_Login;
     private TextView tv_LI_SignUp;
+    private ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
 
@@ -79,9 +59,12 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser currentUser) {
-        if (currentUser != null) {
 
-            startActivity(new Intent(LoginActivity.this, MainActivity.class));
+        if (currentUser != null) {
+            Intent lIntent = new Intent(LoginActivity.this, MainActivity.class);
+            String UID = currentUser.getUid().toString();
+            lIntent.putExtra("UID", UID);
+            startActivity(lIntent);
             finish();
 
         }
@@ -92,14 +75,13 @@ public class LoginActivity extends AppCompatActivity {
         edt_LI_Pass     = findViewById(R.id.edt_LI_Pass);
         btn_LI_Login    = findViewById(R.id.btn_LI_Login);
         tv_LI_SignUp     = findViewById(R.id.tv_LI_SignUp);
+        progressDialog = new ProgressDialog(this);
 
         tv_LI_SignUp.setPaintFlags(tv_LI_SignUp.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
 
     }
 
     private void addEvents() {
-
-
         //Đăng ký
        tv_LI_SignUp.setOnClickListener(new OnClickListener() {
             @Override
@@ -123,21 +105,27 @@ public class LoginActivity extends AppCompatActivity {
         email    = edt_LI_Email.getText().toString();
         password = edt_LI_Pass.getText().toString();
 
-        if (TextUtils.isEmpty(email)){
+        if (!isNetWorkConnected()){
+            showDialog();
+        }else if (TextUtils.isEmpty(email)){
             Toast.makeText(LoginActivity.this, "Bạn chưa nhập email!", Toast.LENGTH_SHORT).show();
         }else if (TextUtils.isEmpty(password)){
             Toast.makeText(LoginActivity.this, "Bạn chưa nhập mật khẩu!", Toast.LENGTH_SHORT).show();
         }else {
+            progressDialog.setMessage("Đang xác thực tài khoản");
+            progressDialog.show();
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
+                                progressDialog.hide();
                                 // Sign in success, update UI with the signed-in user's information
-                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-                                finish();
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                updateUI(user);
                             } else {
                                 // If sign in fails, display a message to the user.
+                                progressDialog.hide();
                                 Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
                             }
 
@@ -146,6 +134,26 @@ public class LoginActivity extends AppCompatActivity {
                     });
         }
 
+    }
+
+    private void showDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Lỗi mạng");
+        builder.setMessage("Không có mạng. Vui lòng kiểm tra lại!");
+        builder.setCancelable(false);
+        builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dialogInterface.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+    private boolean isNetWorkConnected(){
+        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
     }
 }
 

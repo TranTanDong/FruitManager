@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#8dcaff"
-    tools:context=".HistoryActivity">
+    tools:context=".FruitManager.HistoryActivity">
 
     <android.support.v7.widget.Toolbar
         app:title="Lịch sử mua hàng"

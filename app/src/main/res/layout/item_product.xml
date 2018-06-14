@@ -8,12 +8,6 @@
     android:padding="2dp"
     android:background="#fff">
 
-    <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:src="@drawable/ic_new"
-        android:layout_gravity="right"/>
-
     <LinearLayout
         android:layout_width="110dp"
         android:layout_height="wrap_content"
@@ -66,6 +60,12 @@
             android:textSize="8dp" />
 
     </LinearLayout>
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_new"
+        android:layout_gravity="right"/>
 
 
 </FrameLayout>

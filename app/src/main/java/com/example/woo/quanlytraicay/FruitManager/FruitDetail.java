@@ -1,4 +1,4 @@
-package com.example.woo.quanlytraicay;
+package com.example.woo.quanlytraicay.FruitManager;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -9,7 +9,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.Model.Order;
-import com.example.woo.quanlytraicay.Model.Product;
+import com.example.woo.quanlytraicay.R;
+import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
@@ -19,8 +20,8 @@ public class FruitDetail extends AppCompatActivity {
     private ImageView img_detailImage, btn_detailPlus, btn_detailBuy, btn_detailMinus;
 
     private Intent dIntent;
-    private String id, name, origin, describe;
-    private int price, image, expiry;
+    private String id, name, origin, describe, image;
+    private int price, expiry;
     private DecimalFormat dcf = new DecimalFormat("###,###");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,12 +47,11 @@ public class FruitDetail extends AppCompatActivity {
         //Set dữ liệu
         dIntent = getIntent();
         if (dIntent != null){
-            id          = dIntent.getStringExtra("P_ID");
             name        = dIntent.getStringExtra("P_TEN");
             origin      = dIntent.getStringExtra("P_XX");
             describe    = dIntent.getStringExtra("P_MOTA");
             price       = dIntent.getIntExtra("P_GIA", -1);
-            image       = dIntent.getIntExtra("P_HINH", -1);
+            image       = dIntent.getStringExtra("P_HINH");
             expiry      = dIntent.getIntExtra("P_HSD", -1);
 
             tv_detailName.setText(name);
@@ -59,7 +59,7 @@ public class FruitDetail extends AppCompatActivity {
             tv_detailDescribe.setText(describe);
             tv_detailOrigin.setText("Xuất xứ: "+origin);
             tv_detailExpiry.setText("HSD: "+expiry);
-            img_detailImage.setImageResource(image);
+            Picasso.get().load(image).into(img_detailImage);
         }
 
 
@@ -96,7 +96,7 @@ public class FruitDetail extends AppCompatActivity {
         btn_detailBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OrderActivity.orders.add(new Order("", id+name, Calendar.getInstance().getTime()+"", "", 1,price, image));
+                OrderActivity.orders.add(new Order("", id+name, Calendar.getInstance().getTime()+"", "", 1,price, 0));
                 Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
             }
         });

@@ -1,7 +1,9 @@
-package com.example.woo.quanlytraicay;
+package com.example.woo.quanlytraicay.FruitManager;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.woo.quanlytraicay.R;
 
 public class HistoryActivity extends AppCompatActivity {
 
