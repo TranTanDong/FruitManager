@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.design.widget.NavigationView;
@@ -45,6 +46,8 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference mData;
     private FirebaseStorage mStorage;
 
+    private ArrayList<User> users = new ArrayList<>();
+
     private TextView tv_userName, tv_userMail;
     String UID;
 
@@ -59,9 +62,10 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+
     private void loadDataProduct() {
         dsProduct.clear();
-        mData.child("FRUIT").addChildEventListener(new ChildEventListener() {
+        mData.child("FRUIT").limitToFirst(6).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Product prod = dataSnapshot.getValue(Product.class);
@@ -90,21 +94,6 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
-//        Query post = mData.child("USER").child(UID);
-//        post.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//               User user = dataSnapshot.getValue(User.class);
-//               tv_userName.setText(user.getName());
-//               tv_userMail.setText(user.getEmail());
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
     }
 
     private void addControls() {
@@ -134,6 +123,8 @@ public class MainActivity extends AppCompatActivity
         mStorage    = FirebaseStorage.getInstance();
         mData       = FirebaseDatabase.getInstance().getReference();
 
+        String m = mAuth.getCurrentUser().getEmail().toString();
+
 //        dsProduct.add(new Product("1", "Cam", R.drawable.ic_cam, "Mô tả cam", "Xuất xứ cam", 40000, 10));
 //        dsProduct.add(new Product("2","Xoài", R.drawable.ic_xoai, "Mô tả Xoài", "Xuất xứ Xoài", 25000, 9));
 //        dsProduct.add(new Product("3", "Mận", R.drawable.ic_man, "Mô tả Mận", "Xuất xứ Mận", 15000, 8));
@@ -152,11 +143,7 @@ public class MainActivity extends AppCompatActivity
 
         Intent mIntent = getIntent();
         UID = mIntent.getStringExtra("UID");
-        Toast.makeText(MainActivity.this, UID, Toast.LENGTH_LONG).show();
-
-        //User
-        tv_userName     = findViewById(R.id.tv_userName);
-        tv_userMail     = findViewById(R.id.tv_userMail);
+        //Toast.makeText(MainActivity.this, UID, Toast.LENGTH_LONG).show();
 
     }
 
@@ -208,7 +195,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_fruitList) {
             startActivityForResult(new Intent(MainActivity.this, FruitList.class), 5);
         } else if (id == R.id.nav_home) {
-            startActivityForResult(new Intent(getApplicationContext(), MainActivity.class), 6);
+            startActivityForResult(new Intent(MainActivity.this, AccountActivity.class), 6);
         } else if (id == R.id.nav_logout) {
             mAuth.signOut();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));

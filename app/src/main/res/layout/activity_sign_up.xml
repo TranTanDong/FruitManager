@@ -14,7 +14,8 @@
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:title="Đăng ký tài khoản"
-        app:titleTextColor="#fff"></android.support.v7.widget.Toolbar>
+        app:titleTextColor="#fff">
+    </android.support.v7.widget.Toolbar>
 
     <ScrollView
         android:id="@+id/login_form"
@@ -39,7 +40,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_person"
                     android:drawablePadding="8dp"
-                    android:hint="Họ tên"
+                    android:hint="Họ tên đầy đủ"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLines="1"
