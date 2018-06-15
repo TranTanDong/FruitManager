@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.Model.Order;
 import com.example.woo.quanlytraicay.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -96,7 +97,7 @@ public class FruitDetail extends AppCompatActivity {
         btn_detailBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OrderActivity.orders.add(new Order("", id+name, Calendar.getInstance().getTime()+"", "", 1,price, 0));
+                OrderActivity.orders.add(new Order(name, Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), image, 1, price));
                 Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
             }
         });

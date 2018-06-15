@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.woo.quanlytraicay.Model.Order;
 import com.example.woo.quanlytraicay.R;
+import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -36,8 +37,8 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
 
     @Override
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
-        holder.img_orderImage.setImageResource(orders.get(position).getHinh());
-        holder.tv_orderName.setText(orders.get(position).getIdTraiCay());
+        Picasso.get().load(orders.get(position).getHinh()).into(holder.img_orderImage);
+        holder.tv_orderName.setText(orders.get(position).getTen());
         holder.tv_orderPrice.setText(orders.get(position).getGia()+"");
         if (orders.get(position).getSoLuong() > 0){
             holder.tv_orderExist.setText("Còn hàng");

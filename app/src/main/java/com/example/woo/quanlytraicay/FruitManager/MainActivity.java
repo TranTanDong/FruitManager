@@ -46,11 +46,6 @@ public class MainActivity extends AppCompatActivity
     private DatabaseReference mData;
     private FirebaseStorage mStorage;
 
-    private ArrayList<User> users = new ArrayList<>();
-
-    private TextView tv_userName, tv_userMail;
-    String UID;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -141,9 +136,6 @@ public class MainActivity extends AppCompatActivity
         adapterProduct  = new AdapterProduct(dsProduct, MainActivity.this, this);
         rcv_productList.setAdapter(adapterProduct);
 
-        Intent mIntent = getIntent();
-        UID = mIntent.getStringExtra("UID");
-        //Toast.makeText(MainActivity.this, UID, Toast.LENGTH_LONG).show();
 
     }
 

@@ -1,37 +1,32 @@
 package com.example.woo.quanlytraicay.Model;
 
 public class Order {
-    private String id, idTraiCay, thoiGian, mail;
-    private int soLuong, gia, hinh;
+    private String ten, thoiGian, mail, hinh;
+    private int soLuong, gia;
 
     public Order() {
 
     }
 
-    public Order(String id, String idTraiCay, String thoiGian, String mail, int soLuong, int gia, int hinh) {
-        this.id = id;
-        this.idTraiCay= idTraiCay;
+    public Order(String ten, String thoiGian, String mail, String hinh, int soLuong, int gia) {
+        this.ten = ten;
         this.thoiGian = thoiGian;
         this.mail = mail;
+        this.hinh = hinh;
         this.soLuong = soLuong;
         this.gia = gia;
+    }
+
+    public void setHinh(String hinh) {
         this.hinh = hinh;
     }
 
-    public String getId() {
-        return id;
+    public String getTen() {
+        return ten;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getIdTraiCay() {
-        return idTraiCay;
-    }
-
-    public void setIdTraiCay(String idTraiCay) {
-        this.idTraiCay = idTraiCay;
+    public void setTen(String ten) {
+        this.ten = ten;
     }
 
     public String getThoiGian() {
@@ -66,11 +61,8 @@ public class Order {
         this.gia = gia;
     }
 
-    public int getHinh() {
-        return hinh;
-    }
 
-    public void setHinh(int hinh) {
-        this.hinh = hinh;
+    public String getHinh() {
+        return hinh;
     }
 }
