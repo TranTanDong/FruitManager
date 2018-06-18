@@ -1,5 +1,6 @@
 package com.example.woo.quanlytraicay.FruitManager;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -86,8 +87,15 @@ public class FruitList extends AppCompatActivity implements IFruit {
     }
 
     @Override
-    public void ClickItemFruit(int pos) {
-
+    public void ClickItemFruit(int p) {
+        Intent mIntent = new Intent(FruitList.this, FruitDetail.class);
+        mIntent.putExtra("P_TEN", dsFruit.get(p).getTen());
+        mIntent.putExtra("P_GIA", dsFruit.get(p).getGia());
+        mIntent.putExtra("P_XX", dsFruit.get(p).getXuatXu());
+        mIntent.putExtra("P_MOTA", dsFruit.get(p).getMoTa());
+        mIntent.putExtra("P_HSD", dsFruit.get(p).gethSD());
+        mIntent.putExtra("P_HINH", dsFruit.get(p).getHinh());
+        startActivityForResult(mIntent, 3);
     }
 
     @Override

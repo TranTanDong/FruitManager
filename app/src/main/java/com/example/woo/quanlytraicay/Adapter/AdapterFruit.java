@@ -44,7 +44,7 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
         holder.tv_fName.setText(dsFruit.get(position).getTen());
         holder.tv_fPrice.setText(dcf.format(dsFruit.get(position).getGia()));
         holder.tv_fOrigin.setText(dsFruit.get(position).getXuatXu());
-        holder.tv_fExpiry.setText(dsFruit.get(position).gethSD());
+        holder.tv_fExpiry.setText(dsFruit.get(position).gethSD()+"");
         holder.tv_fExist.setText("Còn hàng");
         Picasso.get().load(dsFruit.get(position).getHinh()).into(holder.img_fImage);
 
@@ -68,7 +68,7 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
 
     @Override
     public int getItemCount() {
-        return 0;
+        return dsFruit.size();
     }
 
     public class FruitViewHolder extends RecyclerView.ViewHolder{

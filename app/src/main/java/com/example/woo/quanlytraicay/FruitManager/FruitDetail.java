@@ -97,8 +97,25 @@ public class FruitDetail extends AppCompatActivity {
         btn_detailBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                OrderActivity.orders.add(new Order(name, Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), image, 1, price));
-                Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!", Toast.LENGTH_SHORT).show();
+                if (OrderActivity.orders.isEmpty() == true){
+                    OrderActivity.orders.add(new Order(name, Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), image, Integer.parseInt(tv_detailAmount.getText().toString()), price));
+                    Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!Empty", Toast.LENGTH_SHORT).show();
+                }else {
+                    int tmp = 0;
+                    for (Order i : OrderActivity.orders){
+                        if (i.getTen().equals(name)){
+                            i.setSoLuong(i.getSoLuong()+Integer.parseInt(tv_detailAmount.getText().toString()));
+                            Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!Contained", Toast.LENGTH_SHORT).show();
+                        }else {
+                            tmp++;
+                        }
+                    }
+                    if (tmp > (OrderActivity.orders.size()-1)){
+                        OrderActivity.orders.add(new Order(name, Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), image, 1, price));
+                        Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!Not Contain", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
             }
         });
     }

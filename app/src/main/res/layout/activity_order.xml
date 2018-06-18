@@ -36,18 +36,20 @@
             android:textSize="16dp"/>
 
         <TextView
+            android:id="@+id/tv_orderBigSum"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
             android:layout_marginRight="5dp"
-            android:text="240.000đ"
+            android:text="0đ"
             android:textColor="@color/colorAccent"
             android:textSize="16dp"/>
 
     </LinearLayout>
 
     <Button
+        android:id="@+id/btn_orderPay"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginBottom="5dp"
@@ -56,6 +58,7 @@
         android:textColor="#fff"/>
 
     <Button
+        android:id="@+id/btn_orderBuyCont"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@color/colorPrimary"

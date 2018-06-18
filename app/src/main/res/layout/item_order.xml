@@ -27,10 +27,12 @@
 
             <TextView
                 android:id="@+id/tv_orderName"
-                android:layout_width="wrap_content"
+                android:layout_width="215dp"
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
                 android:text="Xoài"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@color/colorAccent"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -67,32 +69,6 @@
                     />
 
             </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingStart="5dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000"
-                    android:text="Xuất xứ: "
-                    android:textSize="16dp"/>
-
-                <TextView
-                    android:id="@+id/tv_orderOrigin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Việt Nam"
-                    android:textColor="#000"
-                    android:textSize="16dp" />
-
-            </LinearLayout>
-
-
 
             <TextView
                 android:id="@+id/tv_orderExist"

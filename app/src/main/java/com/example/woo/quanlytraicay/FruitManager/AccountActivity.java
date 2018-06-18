@@ -1,11 +1,14 @@
 package com.example.woo.quanlytraicay.FruitManager;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.Model.User;
 import com.example.woo.quanlytraicay.R;
@@ -79,6 +82,11 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
-
+        btn_acUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(AccountActivity.this, "Đợi xíu anh 2 à", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

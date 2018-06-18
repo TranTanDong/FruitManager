@@ -19,12 +19,14 @@ import java.util.ArrayList;
 public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHolder> {
     private Context context;
     private ArrayList<Order> orders;
+    private TextView bigSum;
 
-    private DecimalFormat dcf = new DecimalFormat("###,###");
+    private DecimalFormat dcf = new DecimalFormat("###,###,###");
 
-    public AdapterOrder(Context context, ArrayList<Order> orders) {
+    public AdapterOrder(Context context, ArrayList<Order> orders, TextView bigSum) {
         this.context = context;
         this.orders = orders;
+        this.bigSum = bigSum;
     }
 
 
@@ -39,7 +41,10 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
         Picasso.get().load(orders.get(position).getHinh()).into(holder.img_orderImage);
         holder.tv_orderName.setText(orders.get(position).getTen());
-        holder.tv_orderPrice.setText(orders.get(position).getGia()+"");
+        holder.tv_orderPrice.setText(dcf.format(orders.get(position).getGia())+"");
+        holder.tv_orderAmount.setText(dcf.format(orders.get(position).getSoLuong())+"");
+        holder.tv_orderTotal.setText(dcf.format(orders.get(position).getSoLuong()*orders.get(position).getGia())+"đ");
+        xuLyBigSum(orders);
         if (orders.get(position).getSoLuong() > 0){
             holder.tv_orderExist.setText("Còn hàng");
         }else holder.tv_orderExist.setText("Hết hàng");
@@ -55,8 +60,10 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
                     a++;
                     int p = orders.get(position).getGia();
                     int s = p*a;
-                    holder.tv_orderAmount.setText(a+"");
-                    holder.tv_orderTotal.setText(s+"");
+                    holder.tv_orderAmount.setText(dcf .format(a)+"");
+                    holder.tv_orderTotal.setText(dcf.format(s)+"đ");
+                    orders.get(position).setSoLuong(a);
+                    xuLyBigSum(orders);
                 }
             }
         });
@@ -69,12 +76,25 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
                     a--;
                     int p = orders.get(position).getGia();
                     int s = p*a;
-                    holder.tv_orderAmount.setText(a+"");
-                    holder.tv_orderTotal.setText(s+"");
+                    holder.tv_orderAmount.setText(dcf .format(a)+"");
+                    holder.tv_orderTotal.setText(dcf.format(s)+"đ");
+                    orders.get(position).setSoLuong(a);
+                    xuLyBigSum(orders);
                 }
             }
         });
 
+    }
+
+    private void xuLyBigSum(ArrayList<Order> order) {
+        int s = 0;
+        int sl, gia;
+        for (Order i : order){
+            sl = i.getSoLuong();
+            gia = i.getGia();
+            s += sl*gia;
+        }
+        bigSum.setText(dcf.format(s)+"đ");
     }
 
     @Override
@@ -84,14 +104,13 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
 
     public class OrderViewHolder extends RecyclerView.ViewHolder{
         private ImageView img_orderImage, btn_orderMinus, btn_orderPlus;
-        private TextView tv_orderName, tv_orderPrice, tv_orderExist, tv_orderOrigin, tv_orderAmount, tv_orderTotal;
+        private TextView tv_orderName, tv_orderPrice, tv_orderExist, tv_orderAmount, tv_orderTotal;
 
         public OrderViewHolder(View itemView) {
             super(itemView);
             tv_orderName    = itemView.findViewById(R.id.tv_orderName);
             tv_orderPrice   = itemView.findViewById(R.id.tv_orderPrice);
             tv_orderExist   = itemView.findViewById(R.id.tv_orderExist);
-            tv_orderOrigin  = itemView.findViewById(R.id.tv_orderOrigin);
             tv_orderAmount  = itemView.findViewById(R.id.tv_orderAmount);
             tv_orderTotal   = itemView.findViewById(R.id.tv_orderTotal);
             img_orderImage  = itemView.findViewById(R.id.img_orderImage);

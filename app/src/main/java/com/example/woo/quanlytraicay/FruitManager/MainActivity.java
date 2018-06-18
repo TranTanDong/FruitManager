@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity
 
     private void loadDataProduct() {
         dsProduct.clear();
-        mData.child("FRUIT").limitToFirst(6).addChildEventListener(new ChildEventListener() {
+        mData.child("FRUIT").limitToLast(6).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Product prod = dataSnapshot.getValue(Product.class);
