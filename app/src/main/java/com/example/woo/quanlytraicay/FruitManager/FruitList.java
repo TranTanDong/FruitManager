@@ -7,6 +7,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.woo.quanlytraicay.Adapter.AdapterFruit;
 import com.example.woo.quanlytraicay.Interface.IFruit;
@@ -37,6 +40,28 @@ public class FruitList extends AppCompatActivity implements IFruit {
         addControls();
         loadDataFromFB();
         addEvents();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.ic_giohang) {
+            startActivityForResult(new Intent(FruitList.this, OrderActivity.class), 9);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadDataFromFB() {
@@ -72,6 +97,9 @@ public class FruitList extends AppCompatActivity implements IFruit {
     }
 
     private void addControls() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_fruitlist);
+        setSupportActionBar(toolbar);
+
         mData = FirebaseDatabase.getInstance().getReference();
         mAuth       = FirebaseAuth.getInstance();
         mStorage    = FirebaseStorage.getInstance();

@@ -9,6 +9,7 @@
     tools:context=".FruitManager.FruitList">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/tb_fruitlist"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimary"

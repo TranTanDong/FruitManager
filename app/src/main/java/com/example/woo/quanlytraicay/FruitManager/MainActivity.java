@@ -1,10 +1,10 @@
 package com.example.woo.quanlytraicay.FruitManager;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.design.widget.NavigationView;
@@ -15,13 +15,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.Adapter.AdapterProduct;
 import com.example.woo.quanlytraicay.Interface.IProduct;
+import com.example.woo.quanlytraicay.Model.Order;
 import com.example.woo.quanlytraicay.Model.Product;
-import com.example.woo.quanlytraicay.Model.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -29,9 +27,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 
@@ -42,23 +37,59 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView rcv_productList;
     public static ArrayList<Product> dsProduct = new ArrayList<>();
     private AdapterProduct adapterProduct;
+    private ProgressDialog pr_main;
 
     private DatabaseReference mData;
-    private FirebaseStorage mStorage;
+   // private FirebaseStorage mStorage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         addControls();
+        loadDataOrder();
         loadDataProduct();
         addEvents();
 
 
     }
 
+    private void loadDataOrder() {
+        if (OrderActivity.orders.size() == 0)
+            mData.child("ORDER").addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Order order = dataSnapshot.getValue(Order.class);
+                    if (mAuth.getCurrentUser().getEmail().toString().equals(order.getMail())) {
+                        OrderActivity.orders.add(new Order(order.getTen(), order.getThoiGian(), order.getMail(), order.getHinh(), order.getSoLuong(), order.getGia()));
+                    }
+                }
+
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+    }
 
     private void loadDataProduct() {
+        pr_main.setMessage("Loading");
+        pr_main.show();
         dsProduct.clear();
         mData.child("FRUIT").limitToLast(6).addChildEventListener(new ChildEventListener() {
             @Override
@@ -66,6 +97,7 @@ public class MainActivity extends AppCompatActivity
                 Product prod = dataSnapshot.getValue(Product.class);
                 dsProduct.add(new Product(prod.getTen(), prod.getHinh(), prod.getMoTa(), prod.getXuatXu(), prod.getGia(), prod.gethSD()));
                 adapterProduct.notifyDataSetChanged();
+                pr_main.hide();
             }
 
             @Override
@@ -115,10 +147,9 @@ public class MainActivity extends AppCompatActivity
 
         //======================================================================================//
         mAuth       = FirebaseAuth.getInstance();
-        mStorage    = FirebaseStorage.getInstance();
+        //mStorage    = FirebaseStorage.getInstance();
         mData       = FirebaseDatabase.getInstance().getReference();
-
-        String m = mAuth.getCurrentUser().getEmail().toString();
+        pr_main = new ProgressDialog(this);
 
 //        dsProduct.add(new Product("1", "Cam", R.drawable.ic_cam, "Mô tả cam", "Xuất xứ cam", 40000, 10));
 //        dsProduct.add(new Product("2","Xoài", R.drawable.ic_xoai, "Mô tả Xoài", "Xuất xứ Xoài", 25000, 9));
@@ -135,8 +166,6 @@ public class MainActivity extends AppCompatActivity
         rcv_productList.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
         adapterProduct  = new AdapterProduct(dsProduct, MainActivity.this, this);
         rcv_productList.setAdapter(adapterProduct);
-
-
     }
 
     private void addEvents() {
@@ -212,4 +241,5 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(mIntent, 3);
         //Toast.makeText(MainActivity.this, "Chi tiết sp"+dsProduct.get(p).getTen(), Toast.LENGTH_SHORT).show();
     }
+
 }

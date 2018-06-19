@@ -62,8 +62,6 @@ public class LoginActivity extends AppCompatActivity {
 
         if (currentUser != null) {
             Intent lIntent = new Intent(LoginActivity.this, MainActivity.class);
-            String UID = currentUser.getUid().toString();
-            lIntent.putExtra("UID", UID);
             startActivity(lIntent);
             finish();
 

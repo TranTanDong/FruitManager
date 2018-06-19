@@ -36,13 +36,15 @@
 
             <TextView
                 android:id="@+id/tv_detailName"
-                android:layout_width="wrap_content"
+                android:layout_width="185dp"
                 android:layout_height="wrap_content"
+                android:paddingStart="5dp"
                 android:text="Cam sành"
-                android:textStyle="bold"
-                android:textSize="20dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="@color/colorAccent"
-                android:paddingStart="5dp" />
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
 
             <TextView
@@ -135,13 +137,19 @@
        android:paddingStart="10dp"
        android:textColor="#fff"/>
 
-    <TextView
-        android:id="@+id/tv_detailDescribe"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="8dp"
-        android:textColor="#000"
-        android:text="      Cam sành là một giống cây ăn quả thuộc chi Cam chanh có quả gần như quả cam, có nguồn gốc từ Việt Nam. Quả cam sành rất dễ nhận ra nhờ lớp vỏ dày, sần sùi giống bề mặt mảnh sành, và thường có màu lục nhạt (khi chín có sắc cam), các múi thịt có màu cam."
-        android:textSize="15dp"/>
+        android:layout_height="match_parent">
+        <TextView
+            android:id="@+id/tv_detailDescribe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="8dp"
+            android:textColor="#000"
+            android:text="      Cam sành là một giống cây ăn quả thuộc chi Cam chanh có quả gần như quả cam, có nguồn gốc từ Việt Nam. Quả cam sành rất dễ nhận ra nhờ lớp vỏ dày, sần sùi giống bề mặt mảnh sành, và thường có màu lục nhạt (khi chín có sắc cam), các múi thịt có màu cam."
+            android:textSize="15dp"/>
+    </ScrollView>
+
+
 
 </LinearLayout>

@@ -9,6 +9,7 @@
     tools:context=".FruitManager.OrderActivity">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/tb_order"
         app:title="Giỏ hàng"
         app:titleTextColor="#fff"
         android:background="@color/colorPrimary"

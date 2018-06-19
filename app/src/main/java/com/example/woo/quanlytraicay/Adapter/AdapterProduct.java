@@ -12,9 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.woo.quanlytraicay.FruitManager.OrderActivity;
 import com.example.woo.quanlytraicay.Interface.IProduct;
+import com.example.woo.quanlytraicay.Model.Order;
 import com.example.woo.quanlytraicay.Model.Product;
 import com.example.woo.quanlytraicay.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
@@ -52,7 +55,24 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
         holder.btn_productBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, ". Chưa có setup giỏ hàng anh 2 àk", Toast.LENGTH_SHORT).show();
+                if (OrderActivity.orders.isEmpty() == true){
+                    OrderActivity.orders.add(new Order(dsProduct.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
+                    Toast.makeText(context, "Đã thêm vào giỏ hàng!Empty"+Calendar.getInstance().getTime().toString(), Toast.LENGTH_SHORT).show();
+                }else {
+                    int tmp = 0;
+                    for (Order i : OrderActivity.orders){
+                        if (i.getTen().equals(dsProduct.get(position).getTen())){
+                            i.setSoLuong(i.getSoLuong()+1);
+                            Toast.makeText(context, "Đã thêm vào giỏ hàng!Contained", Toast.LENGTH_SHORT).show();
+                        }else {
+                            tmp++;
+                        }
+                    }
+                    if (tmp > (OrderActivity.orders.size()-1)){
+                        OrderActivity.orders.add(new Order(dsProduct.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
+                        Toast.makeText(context, "Đã thêm vào giỏ hàng!Not Contain"+Calendar.getInstance().getTime().toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 
