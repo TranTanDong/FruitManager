@@ -49,9 +49,6 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
             holder.tv_orderExist.setText("Còn hàng");
         }else holder.tv_orderExist.setText("Hết hàng");
 
-//        holder.tv_orderAmount.setText("0");
-//        holder.tv_orderTotal.setText("0");
-
         holder.btn_orderPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

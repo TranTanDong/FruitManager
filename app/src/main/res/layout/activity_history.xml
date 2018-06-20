@@ -31,10 +31,11 @@
             android:textColor="@color/colorAccent"/>
 
         <TextView
+            android:id="@+id/tv_hisTotal"
             android:layout_weight="1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="560.000đ"
+            android:text="0đ"
             android:textSize="20dp"
             android:gravity="right"
             android:paddingEnd="5dp"
@@ -43,6 +44,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/item_history">

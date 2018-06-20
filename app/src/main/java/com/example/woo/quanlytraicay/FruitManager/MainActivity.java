@@ -56,13 +56,26 @@ public class MainActivity extends AppCompatActivity
 
     private void loadDataOrder() {
         if (OrderActivity.orders.size() == 0)
-            mData.child("ORDER").addChildEventListener(new ChildEventListener() {
+            mData.child("ORDER").child(mAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Order order = dataSnapshot.getValue(Order.class);
-                    if (mAuth.getCurrentUser().getEmail().toString().equals(order.getMail())) {
+                    if (OrderActivity.orders.isEmpty() == true){
                         OrderActivity.orders.add(new Order(order.getTen(), order.getThoiGian(), order.getMail(), order.getHinh(), order.getSoLuong(), order.getGia()));
+                    }else {
+                        int tmp = 0;
+                        for (Order i : OrderActivity.orders){
+                            if (i.getTen().equals(order.getTen())){
+                                i.setSoLuong(i.getSoLuong()+order.getSoLuong());
+                            }else {
+                                tmp++;
+                            }
+                        }
+                        if (tmp > (OrderActivity.orders.size()-1)){
+                            OrderActivity.orders.add(new Order(order.getTen(), order.getThoiGian(), order.getMail(), order.getHinh(), order.getSoLuong(), order.getGia()));
+                        }
                     }
+
                 }
 
                 @Override
@@ -219,6 +232,8 @@ public class MainActivity extends AppCompatActivity
             startActivityForResult(new Intent(MainActivity.this, AccountActivity.class), 6);
         } else if (id == R.id.nav_logout) {
             mAuth.signOut();
+            OrderActivity.orders.clear();
+            HistoryActivity.dsHistory.clear();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
             finish();
         }

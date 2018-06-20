@@ -12,9 +12,11 @@
         android:orientation="horizontal">
 
         <ImageView
+            android:id="@+id/img_hImage"
             android:src="@drawable/dau"
             android:layout_width="120dp"
-            android:layout_height="120dp" />
+            android:layout_height="120dp"
+            android:layout_margin="5dp"/>
 
 
         <LinearLayout
@@ -24,6 +26,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_hName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
@@ -33,20 +36,58 @@
                 android:textStyle="bold" />
 
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingStart="5dp"
-                android:text="Giá: 70.000đ/kg"
-                android:textColor="@color/colorAccent"
-                android:textSize="16dp" />
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:paddingStart="5dp"
                 android:layout_height="wrap_content"
-                android:text="Ngày mua: 20-12-2018"
-                android:textColor="#000"/>
+                android:paddingStart="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Giá: "
+                    android:textSize="16dp"
+                    android:textColor="#000"/>
+                <TextView
+                    android:id="@+id/tv_hPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="70.000"
+                    android:textColor="#000"
+                    android:textSize="16dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="đ/kg"
+                    android:textSize="16dp"
+                    android:textColor="#000"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingStart="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Thời gian: "
+                    android:textSize="16dp"
+                    android:textStyle="italic"
+                    android:textColor="#000"/>
+                <TextView
+                    android:id="@+id/tv_hTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="08:30 | 12-12-2018 "
+                    android:textSize="16dp"
+                    android:textStyle="italic"
+                    android:textColor="#000"/>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -57,6 +98,7 @@
 
 
                 <TextView
+                    android:id="@+id/tv_hAmount"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -69,12 +111,13 @@
 
 
                 <TextView
+                    android:id="@+id/tv_hTotal"
                     android:layout_weight="1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="right"
                     android:text="140.000đ"
-                    android:textColor="#000"
+                    android:textColor="@color/colorAccent"
                     android:paddingEnd="5dp"
                     android:textSize="20dp" />
 
