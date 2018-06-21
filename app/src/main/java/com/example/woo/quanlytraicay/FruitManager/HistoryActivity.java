@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import com.example.woo.quanlytraicay.Adapter.AdapterHistory;
@@ -19,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class HistoryActivity extends AppCompatActivity {
     private TextView tv_hisTotal;
@@ -43,6 +46,7 @@ public class HistoryActivity extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Order his = dataSnapshot.getValue(Order.class);
                 dsHistory.add(new Order(his.getTen(), his.getThoiGian(), his.getMail(), his.getHinh(), his.getSoLuong(), his.getGia()));
+                Collections.reverse(dsHistory);
                 adapterHistory.notifyDataSetChanged();
             }
 
@@ -69,6 +73,11 @@ public class HistoryActivity extends AppCompatActivity {
     }
 
     private void addControls() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_history);
+        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         mAuth = FirebaseAuth.getInstance();
         mData = FirebaseDatabase.getInstance().getReference();
         tv_hisTotal = findViewById(R.id.tv_hisTotal);

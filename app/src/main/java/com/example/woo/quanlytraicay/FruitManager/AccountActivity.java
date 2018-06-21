@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -78,6 +79,11 @@ public class AccountActivity extends AppCompatActivity {
     }
 
     private void addControls() {
+        Toolbar toolbar = (Toolbar) findViewById(R.id.tb_Account);
+        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         mAuth   = FirebaseAuth.getInstance();
         mData   = FirebaseDatabase.getInstance().getReference();
 

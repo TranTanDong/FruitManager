@@ -1,7 +1,9 @@
 package com.example.woo.quanlytraicay.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +39,7 @@ public class AdapterHistory extends  RecyclerView.Adapter<AdapterHistory.History
     }
 
     @Override
-    public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull HistoryViewHolder holder, final int position) {
         holder.tv_hName.setText(dsHistory.get(position).getTen());
         holder.tv_hPrice.setText(dcf.format(dsHistory.get(position).getGia())+"");
         holder.tv_hAmount.setText(dsHistory.get(position).getSoLuong()+"");
@@ -45,6 +47,14 @@ public class AdapterHistory extends  RecyclerView.Adapter<AdapterHistory.History
         holder.tv_hTotal.setText(dcf.format(dsHistory.get(position).getSoLuong()*dsHistory.get(position).getGia())+"đ");
         Picasso.get().load(dsHistory.get(position).getHinh()).into(holder.img_hImage);
         xuLySumHis(dsHistory);
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                delItem(position);
+                return false;
+            }
+        });
     }
 
     private void xuLySumHis(ArrayList<Order> dsHistory) {
@@ -56,6 +66,29 @@ public class AdapterHistory extends  RecyclerView.Adapter<AdapterHistory.History
             s += sl*gia;
         }
         sumHis.setText(dcf.format(s)+"đ");
+    }
+
+    private void delItem(final int pos) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Bạn có muốn xóa lịch sử này?");
+        builder.setCancelable(false);
+        builder.setNegativeButton("CÓ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                dsHistory.remove(pos);
+                xuLySumHis(dsHistory);
+                notifyDataSetChanged();
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setPositiveButton("KHÔNG", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     @Override

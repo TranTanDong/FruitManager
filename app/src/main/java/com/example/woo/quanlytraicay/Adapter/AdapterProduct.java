@@ -62,8 +62,12 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
                     int tmp = 0;
                     for (Order i : OrderActivity.orders){
                         if (i.getTen().equals(dsProduct.get(position).getTen())){
-                            i.setSoLuong(i.getSoLuong()+1);
-                            Toast.makeText(context, "Đã thêm vào giỏ hàng!Contained", Toast.LENGTH_SHORT).show();
+                            if (i.getSoLuong() >= 10){
+                                Toast.makeText(context, "Sản phẩm đã đạt số lượng tối đa cho phép!", Toast.LENGTH_SHORT).show();
+                            }else {
+                                i.setSoLuong(i.getSoLuong()+1);
+                                Toast.makeText(context, "Đã thêm vào giỏ hàng!Contained", Toast.LENGTH_SHORT).show();
+                            }
                         }else {
                             tmp++;
                         }

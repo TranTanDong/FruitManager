@@ -15,11 +15,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.woo.quanlytraicay.Adapter.AdapterProduct;
 import com.example.woo.quanlytraicay.Interface.IProduct;
 import com.example.woo.quanlytraicay.Model.Order;
 import com.example.woo.quanlytraicay.Model.Product;
+import com.example.woo.quanlytraicay.Model.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity
     public static ArrayList<Product> dsProduct = new ArrayList<>();
     private AdapterProduct adapterProduct;
     private ProgressDialog pr_main;
+    private TextView tv_HiUser;
 
     private DatabaseReference mData;
    // private FirebaseStorage mStorage;
@@ -50,9 +54,42 @@ public class MainActivity extends AppCompatActivity
         loadDataOrder();
         loadDataProduct();
         addEvents();
-
+        hiUser();
 
     }
+
+    private void hiUser() {
+        mData.child("USER").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                String email = mAuth.getCurrentUser().getEmail().toString();
+                User user = dataSnapshot.getValue(User.class);
+                if (email.equals(user.getEmail())){
+                    tv_HiUser.setText("Xin chào! "+user.getName());
+                    tv_HiUser.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });}
 
     private void loadDataOrder() {
         if (OrderActivity.orders.size() == 0)
@@ -66,7 +103,7 @@ public class MainActivity extends AppCompatActivity
                         int tmp = 0;
                         for (Order i : OrderActivity.orders){
                             if (i.getTen().equals(order.getTen())){
-                                i.setSoLuong(i.getSoLuong()+order.getSoLuong());
+                                i.setSoLuong(i.getSoLuong() + order.getSoLuong());
                             }else {
                                 tmp++;
                             }
@@ -156,6 +193,8 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headView = navigationView.getHeaderView(0);
+        tv_HiUser   = headView.findViewById(R.id.tv_HiUser);
         navigationView.setNavigationItemSelectedListener(this);
 
         //======================================================================================//
@@ -163,6 +202,7 @@ public class MainActivity extends AppCompatActivity
         //mStorage    = FirebaseStorage.getInstance();
         mData       = FirebaseDatabase.getInstance().getReference();
         pr_main = new ProgressDialog(this);
+
 
 //        dsProduct.add(new Product("1", "Cam", R.drawable.ic_cam, "Mô tả cam", "Xuất xứ cam", 40000, 10));
 //        dsProduct.add(new Product("2","Xoài", R.drawable.ic_xoai, "Mô tả Xoài", "Xuất xứ Xoài", 25000, 9));

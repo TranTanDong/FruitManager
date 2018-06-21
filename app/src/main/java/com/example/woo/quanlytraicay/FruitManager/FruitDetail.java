@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.woo.quanlytraicay.Model.Order;
 import com.example.woo.quanlytraicay.R;
@@ -57,6 +58,10 @@ public class FruitDetail extends AppCompatActivity {
     }
 
     private void addControls() {
+        android.support.v7.widget.Toolbar toolbar = findViewById(R.id.tb_fruitDetail);
+        setSupportActionBar(toolbar);
+
+
         tv_detailName       = findViewById(R.id.tv_detailName);
         tv_detailPrice      = findViewById(R.id.tv_detailPrice);
         tv_detailOrigin     = findViewById(R.id.tv_detailOrigin);
@@ -128,8 +133,12 @@ public class FruitDetail extends AppCompatActivity {
                     int tmp = 0;
                     for (Order i : OrderActivity.orders){
                         if (i.getTen().equals(name)){
-                            i.setSoLuong(i.getSoLuong()+Integer.parseInt(tv_detailAmount.getText().toString()));
-                            Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!Contained", Toast.LENGTH_SHORT).show();
+                            if (i.getSoLuong() >= 10){
+                                Toast.makeText(FruitDetail.this, "Sản phẩm đã đạt số lượng tối đa cho phép!", Toast.LENGTH_SHORT).show();
+                            }else {
+                                i.setSoLuong(i.getSoLuong()+Integer.parseInt(tv_detailAmount.getText().toString()));
+                                Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!Contained", Toast.LENGTH_SHORT).show();
+                            }
                         }else {
                             tmp++;
                         }

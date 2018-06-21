@@ -1,7 +1,9 @@
 package com.example.woo.quanlytraicay.FruitManager;
 
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -37,6 +39,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class OrderActivity extends AppCompatActivity {
+    private static View tv_orderIsEmpty;
     private RecyclerView rcv_order;
     public static ArrayList<Order> orders = new ArrayList<>();
     private AdapterOrder adapterOrder;
@@ -92,20 +95,29 @@ public class OrderActivity extends AppCompatActivity {
     private void addControls() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_order);
         setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
         mData = FirebaseDatabase.getInstance().getReference();
 
+        tv_orderIsEmpty     = findViewById(R.id.tv_orderIsEmpty);
         tv_orderBigSum      = findViewById(R.id.tv_orderBigSum);
         btn_orderPay        = findViewById(R.id.btn_orderPay);
         btn_orderBuyCont    = findViewById(R.id.btn_orderBuyCont);
-
+        showStatusCart();
         //Lấy dữ liệu từ FB về
 
         rcv_order   = findViewById(R.id.rcv_order);
         rcv_order.setLayoutManager(new LinearLayoutManager(this));
         adapterOrder  = new AdapterOrder(OrderActivity.this, orders, tv_orderBigSum);
         rcv_order.setAdapter(adapterOrder);
+    }
+
+    public static void showStatusCart() {
+        if (orders.size() == 0){
+            tv_orderIsEmpty.setVisibility(View.VISIBLE);
+        }else tv_orderIsEmpty.setVisibility(View.INVISIBLE);
     }
 
 
@@ -123,8 +135,10 @@ public class OrderActivity extends AppCompatActivity {
         btn_orderPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(OrderActivity.this, "Đợi xíu anh 2 à", Toast.LENGTH_SHORT).show();
-                xuLyPay();
+                if (orders.size() > 0){
+                    xuLyPay();
+                }else Toast.makeText(OrderActivity.this, "Giỏ hàng của bạn đang trống!", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -156,7 +170,9 @@ public class OrderActivity extends AppCompatActivity {
                     mData.child("HISTORY").child(mAuth.getCurrentUser().getUid().toString()).push().setValue(i);
                 }
                 orders.clear();
+                tv_orderBigSum.setText("0đ");
                 adapterOrder.notifyDataSetChanged();
+                Toast.makeText(OrderActivity.this, "Đã thanh toán thành công!", Toast.LENGTH_SHORT).show();
             }
         });
 

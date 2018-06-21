@@ -99,6 +99,8 @@ public class FruitList extends AppCompatActivity implements IFruit {
     private void addControls() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_fruitlist);
         setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mData = FirebaseDatabase.getInstance().getReference();
         mAuth       = FirebaseAuth.getInstance();

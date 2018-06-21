@@ -1,14 +1,18 @@
 package com.example.woo.quanlytraicay.Adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.woo.quanlytraicay.FruitManager.OrderActivity;
 import com.example.woo.quanlytraicay.Model.Order;
 import com.example.woo.quanlytraicay.R;
 import com.squareup.picasso.Picasso;
@@ -39,6 +43,11 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
 
     @Override
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
+        for (Order l : orders){
+            if (l.getSoLuong() > 10){
+                l.setSoLuong(10);
+            }
+        }
         Picasso.get().load(orders.get(position).getHinh()).into(holder.img_orderImage);
         holder.tv_orderName.setText(orders.get(position).getTen());
         holder.tv_orderPrice.setText(dcf.format(orders.get(position).getGia())+"");
@@ -61,7 +70,8 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
                     holder.tv_orderTotal.setText(dcf.format(s)+"đ");
                     orders.get(position).setSoLuong(a);
                     xuLyBigSum(orders);
-                }
+                }else if (a == 10)
+                    Toast.makeText(context, "Đã đạt số lượng tối đa cho phép!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -77,10 +87,45 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
                     holder.tv_orderTotal.setText(dcf.format(s)+"đ");
                     orders.get(position).setSoLuong(a);
                     xuLyBigSum(orders);
+                }else if (a == 0){
+                    orders.remove(position);
+                    notifyDataSetChanged();
                 }
             }
         });
 
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                delItem(position);
+                return true;
+            }
+        });
+
+    }
+
+    private void delItem(final int pos) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setMessage("Bạn có muốn xóa sản phẩm này?");
+        builder.setCancelable(false);
+        builder.setNegativeButton("CÓ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                orders.remove(pos);
+                xuLyBigSum(orders);
+                OrderActivity.showStatusCart();
+                notifyDataSetChanged();
+                dialogInterface.dismiss();
+            }
+        });
+        builder.setPositiveButton("KHÔNG", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     private void xuLyBigSum(ArrayList<Order> order) {

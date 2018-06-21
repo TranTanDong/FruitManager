@@ -43,9 +43,9 @@
             android:name=".FruitManager.SignUpActivity"
             android:parentActivityName=".FruitManager.LoginActivity">
 
-            <!-- <meta-data -->
-            <!-- android:name="android.support.PARENT_ACTIVITY" -->
-            <!-- android:value=".SignUpActivity"/> -->
+             <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".FruitManager.SignUpActivity"/>
 
         </activity>
         <activity android:name=".FruitManager.AccountActivity"></activity>
