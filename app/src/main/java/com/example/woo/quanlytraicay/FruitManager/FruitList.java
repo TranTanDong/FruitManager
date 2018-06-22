@@ -1,5 +1,7 @@
 package com.example.woo.quanlytraicay.FruitManager;
 
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,6 +28,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.util.ArrayList;
 
 public class FruitList extends AppCompatActivity implements IFruit {
+    private ProgressDialog pr_list;
     private RecyclerView rcv_fruitList;
     private ArrayList<Product> dsFruit = new ArrayList<>();
     private AdapterFruit adapterFruit;
@@ -33,6 +36,8 @@ public class FruitList extends AppCompatActivity implements IFruit {
     private DatabaseReference mData;
     private FirebaseStorage mStorage;
     private FirebaseAuth mAuth;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +70,8 @@ public class FruitList extends AppCompatActivity implements IFruit {
     }
 
     private void loadDataFromFB() {
+        pr_list.setMessage("Đang tải");
+        pr_list.show();
         dsFruit.clear();
         mData.child("FRUIT").addChildEventListener(new ChildEventListener() {
             @Override
@@ -72,6 +79,7 @@ public class FruitList extends AppCompatActivity implements IFruit {
                 Product fruit = dataSnapshot.getValue(Product.class);
                 dsFruit.add(new Product(fruit.getTen(), fruit.getHinh(), fruit.getMoTa(), fruit.getXuatXu(), fruit.getGia(), fruit.gethSD()));
                 adapterFruit.notifyDataSetChanged();
+                pr_list.hide();
             }
 
             @Override
@@ -105,6 +113,7 @@ public class FruitList extends AppCompatActivity implements IFruit {
         mData = FirebaseDatabase.getInstance().getReference();
         mAuth       = FirebaseAuth.getInstance();
         mStorage    = FirebaseStorage.getInstance();
+        pr_list     = new ProgressDialog(this);
 
         rcv_fruitList   = findViewById(R.id.rcv_fruitList);
         rcv_fruitList.setLayoutManager(new LinearLayoutManager(this));

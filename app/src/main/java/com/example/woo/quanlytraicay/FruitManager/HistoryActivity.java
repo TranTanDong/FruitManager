@@ -1,5 +1,6 @@
 package com.example.woo.quanlytraicay.FruitManager;
 
+import android.app.ProgressDialog;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.woo.quanlytraicay.Adapter.AdapterHistory;
@@ -25,9 +27,11 @@ import java.util.Comparator;
 
 public class HistoryActivity extends AppCompatActivity {
     private TextView tv_hisTotal;
+    private static View tv_hisIsEmpty;
     private RecyclerView rcv_history;
     public static ArrayList<Order> dsHistory = new ArrayList<>();
     private AdapterHistory adapterHistory;
+    private ProgressDialog pr_his;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mData;
@@ -39,7 +43,10 @@ public class HistoryActivity extends AppCompatActivity {
         addEvents();
     }
 
+
     private void loadDataHistory() {
+        pr_his.setMessage("Đang tải");
+        pr_his.show();
         dsHistory.clear();
         mData.child("HISTORY").child(mAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
             @Override
@@ -70,6 +77,8 @@ public class HistoryActivity extends AppCompatActivity {
 
             }
         });
+        showStatusHistory();
+        pr_his.hide();
     }
 
     private void addControls() {
@@ -81,6 +90,8 @@ public class HistoryActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mData = FirebaseDatabase.getInstance().getReference();
         tv_hisTotal = findViewById(R.id.tv_hisTotal);
+        tv_hisIsEmpty = findViewById(R.id.tv_hisIsEmpty);
+        pr_his  = new ProgressDialog(this);
 
         loadDataHistory();
         //Set list History
@@ -89,7 +100,11 @@ public class HistoryActivity extends AppCompatActivity {
         adapterHistory  = new AdapterHistory(HistoryActivity.this, dsHistory, tv_hisTotal);
         rcv_history.setAdapter(adapterHistory);
     }
-
+    public static void showStatusHistory() {
+        if (dsHistory.size() == 0){
+            tv_hisIsEmpty.setVisibility(View.VISIBLE);
+        }else tv_hisIsEmpty.setVisibility(View.INVISIBLE);
+    }
     private void addEvents() {
 
     }

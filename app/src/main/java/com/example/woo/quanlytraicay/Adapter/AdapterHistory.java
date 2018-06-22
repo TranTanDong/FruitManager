@@ -11,12 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.woo.quanlytraicay.FruitManager.HistoryActivity;
 import com.example.woo.quanlytraicay.Model.Order;
 import com.example.woo.quanlytraicay.R;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import static com.example.woo.quanlytraicay.FruitManager.HistoryActivity.showStatusHistory;
 
 public class AdapterHistory extends  RecyclerView.Adapter<AdapterHistory.HistoryViewHolder>{
     private Context context;
@@ -47,14 +50,15 @@ public class AdapterHistory extends  RecyclerView.Adapter<AdapterHistory.History
         holder.tv_hTotal.setText(dcf.format(dsHistory.get(position).getSoLuong()*dsHistory.get(position).getGia())+"đ");
         Picasso.get().load(dsHistory.get(position).getHinh()).into(holder.img_hImage);
         xuLySumHis(dsHistory);
+        showStatusHistory();
 
-        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                delItem(position);
-                return false;
-            }
-        });
+//        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                delItem(position);
+//                return false;
+//            }
+//        });
     }
 
     private void xuLySumHis(ArrayList<Order> dsHistory) {

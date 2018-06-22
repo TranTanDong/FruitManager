@@ -1,27 +1,18 @@
 package com.example.woo.quanlytraicay.Model;
 
 public class Depot {
-    private String id, idTraiCay, thoiGian;
+    private String idTraiCay, thoiGian;
     private int gia, soLuong;
 
     public Depot() {
 
     }
 
-    public Depot(String id, String idTraiCay, String thoiGian, int gia, int soLuong) {
-        this.id = id;
+    public Depot(String idTraiCay, String thoiGian, int gia, int soLuong) {
         this.idTraiCay = idTraiCay;
         this.thoiGian = thoiGian;
         this.gia = gia;
         this.soLuong = soLuong;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getIdTraiCay() {

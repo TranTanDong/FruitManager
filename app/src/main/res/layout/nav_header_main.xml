@@ -25,10 +25,21 @@
         android:id="@+id/tv_HiUser"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="left"
         android:layout_gravity="bottom"
         android:textSize="16dp"
-        android:text="Xin chào! Trần Tấn Đồng"
-        android:textColor="@color/colorPrimary" />
+        android:layout_marginBottom="20dp"
+        android:text="Không có kết nối mạng!"
+        android:textColor="#fff" />
+    <TextView
+        android:id="@+id/tv_showMail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:layout_gravity="bottom"
+        android:textSize="16dp"
+        android:text="Vui lòng kiểm tra lại!"
+        android:textColor="#fff" />
+
 
 </FrameLayout>

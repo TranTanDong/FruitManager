@@ -116,13 +116,13 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp" />
 
-                <ImageView
-                    android:id="@+id/btn_detailBuy"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:src="@drawable/ic_giohang"
-                    android:layout_marginLeft="30dp"
-                    />
+                <!--<ImageView-->
+                    <!--android:id="@+id/btn_detailBuy"-->
+                    <!--android:layout_width="30dp"-->
+                    <!--android:layout_height="30dp"-->
+                    <!--android:src="@drawable/ic_giohang"-->
+                    <!--android:layout_marginLeft="30dp"-->
+                    <!--/>-->
 
             </LinearLayout>
         </LinearLayout>
