@@ -6,17 +6,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".FruitManager.LoadingActivity"
-    android:background="@drawable/background_login">
+    android:background="#fff">
 
 
     <ImageView
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="96dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/icon_app2" />
+        android:src="@drawable/logo" />
 
     <ProgressBar
         android:id="@+id/adsada"

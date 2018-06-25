@@ -57,7 +57,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
             public void onClick(View v) {
                 if (OrderActivity.orders.isEmpty() == true){
                     OrderActivity.orders.add(new Order(dsProduct.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
-                    Toast.makeText(context, "Đã thêm vào giỏ hàng!Empty"+Calendar.getInstance().getTime().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Đã thêm vào giỏ hàng!Empty", Toast.LENGTH_SHORT).show();
                 }else {
                     int tmp = 0;
                     for (Order i : OrderActivity.orders){
@@ -74,7 +74,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
                     }
                     if (tmp > (OrderActivity.orders.size()-1)){
                         OrderActivity.orders.add(new Order(dsProduct.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
-                        Toast.makeText(context, "Đã thêm vào giỏ hàng!Not Contain"+Calendar.getInstance().getTime().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Đã thêm vào giỏ hàng!Not Contain", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

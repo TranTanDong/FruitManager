@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_login"
+    android:background="#fff"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".FruitManager.MainActivity"
     tools:showIn="@layout/app_bar_main">
@@ -24,6 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Sản phẩm mới"
+            android:textColor="@color/colorPrimary"
             android:textSize="20dp"
             android:textStyle="bold"
             android:layout_marginStart="10dp"/>

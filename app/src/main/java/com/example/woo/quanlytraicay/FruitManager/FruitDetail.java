@@ -53,7 +53,7 @@ public class FruitDetail extends AppCompatActivity {
         if (id == R.id.check_ok) {
             if (OrderActivity.orders.isEmpty() == true){
                 OrderActivity.orders.add(new Order(name, Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), image, Integer.parseInt(tv_detailAmount.getText().toString()), price));
-                Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!Empty"+Calendar.getInstance().getTime().toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!Empty", Toast.LENGTH_SHORT).show();
             }else {
                 int tmp = 0;
                 for (Order i : OrderActivity.orders){
@@ -70,7 +70,7 @@ public class FruitDetail extends AppCompatActivity {
                 }
                 if (tmp > (OrderActivity.orders.size()-1)){
                     OrderActivity.orders.add(new Order(name, Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), image, 1, price));
-                    Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!Not Contain"+Calendar.getInstance().getTime().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FruitDetail.this, "Đã thêm vào giỏ hàng!Not Contain", Toast.LENGTH_SHORT).show();
                 }
             }
             finish();

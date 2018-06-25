@@ -33,7 +33,7 @@
                 android:text="Xoài"
                 android:maxLines="1"
                 android:ellipsize="end"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -48,7 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
-                    android:textColor="#000"
+                    android:textColor="@color/colorAccent"
                     android:text="Giá: "
                     />
 
@@ -57,14 +57,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="30.000"
-                    android:textColor="#000"
+                    android:textColor="@color/colorAccent"
                     android:textSize="16dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="16dp"
-                    android:textColor="#000"
+                    android:textColor="@color/colorAccent"
                     android:text="đ/kg"
                     />
 

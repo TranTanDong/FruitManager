@@ -30,8 +30,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingStart="5dp"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:text="Dâu tây"
-                android:textColor="@color/colorAccent"
+                android:textColor="@color/colorPrimary"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -47,20 +49,20 @@
                     android:layout_height="wrap_content"
                     android:text="Giá: "
                     android:textSize="16dp"
-                    android:textColor="#000"/>
+                    android:textColor="@color/colorAccent"/>
                 <TextView
                     android:id="@+id/tv_hPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="70.000"
-                    android:textColor="#000"
+                    android:textColor="@color/colorAccent"
                     android:textSize="16dp" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="đ/kg"
                     android:textSize="16dp"
-                    android:textColor="#000"/>
+                    android:textColor="@color/colorAccent"/>
 
             </LinearLayout>
 
@@ -105,7 +107,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:text="2"
-                    android:textColor="#000"
+                    android:textColor="@color/colorPrimary"
                     android:gravity="center"
                     android:textSize="20dp" />
 

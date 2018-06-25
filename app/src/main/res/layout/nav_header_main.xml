@@ -14,12 +14,12 @@
 
     <ImageView
         android:id="@+id/img_userImage"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="center"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center"
         android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/icon_app2" />
+        android:layout_marginBottom="20dp"
+        app:srcCompat="@drawable/logo" />
 
     <TextView
         android:id="@+id/tv_HiUser"
@@ -30,7 +30,7 @@
         android:textSize="16dp"
         android:layout_marginBottom="20dp"
         android:text="Không có kết nối mạng!"
-        android:textColor="#fff" />
+        android:textColor="#000" />
     <TextView
         android:id="@+id/tv_showMail"
         android:layout_width="match_parent"
@@ -39,7 +39,7 @@
         android:layout_gravity="bottom"
         android:textSize="16dp"
         android:text="Vui lòng kiểm tra lại!"
-        android:textColor="#fff" />
+        android:textColor="#000" />
 
 
 </FrameLayout>

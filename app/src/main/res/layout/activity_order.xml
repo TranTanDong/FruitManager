@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8dcaff"
+    android:background="#fff"
     tools:context=".FruitManager.OrderActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#8dcaff">
+        android:background="#fff">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/tb_order"
