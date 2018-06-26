@@ -1,4 +1,4 @@
-package com.example.woo.quanlytraicay.Adapter;
+package com.example.woo.quanlytraicay.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,15 +11,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.woo.quanlytraicay.FruitManager.HistoryActivity;
-import com.example.woo.quanlytraicay.Model.Order;
+import com.example.woo.quanlytraicay.model1.Order;
 import com.example.woo.quanlytraicay.R;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-import static com.example.woo.quanlytraicay.FruitManager.HistoryActivity.showStatusHistory;
+import static com.example.woo.quanlytraicay.fruitmanager.HistoryActivity.showStatusHistory;
 
 public class AdapterHistory extends  RecyclerView.Adapter<AdapterHistory.HistoryViewHolder>{
     private Context context;
@@ -72,28 +71,28 @@ public class AdapterHistory extends  RecyclerView.Adapter<AdapterHistory.History
         sumHis.setText(dcf.format(s)+"đ");
     }
 
-    private void delItem(final int pos) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Bạn có muốn xóa lịch sử này?");
-        builder.setCancelable(false);
-        builder.setNegativeButton("CÓ", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dsHistory.remove(pos);
-                xuLySumHis(dsHistory);
-                notifyDataSetChanged();
-                dialogInterface.dismiss();
-            }
-        });
-        builder.setPositiveButton("KHÔNG", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
+//    private void delItem(final int pos) {
+//        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+//        builder.setMessage("Bạn có muốn xóa lịch sử này?");
+//        builder.setCancelable(false);
+//        builder.setNegativeButton("CÓ", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialogInterface, int i) {
+//                dsHistory.remove(pos);
+//                xuLySumHis(dsHistory);
+//                notifyDataSetChanged();
+//                dialogInterface.dismiss();
+//            }
+//        });
+//        builder.setPositiveButton("KHÔNG", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                dialog.dismiss();
+//            }
+//        });
+//        AlertDialog alertDialog = builder.create();
+//        alertDialog.show();
+//    }
 
     @Override
     public int getItemCount() {

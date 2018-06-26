@@ -1,4 +1,4 @@
-package com.example.woo.quanlytraicay.Model;
+package com.example.woo.quanlytraicay.model1;
 
 public class Product {
     private String ten, moTa, xuatXu, hinh;

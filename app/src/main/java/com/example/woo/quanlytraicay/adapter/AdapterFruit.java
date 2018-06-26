@@ -1,4 +1,4 @@
-package com.example.woo.quanlytraicay.Adapter;
+package com.example.woo.quanlytraicay.adapter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,10 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.woo.quanlytraicay.FruitManager.OrderActivity;
-import com.example.woo.quanlytraicay.Interface.IFruit;
-import com.example.woo.quanlytraicay.Model.Order;
-import com.example.woo.quanlytraicay.Model.Product;
+import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
+import com.example.woo.quanlytraicay.ui.IFruit;
+import com.example.woo.quanlytraicay.model1.Order;
+import com.example.woo.quanlytraicay.model1.Product;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
@@ -61,16 +61,16 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
             public void onClick(View v) {
                 if (OrderActivity.orders.isEmpty() == true){
                     OrderActivity.orders.add(new Order(dsFruit.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
-                    Toast.makeText(context, "Đã thêm vào giỏ hàng!Empty"+Calendar.getInstance().getTime().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                 }else {
                     int tmp = 0;
                     for (Order i : OrderActivity.orders){
                         if (i.getTen().equals(dsFruit.get(position).getTen())){
                             if (i.getSoLuong() >= 10){
-                                Toast.makeText(context, "Sản phẩm đã đạt số lượng tối đa cho phép!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, R.string.toast_maximum, Toast.LENGTH_SHORT).show();
                             }else {
                                 i.setSoLuong(i.getSoLuong()+1);
-                                Toast.makeText(context, "Đã thêm vào giỏ hàng!Contained", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, R.string.toast_exist_addition+" 1", Toast.LENGTH_SHORT).show();
                             }
                         }else {
                             tmp++;
@@ -78,7 +78,7 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
                     }
                     if (tmp > (OrderActivity.orders.size()-1)){
                         OrderActivity.orders.add(new Order(dsFruit.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
-                        Toast.makeText(context, "Đã thêm vào giỏ hàng!Not Contain"+Calendar.getInstance().getTime().toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                     }
                 }
             }

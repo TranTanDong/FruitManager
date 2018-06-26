@@ -16,8 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"
             android:background="?android:attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay"
-            tools:targetApi="lollipop" />
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
 

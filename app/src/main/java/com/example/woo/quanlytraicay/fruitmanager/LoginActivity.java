@@ -1,4 +1,4 @@
-package com.example.woo.quanlytraicay.FruitManager;
+package com.example.woo.quanlytraicay.fruitmanager;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -29,21 +29,19 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private AutoCompleteTextView edt_LI_Email;
-    private EditText edt_LI_Pass;
-    private CardView btn_LI_Login;
-    private TextView tv_LI_SignUp;
+    private AutoCompleteTextView edtLoginEmail;
+    private EditText edtLoginPass;
+    private CardView btnLogin;
+    private TextView tvLoginSignUp;
     private ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
 
-    private String email, password;
+    private String email, mPassword;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
-        mAuth = FirebaseAuth.getInstance();
 
         addControls();
         addEvents();
@@ -69,19 +67,21 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void addControls() {
-        edt_LI_Email    = findViewById(R.id.edt_LI_Email);
-        edt_LI_Pass     = findViewById(R.id.edt_LI_Pass);
-        btn_LI_Login    = findViewById(R.id.btn_LI_Login);
-        tv_LI_SignUp     = findViewById(R.id.tv_LI_SignUp);
+        mAuth = FirebaseAuth.getInstance();
+
+        edtLoginEmail = findViewById(R.id.edt_LI_Email);
+        edtLoginPass = findViewById(R.id.edt_LI_Pass);
+        btnLogin = findViewById(R.id.btn_LI_Login);
+        tvLoginSignUp = findViewById(R.id.tv_LI_SignUp);
         progressDialog = new ProgressDialog(this);
 
-        tv_LI_SignUp.setPaintFlags(tv_LI_SignUp.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+        tvLoginSignUp.setPaintFlags(tvLoginSignUp.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
 
     }
 
     private void addEvents() {
         //Đăng ký
-       tv_LI_SignUp.setOnClickListener(new OnClickListener() {
+       tvLoginSignUp.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivityForResult(new Intent(LoginActivity.this, SignUpActivity.class), 11);
@@ -90,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         //Đăng nhập
-        btn_LI_Login.setOnClickListener(new OnClickListener() {
+        btnLogin.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 xuLyDangNhap();
@@ -100,19 +100,19 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void xuLyDangNhap() {
-        email    = edt_LI_Email.getText().toString();
-        password = edt_LI_Pass.getText().toString();
+        email    = edtLoginEmail.getText().toString();
+        mPassword = edtLoginPass.getText().toString();
 
         if (!isNetWorkConnected()){
             showDialog();
         }else if (TextUtils.isEmpty(email)){
-            Toast.makeText(LoginActivity.this, "Bạn chưa nhập email!", Toast.LENGTH_SHORT).show();
-        }else if (TextUtils.isEmpty(password)){
-            Toast.makeText(LoginActivity.this, "Bạn chưa nhập mật khẩu!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, R.string.toast_mail_empty, Toast.LENGTH_SHORT).show();
+        }else if (TextUtils.isEmpty(mPassword)){
+            Toast.makeText(LoginActivity.this, R.string.toast_password_empty, Toast.LENGTH_SHORT).show();
         }else {
             progressDialog.setMessage("Đang xác thực tài khoản");
             progressDialog.show();
-            mAuth.signInWithEmailAndPassword(email, password)
+            mAuth.signInWithEmailAndPassword(email, mPassword)
                     .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
@@ -124,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 progressDialog.hide();
-                                Toast.makeText(LoginActivity.this, "Đăng nhập thất bại!", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(LoginActivity.this, R.string.toast_login_failed, Toast.LENGTH_SHORT).show();
                             }
 
                             // ...
@@ -136,8 +136,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Lỗi mạng");
-        builder.setMessage("Không có mạng. Vui lòng kiểm tra lại!");
+        builder.setTitle(R.string.network_error);
+        builder.setMessage(R.string.check_network);
         builder.setCancelable(false);
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override

@@ -1,17 +1,12 @@
 <resources>
-    <string name="app_name">Trang chủ</string>
+    <string name="app_name">Fruit Manager</string>
     <string name="title_activity_main">Trang chủ</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
-    <string name="title_activity_login">Đăng nhập</string>
 
     <!-- Strings related to login -->
-    <string name="prompt_email">Email</string>
-    <string name="prompt_password">Password (optional)</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="error_invalid_email">This email address is invalid</string>
@@ -21,4 +16,57 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+
+    //==============================Account
+    <string name="title_account">Thông tin tài khoản</string>
+    <string name="toast_check_info">Vui lòng nhập đủ thông tin!</string>
+    <string name="toast_update_info">Đã cập nhật thành công!</string>
+    //==============================Fruit Detail
+    <string name="title_fruit_detail">Chi tiết sản phẩm</string>
+    <string name="toast_added_product">Đã thêm vào giỏ hàng!</string>
+    <string name="toast_maximum">Số lượng đã đạt mức tối đa cho phép!</string>
+    <string name="toast_exist_addition">Đã tồn tại! Số lượng tăng thêm </string>
+    //==============================Fruit List
+    <string name="title_fruit_list">Danh sách sản phẩm</string>
+    //==============================History
+    <string name="title_history">Lịch sử mua hàng</string>
+    //==============================Login
+    <string name="toast_mail_empty">Bạn chưa nhập email!</string>
+    <string name="toast_password_empty">Bạn chưa nhập mật khẩu!</string>
+    <string name="toast_login_failed">Email hoặc mật khẩu không đúng!</string>
+    <string name="network_error">Lỗi mạng</string>
+    <string name="check_network">Không có mạng. Vui lòng kiểm tra lại!</string>
+    <string name="toast_repasswork">Mật khẩu nhập lại không đúng!</string>
+    <string name="toast_sign_up_success">Đăng ký thành công!</string>
+    <string name="toast_email_exist">Email đã tồn tại. Vui lòng nhập email khác!</string>
+    <string name="result_sign_up">Kết quả đăng ký</string>
+    <string name="title_account_sign_up">Đăng ký tài khoản</string>
+    <string name="no_account">Bạn chưa có tài khoản? </string>
+    <string name="have_account">Bạn chưa có tài khoản? </string>
+    <string name="link_login">Đăng nhập ngay</string>
+    <string name="link_sign_up">Đăng ký ngay</string>
+    <string name="log_out">Đăng xuất</string>
+    <string name="new_product">Sản phẩm mới</string>
+    <string name="button_pay">Thanh toán giỏ hàng</string>
+    <string name="button_continue">Tiếp tục mua hàng</string>
+    <string name="title_cart">Giỏ hàng</string>
+    <string name="total">Tổng cộng:</string>
+    <string name="view_cart">Giỏ hàng của bạn đang trống ^-^</string>
+    <string name="view_history">Lịch sử mua hàng đang trống ^-^</string>
+    <string name="title_account_update">Thông tin cập nhật</string>
+    <string name="name">Họ tên đầy đủ</string>
+    <string name="phone">Số điện thoại</string>
+    <string name="address">Địa chỉ</string>
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="repassword">Nhập lại mật khẩu</string>
+    <string name="no_access_network">Không có kết nối mạng!</string>
+    <string name="please_check">Vui lòng kiểm tra lại!</string>
+    <string name="title_pay">Thông tin thanh toán</string>
+    <string name="button_update">Cập nhật</string>
+    <string name="describe_detail">Mô tả chi tiết</string>
+    <string name="login">Đăng nhập</string>
+    <string name="sign_up">Đăng ký</string>
+    <string name="home">Trang chủ</string>
+    <string name="delete_product">Bạn có muốn xóa sản phẩm này?</string>
 </resources>

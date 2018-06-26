@@ -1,4 +1,4 @@
-package com.example.woo.quanlytraicay.FruitManager;
+package com.example.woo.quanlytraicay.fruitmanager;
 
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -25,16 +25,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
-import com.example.woo.quanlytraicay.Adapter.AdapterProduct;
-import com.example.woo.quanlytraicay.Interface.IProduct;
-import com.example.woo.quanlytraicay.Model.Order;
-import com.example.woo.quanlytraicay.Model.Product;
-import com.example.woo.quanlytraicay.Model.User;
+import com.example.woo.quanlytraicay.adapter.AdapterProduct;
+import com.example.woo.quanlytraicay.firebase.FBDatabase;
+import com.example.woo.quanlytraicay.ui.IProduct;
+import com.example.woo.quanlytraicay.model1.Order;
+import com.example.woo.quanlytraicay.model1.Product;
+import com.example.woo.quanlytraicay.model1.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
@@ -45,12 +44,13 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IProduct {
 
     private FirebaseAuth mAuth;
-    private RecyclerView rcv_productList;
+    private RecyclerView rcvProductList;
     public static ArrayList<Product> dsProduct = new ArrayList<>();
     private AdapterProduct adapterProduct;
-    private ProgressDialog pr_main;
-    private TextView tv_HiUser, tv_showMail;
-    private ViewFlipper vf_main;
+    private ProgressDialog progressDialog;
+    public static TextView tvHiUser;
+    public static TextView tvShowMail;
+    private ViewFlipper vfMain;
 
     private DatabaseReference mData;
    // private FirebaseStorage mStorage;
@@ -107,57 +107,37 @@ public class MainActivity extends AppCompatActivity
            ImageView imageView = new ImageView(this);
            Picasso.get().load(images.get(i)).into(imageView);
            imageView.setScaleType(ImageView.ScaleType.FIT_XY);
-           vf_main.addView(imageView);
-           vf_main.setFlipInterval(6000);
-           vf_main.setAutoStart(true);
+           vfMain.addView(imageView);
+           vfMain.setFlipInterval(6000);
+           vfMain.setAutoStart(true);
 
            Animation slide_in = AnimationUtils.loadAnimation(this, R.anim.slide_in_right);
            Animation slide_out = AnimationUtils.loadAnimation(this, R.anim.slide_in_left);
 
-           vf_main.setInAnimation(slide_in);
-           vf_main.setOutAnimation(slide_out);
+           vfMain.setInAnimation(slide_in);
+           vfMain.setOutAnimation(slide_out);
        }
 
     }
 
     private void hiUser() {
-        mData.child("USER").addChildEventListener(new ChildEventListener() {
+        mData.child("USER").addChildEventListener(new FBDatabase() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 String email = mAuth.getCurrentUser().getEmail().toString();
                 User user = dataSnapshot.getValue(User.class);
                 if (email.equals(user.getEmail())){
-                    tv_HiUser.setText("Xin chào! "+user.getName());
-                    tv_HiUser.setVisibility(View.VISIBLE);
-                    tv_showMail.setText(user.getEmail().toString());
-                    tv_showMail.setVisibility(View.VISIBLE);
+                    tvHiUser.setText(user.getName().toString());
+                    tvHiUser.setVisibility(View.VISIBLE);
+                    tvShowMail.setText(user.getEmail().toString());
+                    tvShowMail.setVisibility(View.VISIBLE);
                 }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });}
 
     private void loadDataOrder() {
         if (OrderActivity.orders.isEmpty() == true){
-            mData.child("ORDER").child(mAuth.getCurrentUser().getUid()).addChildEventListener(new ChildEventListener() {
+            mData.child("ORDER").child(mAuth.getCurrentUser().getUid()).addChildEventListener(new FBDatabase() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     Order order = dataSnapshot.getValue(Order.class);
@@ -180,62 +160,22 @@ public class MainActivity extends AppCompatActivity
 //                    }
 
                 }
-
-                @Override
-                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                }
-
-                @Override
-                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                }
             });
         }
 
     }
 
     private void loadDataProduct() {
-        pr_main.setMessage("Đang tải");
-        pr_main.show();
+        progressDialog.setMessage("Đang tải");
+        progressDialog.show();
         dsProduct.clear();
-        mData.child("FRUIT").limitToLast(6).addChildEventListener(new ChildEventListener() {
+        mData.child("FRUIT").limitToLast(6).addChildEventListener(new FBDatabase() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Product prod = dataSnapshot.getValue(Product.class);
                 dsProduct.add(new Product(prod.getTen(), prod.getHinh(), prod.getMoTa(), prod.getXuatXu(), prod.getGia(), prod.gethSD()));
                 adapterProduct.notifyDataSetChanged();
-                pr_main.hide();
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                progressDialog.hide();
             }
         });
 
@@ -262,16 +202,16 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headView = navigationView.getHeaderView(0);
-        tv_HiUser   = headView.findViewById(R.id.tv_HiUser);
-        tv_showMail = headView.findViewById(R.id.tv_showMail);
+        tvHiUser = headView.findViewById(R.id.tv_HiUser);
+        tvShowMail = headView.findViewById(R.id.tv_showMail);
         navigationView.setNavigationItemSelectedListener(this);
 
         //======================================================================================//
         mAuth       = FirebaseAuth.getInstance();
         //mStorage    = FirebaseStorage.getInstance();
         mData       = FirebaseDatabase.getInstance().getReference();
-        pr_main     = new ProgressDialog(this);
-        vf_main     = findViewById(R.id.vf_main);
+        progressDialog = new ProgressDialog(this);
+        vfMain = findViewById(R.id.vf_main);
 
 
 //        dsProduct.add(new Product("1", "Cam", R.drawable.ic_cam, "Mô tả cam", "Xuất xứ cam", 40000, 10));
@@ -285,10 +225,10 @@ public class MainActivity extends AppCompatActivity
 
 
         //Setup RecyclerView
-        rcv_productList  = findViewById(R.id.rcv_productList);
-        rcv_productList.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
+        rcvProductList = findViewById(R.id.rcv_productList);
+        rcvProductList.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
         adapterProduct  = new AdapterProduct(dsProduct, MainActivity.this, this);
-        rcv_productList.setAdapter(adapterProduct);
+        rcvProductList.setAdapter(adapterProduct);
     }
 
     private void addEvents() {
@@ -308,7 +248,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.menu_cart, menu);
         return true;
     }
 
@@ -337,8 +277,8 @@ public class MainActivity extends AppCompatActivity
             // Handle the camera action
             startActivityForResult(new Intent(MainActivity.this, HistoryActivity.class), 4);
         } else if (id == R.id.nav_fruitList) {
-            startActivityForResult(new Intent(MainActivity.this, FruitList.class), 5);
-        } else if (id == R.id.nav_home) {
+            startActivityForResult(new Intent(MainActivity.this, FruitListActivity.class), 5);
+        } else if (id == R.id.nav_info_account) {
             startActivityForResult(new Intent(MainActivity.this, AccountActivity.class), 6);
         } else if (id == R.id.nav_logout) {
             showSigout();
@@ -378,7 +318,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void ClickItemProduct(int p) {
-        Intent mIntent = new Intent(MainActivity.this, FruitDetail.class);
+        Intent mIntent = new Intent(MainActivity.this, FruitDetailActivity.class);
         mIntent.putExtra("P_TEN", dsProduct.get(p).getTen());
         mIntent.putExtra("P_GIA", dsProduct.get(p).getGia());
         mIntent.putExtra("P_XX", dsProduct.get(p).getXuatXu());

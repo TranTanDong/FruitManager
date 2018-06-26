@@ -1,4 +1,4 @@
-package com.example.woo.quanlytraicay.Adapter;
+package com.example.woo.quanlytraicay.adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.woo.quanlytraicay.FruitManager.OrderActivity;
-import com.example.woo.quanlytraicay.Model.Order;
+import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
+import com.example.woo.quanlytraicay.model1.Order;
 import com.example.woo.quanlytraicay.R;
 import com.squareup.picasso.Picasso;
 
@@ -71,7 +71,7 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
                     orders.get(position).setSoLuong(a);
                     xuLyBigSum(orders);
                 }else if (a == 10)
-                    Toast.makeText(context, "Đã đạt số lượng tối đa cho phép!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, R.string.toast_maximum, Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -106,7 +106,7 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
 
     private void delItem(final int pos) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setMessage("Bạn có muốn xóa sản phẩm này?");
+        builder.setMessage(R.string.delete_product);
         builder.setCancelable(false);
         builder.setNegativeButton("CÓ", new DialogInterface.OnClickListener() {
             @Override

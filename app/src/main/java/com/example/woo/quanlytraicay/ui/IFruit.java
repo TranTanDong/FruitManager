@@ -1,4 +1,4 @@
-package com.example.woo.quanlytraicay.Interface;
+package com.example.woo.quanlytraicay.ui;
 
 public interface IFruit {
     void ClickItemFruit(int p);

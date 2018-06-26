@@ -1,9 +1,7 @@
-package com.example.woo.quanlytraicay.FruitManager;
+package com.example.woo.quanlytraicay.fruitmanager;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -12,7 +10,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,9 +19,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.woo.quanlytraicay.Adapter.AdapterOrder;
-import com.example.woo.quanlytraicay.Model.Order;
-import com.example.woo.quanlytraicay.Model.User;
+import com.example.woo.quanlytraicay.adapter.AdapterOrder;
+import com.example.woo.quanlytraicay.model1.Order;
+import com.example.woo.quanlytraicay.model1.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -33,19 +30,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 public class OrderActivity extends AppCompatActivity {
-    private static View tv_orderIsEmpty;
-    private RecyclerView rcv_order;
+    private static View tvOrderIsEmpty;
+    private RecyclerView rcvOrder;
     public static ArrayList<Order> orders = new ArrayList<>();
     private AdapterOrder adapterOrder;
 
-    private TextView tv_orderBigSum;
-    private Button btn_orderPay, btn_orderBuyCont;
+    private TextView tvOrderBigSum;
+    private Button btnOrderPay, btnOrderBuyCont;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mData;
@@ -73,7 +69,7 @@ public class OrderActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.history_btn, menu);
+        getMenuInflater().inflate(R.menu.menu_history, menu);
         return true;
     }
 
@@ -101,29 +97,29 @@ public class OrderActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mData = FirebaseDatabase.getInstance().getReference();
 
-        tv_orderIsEmpty     = findViewById(R.id.tv_orderIsEmpty);
-        tv_orderBigSum      = findViewById(R.id.tv_orderBigSum);
-        btn_orderPay        = findViewById(R.id.btn_orderPay);
-        btn_orderBuyCont    = findViewById(R.id.btn_orderBuyCont);
+        tvOrderIsEmpty = findViewById(R.id.tv_orderIsEmpty);
+        tvOrderBigSum = findViewById(R.id.tv_orderBigSum);
+        btnOrderPay = findViewById(R.id.btn_orderPay);
+        btnOrderBuyCont = findViewById(R.id.btn_orderBuyCont);
         showStatusCart();
         //Lấy dữ liệu từ FB về
 
-        rcv_order   = findViewById(R.id.rcv_order);
-        rcv_order.setLayoutManager(new LinearLayoutManager(this));
-        adapterOrder  = new AdapterOrder(OrderActivity.this, orders, tv_orderBigSum);
-        rcv_order.setAdapter(adapterOrder);
+        rcvOrder = findViewById(R.id.rcv_order);
+        rcvOrder.setLayoutManager(new LinearLayoutManager(this));
+        adapterOrder  = new AdapterOrder(OrderActivity.this, orders, tvOrderBigSum);
+        rcvOrder.setAdapter(adapterOrder);
     }
 
     public static void showStatusCart() {
         if (orders.size() == 0){
-            tv_orderIsEmpty.setVisibility(View.VISIBLE);
-        }else tv_orderIsEmpty.setVisibility(View.INVISIBLE);
+            tvOrderIsEmpty.setVisibility(View.VISIBLE);
+        }else tvOrderIsEmpty.setVisibility(View.INVISIBLE);
     }
 
 
     private void addEvents() {
         //Tiếp tục mua hàng
-        btn_orderBuyCont.setOnClickListener(new View.OnClickListener() {
+        btnOrderBuyCont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(OrderActivity.this, MainActivity.class));
@@ -132,7 +128,7 @@ public class OrderActivity extends AppCompatActivity {
         });
 
         //Thanh toán
-        btn_orderPay.setOnClickListener(new View.OnClickListener() {
+        btnOrderPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (orders.size() > 0){
@@ -159,7 +155,7 @@ public class OrderActivity extends AppCompatActivity {
         tv_pTotal      = dialogView.findViewById(R.id.tv_pTotal);
 
         //Set dữ liệu
-        tv_pTotal.setText(tv_orderBigSum.getText().toString());
+        tv_pTotal.setText(tvOrderBigSum.getText().toString());
         setInfPay(edt_p_Name, edt_p_Phone, edt_p_Address);
 
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -170,7 +166,7 @@ public class OrderActivity extends AppCompatActivity {
                     mData.child("HISTORY").child(mAuth.getCurrentUser().getUid().toString()).push().setValue(i);
                 }
                 orders.clear();
-                tv_orderBigSum.setText("0đ");
+                tvOrderBigSum.setText("0đ");
                 adapterOrder.notifyDataSetChanged();
                 Toast.makeText(OrderActivity.this, "Đã thanh toán thành công!", Toast.LENGTH_SHORT).show();
             }

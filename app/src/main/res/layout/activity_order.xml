@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    tools:context=".FruitManager.OrderActivity">
+    tools:context=".fruitmanager.OrderActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/tb_order"
-            app:title="Giỏ hàng"
+            app:title="@string/title_cart"
             app:titleTextColor="#fff"
             android:background="@color/colorPrimary"
             android:layout_width="match_parent"
@@ -37,7 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Tổng cộng:"
+                android:text="@string/total"
                 android:layout_gravity="center"
                 android:textStyle="italic"
                 android:textColor="@color/colorAccent"
@@ -63,7 +63,7 @@
             android:layout_height="40dp"
             android:layout_marginBottom="5dp"
             android:background="@color/colorPrimary"
-            android:text="Thanh toán giỏ hàng"
+            android:text="@string/button_pay"
             android:textColor="#fff"/>
 
         <Button
@@ -71,7 +71,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="@color/colorPrimary"
-            android:text="Tiếp tục mua hàng"
+            android:text="@string/button_continue"
             android:textColor="#fff"/>
     </LinearLayout>
 

@@ -7,7 +7,7 @@
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:background="#fff"
-    tools:context=".FruitManager.LoginActivity">
+    tools:context=".fruitmanager.LoginActivity">
 
     <!-- Login progress -->
     <ProgressBar
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_mail"
                     android:drawablePadding="8dp"
-                    android:hint="Email"
+                    android:hint="@string/email"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
@@ -70,7 +70,7 @@
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/ic_lock"
                     android:drawablePadding="8dp"
-                    android:hint="Mật khẩu"
+                    android:hint="@string/password"
                     android:textColorHint="#fff"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionDone"
@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:text="Đăng nhập"
+                    android:text="@string/login"
                     android:textSize="24dp"
                     android:textColor="#fff"
                     android:textStyle="bold" />
@@ -113,7 +113,7 @@
                   android:layout_width="wrap_content"
                   android:gravity="center"
                   android:layout_height="wrap_content"
-                  android:text="Bạn chưa có tài khoản? "
+                  android:text="@string/no_account"
                   android:textSize="16dp" />
 
               <TextView
@@ -121,7 +121,7 @@
                   android:layout_width="wrap_content"
                   android:gravity="center"
                   android:layout_height="wrap_content"
-                  android:text="Đăng ký ngay"
+                  android:text="@string/link_sign_up"
                   android:textSize="16dp"
                   android:textStyle="bold"
                   android:textColor="@color/colorPrimary"/>

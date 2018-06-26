@@ -1,4 +1,4 @@
-package com.example.woo.quanlytraicay.FruitManager;
+package com.example.woo.quanlytraicay.fruitmanager;
 
 import android.content.Intent;
 import android.os.Handler;

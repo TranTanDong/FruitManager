@@ -1,7 +1,6 @@
-package com.example.woo.quanlytraicay.FruitManager;
+package com.example.woo.quanlytraicay.fruitmanager;
 
 import android.content.DialogInterface;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
@@ -16,18 +15,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.woo.quanlytraicay.Model.User;
+import com.example.woo.quanlytraicay.firebase.FBDatabase;
+import com.example.woo.quanlytraicay.model1.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class AccountActivity extends AppCompatActivity {
-    private TextView tv_acName, tv_acPhone, tv_acAddress, tv_acEmail;
-    private CardView btn_acUpdate;
+    private TextView tvAcName, tvAcPhone, tvAcAddress, tvAcEmail;
+    private CardView btnAcUpdate;
 
     private FirebaseAuth mAuth;
     private DatabaseReference mData;
@@ -43,37 +41,17 @@ public class AccountActivity extends AppCompatActivity {
 
     private void loadInfoUser() {
         //Set thông tin Account
-        mData.child("USER").addChildEventListener(new ChildEventListener() {
+        mData.child("USER").addChildEventListener(new FBDatabase() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 String email = mAuth.getCurrentUser().getEmail().toString();
                 User user = dataSnapshot.getValue(User.class);
                 if (email.equals(user.getEmail())){
-                    tv_acName.setText(user.getName());
-                    tv_acPhone.setText(user.getPhone());
-                    tv_acAddress.setText(user.getAddress());
-                    tv_acEmail.setText(user.getEmail());
+                    tvAcName.setText(user.getName());
+                    tvAcPhone.setText(user.getPhone());
+                    tvAcAddress.setText(user.getAddress());
+                    tvAcEmail.setText(user.getEmail());
                 }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
@@ -87,12 +65,12 @@ public class AccountActivity extends AppCompatActivity {
         mAuth   = FirebaseAuth.getInstance();
         mData   = FirebaseDatabase.getInstance().getReference();
 
-        tv_acName       = findViewById(R.id.tv_acName);
-        tv_acPhone      = findViewById(R.id.tv_acPhone);
-        tv_acAddress    = findViewById(R.id.tv_acAddress);
-        tv_acEmail      = findViewById(R.id.tv_acEmail);
+        tvAcName       = findViewById(R.id.tvAcName);
+        tvAcPhone      = findViewById(R.id.tvAcPhone);
+        tvAcAddress    = findViewById(R.id.tvAcAddress);
+        tvAcEmail      = findViewById(R.id.tvAcEmail);
 
-        btn_acUpdate    = findViewById(R.id.btn_acUpdate);
+        btnAcUpdate    = findViewById(R.id.btnAcUpdate);
 
 
     }
@@ -100,7 +78,7 @@ public class AccountActivity extends AppCompatActivity {
     private void addEvents() {
 
         //Cập nhật thông tin User
-        btn_acUpdate.setOnClickListener(new View.OnClickListener() {
+        btnAcUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 xuLyEdit();
@@ -115,32 +93,33 @@ public class AccountActivity extends AppCompatActivity {
         builder.setView(dialogView);
         builder.setCancelable(false);
 
-        final EditText edt_ED_Name, edt_ED_Phone, edt_ED_Address;
-        edt_ED_Name     = dialogView.findViewById(R.id.edt_ED_Name);
-        edt_ED_Phone    = dialogView.findViewById(R.id.edt_ED_Phone);
-        edt_ED_Address  = dialogView.findViewById(R.id.edt_ED_Address);
+        final EditText edtEdName, edtEdPhone, edtEdAddress;
+        edtEdName     = dialogView.findViewById(R.id.edtEdName);
+        edtEdPhone    = dialogView.findViewById(R.id.edtEdPhone);
+        edtEdAddress  = dialogView.findViewById(R.id.edtEdAddress);
 
         //Set dữ liệu
-        edt_ED_Name.setText(tv_acName.getText().toString());
-        edt_ED_Phone.setText(tv_acPhone.getText().toString());
-        edt_ED_Address.setText(tv_acAddress.getText().toString());
+        edtEdName.setText(tvAcName.getText().toString());
+        edtEdPhone.setText(tvAcPhone.getText().toString());
+        edtEdAddress.setText(tvAcAddress.getText().toString());
 
         builder.setPositiveButton("CẬP NHẬT", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String ten = edt_ED_Name.getText().toString();
-                String sdt = edt_ED_Phone.getText().toString();
-                String dc  = edt_ED_Address.getText().toString();
+                String mName = edtEdName.getText().toString();
+                String mPhone = edtEdPhone.getText().toString();
+                String mAddress  = edtEdAddress.getText().toString();
 
-                if (TextUtils.isEmpty(ten) || TextUtils.isEmpty(sdt) || TextUtils.isEmpty(dc)){
-                    Toast.makeText(AccountActivity.this, "Vui lòng nhập đủ thông tin!", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(mName) || TextUtils.isEmpty(mPhone) || TextUtils.isEmpty(mAddress)){
+                    Toast.makeText(AccountActivity.this, R.string.toast_check_info, Toast.LENGTH_SHORT).show();
                 }else {
                     DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("USER").child(mAuth.getCurrentUser().getUid().toString());
-                    User user = new User(ten, sdt, dc, mAuth.getCurrentUser().getEmail());
+                    User user = new User(mName, mPhone, mAddress, mAuth.getCurrentUser().getEmail());
                     databaseReference.setValue(user);
                     loadInfoUser();
+                    MainActivity.tvHiUser.setText(mName);
                     dialog.dismiss();
-                    Toast.makeText(AccountActivity.this, "Đã cập nhật thành công!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AccountActivity.this, R.string.toast_update_info, Toast.LENGTH_SHORT).show();
                 }
             }
         });

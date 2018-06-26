@@ -9,7 +9,7 @@
    <TextView
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:text="Thông tin cập nhật"
+       android:text="@string/title_account_update"
        android:textSize="25dp"
        android:textAllCaps="true"
        android:gravity="center"
@@ -22,12 +22,12 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/edt_ED_Name"
+            android:id="@+id/edtEdName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_person"
             android:drawablePadding="8dp"
-            android:hint="Họ tên đầy đủ"
+            android:hint="@string/name"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:maxLines="1"
@@ -40,12 +40,12 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/edt_ED_Phone"
+            android:id="@+id/edtEdPhone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_phone"
             android:drawablePadding="8dp"
-            android:hint="Số điện thoại"
+            android:hint="@string/phone"
            android:maxLength="10"
             android:imeOptions="actionNext"
             android:inputType="phone"
@@ -59,12 +59,12 @@
         android:layout_height="wrap_content">
 
         <EditText
-            android:id="@+id/edt_ED_Address"
+            android:id="@+id/edtEdAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_address"
             android:drawablePadding="8dp"
-            android:hint="Địa chỉ"
+            android:hint="@string/address"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:maxLines="1"
