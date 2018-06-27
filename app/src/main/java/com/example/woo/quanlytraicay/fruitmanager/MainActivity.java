@@ -28,9 +28,9 @@ import android.widget.ViewFlipper;
 import com.example.woo.quanlytraicay.adapter.AdapterProduct;
 import com.example.woo.quanlytraicay.firebase.FBDatabase;
 import com.example.woo.quanlytraicay.ui.IProduct;
-import com.example.woo.quanlytraicay.model1.Order;
-import com.example.woo.quanlytraicay.model1.Product;
-import com.example.woo.quanlytraicay.model1.User;
+import com.example.woo.quanlytraicay.model.Order;
+import com.example.woo.quanlytraicay.model.Product;
+import com.example.woo.quanlytraicay.model.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -273,9 +273,9 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
+        // Handle the camera action
         if (id == R.id.nav_history) {
-            // Handle the camera action
-            startActivityForResult(new Intent(MainActivity.this, HistoryActivity.class), 4);
+            startActivityForResult(new Intent(MainActivity.this, HistoryActivity.class), 13);
         } else if (id == R.id.nav_fruitList) {
             startActivityForResult(new Intent(MainActivity.this, FruitListActivity.class), 5);
         } else if (id == R.id.nav_info_account) {
@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity
 
     private void showSigout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Đăng xuất");
+        builder.setTitle(R.string.log_out);
         builder.setMessage("Bạn có muốn đăng xuất không?");
         builder.setCancelable(false);
         builder.setNegativeButton("CÓ", new DialogInterface.OnClickListener() {
@@ -328,5 +328,7 @@ public class MainActivity extends AppCompatActivity
         startActivityForResult(mIntent, 3);
         //Toast.makeText(MainActivity.this, "Chi tiết sp"+dsProduct.get(p).getTen(), Toast.LENGTH_SHORT).show();
     }
+
+    
 
 }

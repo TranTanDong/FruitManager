@@ -11,14 +11,13 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.woo.quanlytraicay.model1.User;
+import com.example.woo.quanlytraicay.model.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -118,11 +117,11 @@ public class SignUpActivity extends AppCompatActivity {
                     String UID = user.getUid();
                     User user1 = new User(name, phone, address, email);
                     mDatabase.child("USER").child(UID).setValue(user1);
-                    String result = R.string.toast_sign_up_success+"";
+                    String result = "Đăng ký thành công!";
                     showDialogResult(result);
                 }
                 else {
-                    String result = R.string.toast_email_exist+"";
+                    String result = "Email đã tồn tại. Vui lòng nhập email khác!";
                     showDialogResult(result);
                 }
             }
@@ -137,13 +136,12 @@ public class SignUpActivity extends AppCompatActivity {
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-                if(result.equals(R.string.toast_sign_up_success)) {
+                if(result.equals("Đăng ký thành công!")) {
                     Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                    intent.putExtra("EMAIL", edtSUEmail.getText().toString());
                     startActivity(intent);
                     finish();
                 }
+                dialogInterface.dismiss();
             }
         });
         AlertDialog alertDialog = builder.create();

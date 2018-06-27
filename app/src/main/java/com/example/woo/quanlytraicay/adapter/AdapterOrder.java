@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
-import com.example.woo.quanlytraicay.model1.Order;
+import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.R;
 import com.squareup.picasso.Picasso;
 

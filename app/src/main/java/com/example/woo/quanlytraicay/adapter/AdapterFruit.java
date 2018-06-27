@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
 import com.example.woo.quanlytraicay.ui.IFruit;
-import com.example.woo.quanlytraicay.model1.Order;
-import com.example.woo.quanlytraicay.model1.Product;
+import com.example.woo.quanlytraicay.model.Order;
+import com.example.woo.quanlytraicay.model.Product;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
@@ -70,7 +70,7 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
                                 Toast.makeText(context, R.string.toast_maximum, Toast.LENGTH_SHORT).show();
                             }else {
                                 i.setSoLuong(i.getSoLuong()+1);
-                                Toast.makeText(context, R.string.toast_exist_addition+" 1", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, R.string.toast_exist_add, Toast.LENGTH_SHORT).show();
                             }
                         }else {
                             tmp++;

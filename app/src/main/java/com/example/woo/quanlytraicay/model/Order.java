@@ -1,4 +1,4 @@
-package com.example.woo.quanlytraicay.model1;
+package com.example.woo.quanlytraicay.model;
 
 public class Order {
     private String ten, thoiGian, mail, hinh;

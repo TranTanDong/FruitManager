@@ -13,8 +13,8 @@ import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
 import com.example.woo.quanlytraicay.ui.IProduct;
-import com.example.woo.quanlytraicay.model1.Order;
-import com.example.woo.quanlytraicay.model1.Product;
+import com.example.woo.quanlytraicay.model.Order;
+import com.example.woo.quanlytraicay.model.Product;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
@@ -64,7 +64,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
                                 Toast.makeText(context, R.string.toast_maximum, Toast.LENGTH_SHORT).show();
                             }else {
                                 i.setSoLuong(i.getSoLuong()+1);
-                                Toast.makeText(context, R.string.toast_exist_addition+" 1", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, R.string.toast_exist_add, Toast.LENGTH_SHORT).show();
                             }
                         }else {
                             tmp++;

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.woo.quanlytraicay.model1.Order;
+import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
@@ -48,26 +48,26 @@ public class FruitDetailActivity extends AppCompatActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //Xử lý thêm vào giỏ hàng
         if (id == R.id.check_ok) {
-            if (OrderActivity.orders.isEmpty() == true){
-                OrderActivity.orders.add(new Order(mName, Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, Integer.parseInt(tvDetailAmount.getText().toString()), mPrice));
+            if (OrderActivity.orders.isEmpty() == true){//Giỏ hàng trống
+                OrderActivity.orders.add(new Order(mName, Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, Integer.parseInt(tvDetailAmount.getText().toString()), mPrice));//Thêm vào giỏ
                 Toast.makeText(FruitDetailActivity.this, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
             }else {
                 int tmp = 0;
-                for (Order i : OrderActivity.orders){
-                    if (i.getTen().equals(mName)){
-                        if (i.getSoLuong() >= 10){
+                for (Order i : OrderActivity.orders){//Kiểm tra trong giỏ
+                    if (i.getTen().equals(mName)){//Số lượng tồn tại >= 10
+                        if (i.getSoLuong() >= 10){//Hiện thông báo đạt mức tối đa
                             Toast.makeText(FruitDetailActivity.this, R.string.toast_maximum, Toast.LENGTH_SHORT).show();
-                        }else {
+                        }else {//Tồn tại số lượng <10
                             i.setSoLuong(i.getSoLuong()+Integer.parseInt(tvDetailAmount.getText().toString()));
-                            Toast.makeText(FruitDetailActivity.this, R.string.toast_exist_addition +tvDetailAmount.getText().toString(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(FruitDetailActivity.this, "Đã tồn tại! Số lượng tăng thêm "+tvDetailAmount.getText().toString(), Toast.LENGTH_SHORT).show();
                         }
                     }else {
-                        tmp++;
+                        tmp++;//Biến kiểm tra sản phẩm đã tồn tại trong giỏ chưa
                     }
                 }
-                if (tmp > (OrderActivity.orders.size()-1)){
+                if (tmp > (OrderActivity.orders.size()-1)){//Kiểm tra sp chưa tồn tại trong giỏ thì thêm vào
                     OrderActivity.orders.add(new Order(mName, Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, 1, mPrice));
                     Toast.makeText(FruitDetailActivity.this, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                 }
@@ -77,7 +77,7 @@ public class FruitDetailActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    //Ánh xạ
     private void addControls() {
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.tb_fruitDetail);
         setSupportActionBar(toolbar);
@@ -123,7 +123,7 @@ public class FruitDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int a = Integer.parseInt(tvDetailAmount.getText().toString());
-                if ( a > 1){
+                if ( a > 1){//Số lượng > 1 thì giảm
                     a--;
                     tvDetailAmount.setText(a+"");
                 }
@@ -135,10 +135,10 @@ public class FruitDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int a = Integer.parseInt(tvDetailAmount.getText().toString());
-                if ( a < 10){
+                if ( a < 10){//Số lượng < 10 thig tăng
                     a++;
                     tvDetailAmount.setText(a+"");
-                }else if (a == 10){
+                }else if (a == 10){//Số lượng = 10 thông báo đã đạt tối đa
                     Toast.makeText(FruitDetailActivity.this, R.string.toast_maximum, Toast.LENGTH_SHORT).show();
                 }
             }

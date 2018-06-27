@@ -20,8 +20,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.adapter.AdapterOrder;
-import com.example.woo.quanlytraicay.model1.Order;
-import com.example.woo.quanlytraicay.model1.User;
+import com.example.woo.quanlytraicay.model.Order;
+import com.example.woo.quanlytraicay.model.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;

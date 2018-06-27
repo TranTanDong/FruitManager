@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.firebase.FBDatabase;
-import com.example.woo.quanlytraicay.model1.User;
+import com.example.woo.quanlytraicay.model.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -39,8 +39,8 @@ public class AccountActivity extends AppCompatActivity {
         addEvents();
     }
 
+    //Set thông tin Account
     private void loadInfoUser() {
-        //Set thông tin Account
         mData.child("USER").addChildEventListener(new FBDatabase() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -56,6 +56,7 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
+    //Ánh xạ
     private void addControls() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_Account);
         setSupportActionBar(toolbar);
@@ -86,6 +87,7 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
+    //Xử lý cập nhật User
     private void xuLyEdit() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();
@@ -93,6 +95,7 @@ public class AccountActivity extends AppCompatActivity {
         builder.setView(dialogView);
         builder.setCancelable(false);
 
+        //Ánh xạ
         final EditText edtEdName, edtEdPhone, edtEdAddress;
         edtEdName     = dialogView.findViewById(R.id.edtEdName);
         edtEdPhone    = dialogView.findViewById(R.id.edtEdPhone);

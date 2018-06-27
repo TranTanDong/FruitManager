@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import com.example.woo.quanlytraicay.adapter.AdapterFruit;
 import com.example.woo.quanlytraicay.firebase.FBDatabase;
 import com.example.woo.quanlytraicay.ui.IFruit;
-import com.example.woo.quanlytraicay.model1.Product;
+import com.example.woo.quanlytraicay.model.Product;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -59,7 +59,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //Chuyển sang activity giỏ hàng
         if (id == R.id.ic_giohang) {
             startActivityForResult(new Intent(FruitListActivity.this, OrderActivity.class), 9);
         }
@@ -67,6 +67,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
         return super.onOptionsItemSelected(item);
     }
 
+    //Lấy dữ liệu từ Firebase về đưa vào list
     private void loadDataFromFB() {
         progressDialog.setMessage("Đang tải");
         progressDialog.show();
@@ -82,6 +83,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
         });
     }
 
+    //Ánh xạ
     private void addControls() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_fruitlist);
         setSupportActionBar(toolbar);
@@ -103,6 +105,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
 
     }
 
+    //Xử lý click xem chi tiết sản phẩm
     @Override
     public void ClickItemFruit(int p) {
         Intent mIntent = new Intent(FruitListActivity.this, FruitDetailActivity.class);

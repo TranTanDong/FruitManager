@@ -38,10 +38,9 @@
             android:textSize="18dp"
             android:maxLines="1"
             android:ellipsize="end"
-            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
             android:textColor="#000"
-            android:textStyle="bold"
-            tools:ignore="RtlCompat" />
+            android:textStyle="bold"/>
 
     </LinearLayout>
 
@@ -71,7 +70,7 @@
             android:textSize="18dp"
             android:maxLines="1"
             android:ellipsize="end"
-            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
             android:textColor="#000"
             android:textStyle="bold"/>
 
@@ -103,7 +102,7 @@
             android:textSize="18dp"
             android:maxLines="2"
             android:ellipsize="end"
-            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
             android:textColor="#000"
             android:textStyle="bold"/>
 
@@ -135,7 +134,7 @@
             android:textSize="18dp"
             android:maxLines="1"
             android:ellipsize="end"
-            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
             android:textColor="#000"
             android:textStyle="bold"/>
 

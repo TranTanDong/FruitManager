@@ -1,9 +1,7 @@
 package com.example.woo.quanlytraicay.adapter;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.support.annotation.NonNull;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.woo.quanlytraicay.model1.Order;
+import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.R;
 import com.squareup.picasso.Picasso;
 

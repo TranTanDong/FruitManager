@@ -23,9 +23,9 @@
     <string name="toast_update_info">Đã cập nhật thành công!</string>
     //==============================Fruit Detail
     <string name="title_fruit_detail">Chi tiết sản phẩm</string>
-    <string name="toast_added_product">Đã thêm vào giỏ hàng!</string>
+    <string name="toast_added_product">Đã thêm vào giỏ hàng</string>
     <string name="toast_maximum">Số lượng đã đạt mức tối đa cho phép!</string>
-    <string name="toast_exist_addition">Đã tồn tại! Số lượng tăng thêm </string>
+    <string name="toast_exist_add">Đã tồn tại! Số lượng tăng thêm 1</string>
     //==============================Fruit List
     <string name="title_fruit_list">Danh sách sản phẩm</string>
     //==============================History
