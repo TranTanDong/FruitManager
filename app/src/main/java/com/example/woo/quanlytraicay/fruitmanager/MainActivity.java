@@ -27,6 +27,7 @@ import android.widget.ViewFlipper;
 
 import com.example.woo.quanlytraicay.adapter.AdapterProduct;
 import com.example.woo.quanlytraicay.firebase.FBDatabase;
+import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.ui.IProduct;
 import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.model.Product;
@@ -45,7 +46,8 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     private RecyclerView rcvProductList;
-    public static ArrayList<Product> dsProduct = new ArrayList<>();
+    private ArrayList<Product> dsProduct = new ArrayList<>();
+    public static ArrayList<Depot> dsDepot = new ArrayList<>();
     private AdapterProduct adapterProduct;
     private ProgressDialog progressDialog;
     public static TextView tvHiUser;
@@ -175,10 +177,16 @@ public class MainActivity extends AppCompatActivity
                 Product prod = dataSnapshot.getValue(Product.class);
                 dsProduct.add(new Product(prod.getTen(), prod.getHinh(), prod.getMoTa(), prod.getXuatXu(), prod.getGia(), prod.gethSD()));
                 adapterProduct.notifyDataSetChanged();
-                progressDialog.hide();
             }
         });
-
+        mData.child("DEPOT").addChildEventListener(new FBDatabase() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Depot item = dataSnapshot.getValue(Depot.class);
+                dsDepot.add(new Depot(item.getTenTraiCay(), item.getThoiGian(), item.getGia(), item.getSoLuong()));
+            }
+        });
+        progressDialog.hide();
     }
 
     private void addControls() {
@@ -227,7 +235,7 @@ public class MainActivity extends AppCompatActivity
         //Setup RecyclerView
         rcvProductList = findViewById(R.id.rcv_productList);
         rcvProductList.setLayoutManager(new GridLayoutManager(MainActivity.this, 3));
-        adapterProduct  = new AdapterProduct(dsProduct, MainActivity.this, this);
+        adapterProduct  = new AdapterProduct(dsProduct, MainActivity.this, this, dsDepot);
         rcvProductList.setAdapter(adapterProduct);
     }
 
@@ -290,6 +298,7 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    //Xử lý đăng xuất
     private void showSigout() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.log_out);
@@ -316,6 +325,7 @@ public class MainActivity extends AppCompatActivity
         alertDialog.show();
     }
 
+    //Xử lý click sản phẩm ==> Gửi dữ liệu qua FruitDetail
     @Override
     public void ClickItemProduct(int p) {
         Intent mIntent = new Intent(MainActivity.this, FruitDetailActivity.class);
@@ -329,6 +339,6 @@ public class MainActivity extends AppCompatActivity
         //Toast.makeText(MainActivity.this, "Chi tiết sp"+dsProduct.get(p).getTen(), Toast.LENGTH_SHORT).show();
     }
 
-    
+
 
 }

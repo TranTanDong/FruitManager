@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
+import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.ui.IFruit;
 import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.model.Product;
@@ -26,15 +27,17 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
 
     private Context context;
     private ArrayList<Product> dsFruit;
+    private ArrayList<Depot> dsDepot;
     private IFruit iFruit;
 
     private DecimalFormat dcf = new DecimalFormat("###,###,###");
 
 
-    public AdapterFruit(Context context, ArrayList<Product> dsFruit, IFruit iFruit) {
+    public AdapterFruit(Context context, ArrayList<Product> dsFruit, IFruit iFruit, ArrayList<Depot> dsDepot) {
         this.context = context;
         this.dsFruit = dsFruit;
         this.iFruit = iFruit;
+        this.dsDepot = dsDepot;
     }
 
     @NonNull
@@ -50,7 +53,18 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
         holder.tv_fPrice.setText(dcf.format(dsFruit.get(position).getGia()));
         holder.tv_fOrigin.setText(dsFruit.get(position).getXuatXu());
         holder.tv_fExpiry.setText(dsFruit.get(position).gethSD()+"");
-        holder.tv_fExist.setText("Còn hàng");
+        for (Depot i : dsDepot){
+            if((i.getSoLuong() > 0) && (i.getTenTraiCay().equals(dsFruit.get(position).getTen()))){
+                holder.tv_fExist.setText("Còn hàng");
+                holder.btn_fBuy.setVisibility(View.VISIBLE);
+            }
+
+            if ((i.getSoLuong() == 0) && (i.getTenTraiCay().equals(dsFruit.get(position).getTen()))){
+                holder.tv_fExist.setText("Hết hàng");
+                holder.btn_fBuy.setVisibility(View.INVISIBLE);
+            }
+        }
+
         Picasso.get().load(dsFruit.get(position).getHinh()).into(holder.img_fImage);
 
         holder.btn_fBuy.setTag(position);

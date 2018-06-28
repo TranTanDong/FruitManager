@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
+import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.ui.IProduct;
 import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.model.Product;
@@ -26,15 +27,17 @@ import java.util.Calendar;
 public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductViewHolder> {
 
     private ArrayList<Product> dsProduct;
+    private ArrayList<Depot> dsDepot;
     private Context context;
     private IProduct iProduct;
 
     private DecimalFormat dcf = new DecimalFormat("###,###");
 
-    public AdapterProduct(ArrayList<Product> dsProduct, Context context, IProduct iProduct) {
+    public AdapterProduct(ArrayList<Product> dsProduct, Context context, IProduct iProduct, ArrayList<Depot> dsDepot) {
         this.dsProduct = dsProduct;
         this.context = context;
         this.iProduct = iProduct;
+        this.dsDepot = dsDepot;
     }
 
     @NonNull
@@ -50,6 +53,15 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
         holder.tv_productPrice.setText(dcf.format(dsProduct.get(position).getGia())+"/kg");
         Picasso.get().load(dsProduct.get(position).getHinh()).into(holder.img_Product);
         holder.tv_productSource.setText(dsProduct.get(position).getXuatXu());
+        for (Depot i : dsDepot){
+            if((i.getSoLuong() > 0) && (i.getTenTraiCay().equals(dsProduct.get(position).getTen()))){
+                holder.btn_productBuy.setVisibility(View.VISIBLE);
+            }
+
+            if ((i.getSoLuong() == 0) && (i.getTenTraiCay().equals(dsProduct.get(position).getTen()))){
+                holder.btn_productBuy.setVisibility(View.INVISIBLE);
+            }
+        }
         holder.btn_productBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

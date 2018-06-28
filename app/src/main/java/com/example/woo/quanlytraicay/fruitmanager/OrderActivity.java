@@ -20,7 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.adapter.AdapterOrder;
+import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.model.Order;
+import com.example.woo.quanlytraicay.model.Product;
 import com.example.woo.quanlytraicay.model.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,6 +57,7 @@ public class OrderActivity extends AppCompatActivity {
         addEvents();
     }
 
+    //Đưa dữ liệu lên FB
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -88,6 +91,7 @@ public class OrderActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //Ánh xạ
     private void addControls() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_order);
         setSupportActionBar(toolbar);
@@ -110,6 +114,7 @@ public class OrderActivity extends AppCompatActivity {
         rcvOrder.setAdapter(adapterOrder);
     }
 
+    //Tình trạng giỏ hàng == Trống or Không trống
     public static void showStatusCart() {
         if (orders.size() == 0){
             tvOrderIsEmpty.setVisibility(View.VISIBLE);
@@ -139,6 +144,7 @@ public class OrderActivity extends AppCompatActivity {
         });
     }
 
+    //Xử lý thanh toán
     private void xuLyPay() {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -167,6 +173,7 @@ public class OrderActivity extends AppCompatActivity {
                 }
                 orders.clear();
                 tvOrderBigSum.setText("0đ");
+                tvOrderIsEmpty.setVisibility(View.INVISIBLE);
                 adapterOrder.notifyDataSetChanged();
                 Toast.makeText(OrderActivity.this, "Đã thanh toán thành công!", Toast.LENGTH_SHORT).show();
             }
@@ -184,6 +191,7 @@ public class OrderActivity extends AppCompatActivity {
 
     }
 
+    //Set thông tin thanh toán
     private void setInfPay(final EditText name, final EditText phone, final EditText address) {
         //Set thông tin Account
         mData.child("USER").addChildEventListener(new ChildEventListener() {

@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.example.woo.quanlytraicay.adapter.AdapterFruit;
 import com.example.woo.quanlytraicay.firebase.FBDatabase;
+import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.ui.IFruit;
 import com.example.woo.quanlytraicay.model.Product;
 import com.example.woo.quanlytraicay.R;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 public class FruitListActivity extends AppCompatActivity implements IFruit {
     private ProgressDialog progressDialog;
     private RecyclerView rcvFruitList;
-    private ArrayList<Product> dsFruit = new ArrayList<>();
+    public static ArrayList<Product> dsFruit = new ArrayList<>();
     private AdapterFruit adapterFruit;
 
     private DatabaseReference mData;
@@ -78,9 +79,9 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
                 Product fruit = dataSnapshot.getValue(Product.class);
                 dsFruit.add(new Product(fruit.getTen(), fruit.getHinh(), fruit.getMoTa(), fruit.getXuatXu(), fruit.getGia(), fruit.gethSD()));
                 adapterFruit.notifyDataSetChanged();
-                progressDialog.hide();
             }
         });
+        progressDialog.hide();
     }
 
     //Ánh xạ
@@ -97,7 +98,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
 
         rcvFruitList = findViewById(R.id.rcv_fruitList);
         rcvFruitList.setLayoutManager(new LinearLayoutManager(this));
-        adapterFruit = new AdapterFruit(FruitListActivity.this, dsFruit, this);
+        adapterFruit = new AdapterFruit(FruitListActivity.this, dsFruit, this, MainActivity.dsDepot);
         rcvFruitList.setAdapter(adapterFruit);
     }
 
