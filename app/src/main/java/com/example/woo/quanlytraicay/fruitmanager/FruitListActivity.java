@@ -42,6 +42,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fruit_list);
         addControls();
+        loadDataDepot();
         loadDataFromFB();
         addEvents();
     }
@@ -104,6 +105,18 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
 
     private void addEvents() {
 
+    }
+
+    private void loadDataDepot(){
+        MainActivity.dsDepot.clear();
+        mData.child("DEPOT").addChildEventListener(new FBDatabase() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Depot item = dataSnapshot.getValue(Depot.class);
+                MainActivity.dsDepot.add(new Depot(item.getTenTraiCay(), item.getThoiGian(), item.getGia(), item.getSoLuong()));
+                adapterFruit.notifyDataSetChanged();
+            }
+        });
     }
 
     //Xử lý click xem chi tiết sản phẩm

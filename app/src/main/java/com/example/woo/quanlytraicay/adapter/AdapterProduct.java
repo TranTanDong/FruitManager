@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.woo.quanlytraicay.fruitmanager.MainActivity;
 import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
 import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.ui.IProduct;
@@ -53,6 +54,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
         holder.tv_productPrice.setText(dcf.format(dsProduct.get(position).getGia())+"/kg");
         Picasso.get().load(dsProduct.get(position).getHinh()).into(holder.img_Product);
         holder.tv_productSource.setText(dsProduct.get(position).getXuatXu());
+        //Kiểm tra Kho
         for (Depot i : dsDepot){
             if((i.getSoLuong() > 0) && (i.getTenTraiCay().equals(dsProduct.get(position).getTen()))){
                 holder.btn_productBuy.setVisibility(View.VISIBLE);
@@ -65,14 +67,20 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
         holder.btn_productBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (OrderActivity.orders.isEmpty() == true){
-                    OrderActivity.orders.add(new Order(dsProduct.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
+                if (MainActivity.orders.isEmpty() == true){
+                    MainActivity.orders.add(new Order(dsProduct.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
                     Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                 }else {
                     int tmp = 0;
-                    for (Order i : OrderActivity.orders){
+                    for (Order i : MainActivity.orders){
+                        int n = 0; //Số lượng còn lại trong kho
+                        for (Depot j : MainActivity.dsDepot){
+                            if (j.getTenTraiCay().equals(holder.tv_productName.getText())){
+                                n = j.getSoLuong();
+                            }
+                        }
                         if (i.getTen().equals(dsProduct.get(position).getTen())){
-                            if (i.getSoLuong() >= 10){
+                            if (i.getSoLuong() >= 10 || i.getSoLuong() >= n){
                                 Toast.makeText(context, R.string.toast_maximum, Toast.LENGTH_SHORT).show();
                             }else {
                                 i.setSoLuong(i.getSoLuong()+1);
@@ -82,8 +90,8 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
                             tmp++;
                         }
                     }
-                    if (tmp > (OrderActivity.orders.size()-1)){
-                        OrderActivity.orders.add(new Order(dsProduct.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
+                    if (tmp > (MainActivity.orders.size()-1)){
+                        MainActivity.orders.add(new Order(dsProduct.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
                         Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                     }
                 }

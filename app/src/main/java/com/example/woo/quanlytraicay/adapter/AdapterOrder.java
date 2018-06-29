@@ -12,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.woo.quanlytraicay.fruitmanager.MainActivity;
 import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
+import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.R;
 import com.squareup.picasso.Picasso;
@@ -43,26 +45,36 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
 
     @Override
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
-        for (Order l : orders){
-            if (l.getSoLuong() > 10){
-                l.setSoLuong(10);
-            }
-        }
         Picasso.get().load(orders.get(position).getHinh()).into(holder.img_orderImage);
         holder.tv_orderName.setText(orders.get(position).getTen());
         holder.tv_orderPrice.setText(dcf.format(orders.get(position).getGia())+"");
         holder.tv_orderAmount.setText(dcf.format(orders.get(position).getSoLuong())+"");
+//        for (Order l : orders){
+//            int n = 0; //Số lượng còn lại trong kho
+//            for (Depot i : MainActivity.dsDepot){
+//                if (i.getTenTraiCay().equals(holder.tv_orderName.getText())){
+//                    n = i.getSoLuong();
+//                }
+//            }
+//            if (l.getSoLuong() > 10 && n > 10){//SL order < kho và kho <= 10
+//                l.setSoLuong(10);
+//            }else if (l.getSoLuong() > 10 && l.getSoLuong() < n){
+//                l.setSoLuong(10);
+//            }
+//        }
         holder.tv_orderTotal.setText(dcf.format(orders.get(position).getSoLuong()*orders.get(position).getGia())+"đ");
         xuLyBigSum(orders);
-        if (orders.get(position).getSoLuong() > 0){
-            holder.tv_orderExist.setText("Còn hàng");
-        }else holder.tv_orderExist.setText("Hết hàng");
-
         holder.btn_orderPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int a = Integer.parseInt(holder.tv_orderAmount.getText().toString());
-                if (a < 10){
+                int n = 0; //Số lượng còn lại trong kho
+                for (Depot i : MainActivity.dsDepot){
+                    if (i.getTenTraiCay().equals(holder.tv_orderName.getText())){
+                        n = i.getSoLuong();
+                    }
+                }
+                if (a < 10 && a < n){
                     a++;
                     int p = orders.get(position).getGia();
                     int s = p*a;
@@ -70,8 +82,7 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
                     holder.tv_orderTotal.setText(dcf.format(s)+"đ");
                     orders.get(position).setSoLuong(a);
                     xuLyBigSum(orders);
-                }else if (a == 10)
-                    Toast.makeText(context, R.string.toast_maximum, Toast.LENGTH_SHORT).show();
+                }else Toast.makeText(context, R.string.toast_maximum, Toast.LENGTH_SHORT).show();
             }
         });
 

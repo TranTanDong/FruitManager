@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -22,7 +23,6 @@ import android.widget.Toast;
 import com.example.woo.quanlytraicay.adapter.AdapterOrder;
 import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.model.Order;
-import com.example.woo.quanlytraicay.model.Product;
 import com.example.woo.quanlytraicay.model.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -33,13 +33,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class OrderActivity extends AppCompatActivity {
     private static View tvOrderIsEmpty;
     private RecyclerView rcvOrder;
-    public static ArrayList<Order> orders = new ArrayList<>();
     private AdapterOrder adapterOrder;
 
     private TextView tvOrderBigSum;
@@ -55,18 +53,6 @@ public class OrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_order);
         addControls();
         addEvents();
-    }
-
-    //Đưa dữ liệu lên FB
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ORDER").child(mAuth.getCurrentUser().getUid());
-        databaseReference.removeValue();
-        for (Order i : OrderActivity.orders){
-            mData.child("ORDER").child(mAuth.getCurrentUser().getUid()).push().setValue(i);
-        }
-        OrderActivity.orders.clear();
     }
 
     @Override
@@ -110,17 +96,25 @@ public class OrderActivity extends AppCompatActivity {
 
         rcvOrder = findViewById(R.id.rcv_order);
         rcvOrder.setLayoutManager(new LinearLayoutManager(this));
-        adapterOrder  = new AdapterOrder(OrderActivity.this, orders, tvOrderBigSum);
+        adapterOrder  = new AdapterOrder(OrderActivity.this, MainActivity.orders, tvOrderBigSum);
         rcvOrder.setAdapter(adapterOrder);
+
+        //Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
     }
 
     //Tình trạng giỏ hàng == Trống or Không trống
     public static void showStatusCart() {
-        if (orders.size() == 0){
+        if (MainActivity.orders.size() == 0){
             tvOrderIsEmpty.setVisibility(View.VISIBLE);
         }else tvOrderIsEmpty.setVisibility(View.INVISIBLE);
     }
 
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        adapterOrder.notifyDataSetChanged();
+//    }
 
     private void addEvents() {
         //Tiếp tục mua hàng
@@ -136,7 +130,7 @@ public class OrderActivity extends AppCompatActivity {
         btnOrderPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (orders.size() > 0){
+                if (MainActivity.orders.size() > 0){
                     xuLyPay();
                 }else Toast.makeText(OrderActivity.this, "Giỏ hàng của bạn đang trống!", Toast.LENGTH_SHORT).show();
 
@@ -167,14 +161,39 @@ public class OrderActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                for (Order i : orders){
+//                for (int j=0; j<MainActivity.orders.size(); j++){
+//                    for (int k=0; k<MainActivity.dsDepot.size(); k++){
+//                        if ((MainActivity.dsDepot.get(k).getTenTraiCay().equals(MainActivity.orders.get(j).getTen()) && (MainActivity.dsDepot.get(k).getSoLuong()>=MainActivity.orders.get(j).getSoLuong()))){
+//                            MainActivity.dsDepot.get(k).setSoLuong(MainActivity.dsDepot.get(k).getSoLuong()-MainActivity.orders.get(j).getSoLuong());
+//                            MainActivity.orders.get(j).setThoiGian(dcf.format(Calendar.getInstance().getTime()).toString());
+//                            mData.child("HISTORY").child(mAuth.getCurrentUser().getUid().toString()).push().setValue(MainActivity.orders.get(j));
+//                        }
+//                    }
+//                }
+                //Toast.makeText(getApplicationContext(), MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
+                for (Depot j : MainActivity.dsDepot){
+                    for (Order i : MainActivity.orders){
+                        if (i.getTen().equals(j.getTenTraiCay())){
+                            j.setSoLuong(j.getSoLuong()-i.getSoLuong());
+                        }
+                    }
+                }
+
+                for (Order i : MainActivity.orders){
                     i.setThoiGian(dcf.format(Calendar.getInstance().getTime()).toString());
                     mData.child("HISTORY").child(mAuth.getCurrentUser().getUid().toString()).push().setValue(i);
                 }
-                orders.clear();
-                tvOrderBigSum.setText("0đ");
-                tvOrderIsEmpty.setVisibility(View.INVISIBLE);
+                MainActivity.orders.clear();
                 adapterOrder.notifyDataSetChanged();
+
+                DatabaseReference data = FirebaseDatabase.getInstance().getReference("DEPOT").child("NEW");
+                data.removeValue();
+                mData.child("DEPOT").setValue(MainActivity.dsDepot);
+
+                MainActivity.dsDepot.clear();
+
+                showStatusCart();
+                tvOrderBigSum.setText("0đ");
                 Toast.makeText(OrderActivity.this, "Đã thanh toán thành công!", Toast.LENGTH_SHORT).show();
             }
         });

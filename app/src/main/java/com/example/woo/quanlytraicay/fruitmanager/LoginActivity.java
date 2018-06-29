@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
@@ -20,11 +21,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.R;
+import com.example.woo.quanlytraicay.firebase.FBDatabase;
+import com.example.woo.quanlytraicay.model.Order;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -36,6 +42,7 @@ public class LoginActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
+    private DatabaseReference mData;
 
     private String email, mPassword;
     @Override
@@ -54,6 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         updateUI(currentUser);
+        loadDataOrder(currentUser);
     }
 
     private void updateUI(FirebaseUser currentUser) {
@@ -66,7 +74,38 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    private void loadDataOrder(FirebaseUser c) {
+        if (MainActivity.orders.isEmpty() == true && c!=null){
+            mData.child("ORDER").child(mAuth.getCurrentUser().getUid()).addChildEventListener(new FBDatabase() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    Order order = dataSnapshot.getValue(Order.class);
+                    MainActivity.orders.add(new Order(order.getTen(), order.getThoiGian(), order.getMail(), order.getHinh(), order.getSoLuong(), order.getGia()));
+
+//                    if (OrderActivity.orders.isEmpty() == true){
+//                        OrderActivity.orders.add(new Order(order.getTen(), order.getThoiGian(), order.getMail(), order.getHinh(), order.getSoLuong(), order.getGia()));
+//                    }else {
+//                        int tmp = 0;
+//                        for (Order i : OrderActivity.orders){
+//                            if (i.getTen().equals(order.getTen())){
+//                                i.setSoLuong(i.getSoLuong() + order.getSoLuong());
+//                            }else {
+//                                tmp++;
+//                            }
+//                        }
+//                        if (tmp > (OrderActivity.orders.size()-1)){
+//                            OrderActivity.orders.add(new Order(order.getTen(), order.getThoiGian(), order.getMail(), order.getHinh(), order.getSoLuong(), order.getGia()));
+//                        }
+//                    }
+
+                }
+            });
+        }
+
+    }
+
     private void addControls() {
+        mData = FirebaseDatabase.getInstance().getReference();
         mAuth = FirebaseAuth.getInstance();
 
         edtLoginEmail = findViewById(R.id.edt_LI_Email);
@@ -121,6 +160,7 @@ public class LoginActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 updateUI(user);
+                                loadDataOrder(user);
                             } else {
                                 // If sign in fails, display a message to the user.
                                 progressDialog.hide();

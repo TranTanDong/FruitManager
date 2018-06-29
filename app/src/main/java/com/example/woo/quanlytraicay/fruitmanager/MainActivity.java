@@ -16,6 +16,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.example.woo.quanlytraicay.adapter.AdapterProduct;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView rcvProductList;
     private ArrayList<Product> dsProduct = new ArrayList<>();
     public static ArrayList<Depot> dsDepot = new ArrayList<>();
+    public static ArrayList<Order> orders = new ArrayList<>();
     private AdapterProduct adapterProduct;
     private ProgressDialog progressDialog;
     public static TextView tvHiUser;
@@ -63,12 +66,30 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         addControls();
         checkNetWork();
-        loadDataOrder();
+        loadDataDepot();
         loadDataProduct();
         proViewFlipper();
-        addEvents();
         hiUser();
+        addEvents();
+    }
 
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        //loadDataDepot();
+//        Toast.makeText(this, dsDepot.size()+"", Toast.LENGTH_SHORT).show();
+//    }
+
+    //Đưa dữ liệu lên FB
+    @Override
+    protected void onDestroy() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ORDER").child(mAuth.getCurrentUser().getUid());
+        databaseReference.removeValue();
+        for (Order i : orders){
+            mData.child("ORDER").child(mAuth.getCurrentUser().getUid()).push().setValue(i);
+        }
+        orders.clear();
+        super.onDestroy();
     }
 
     private void checkNetWork() {
@@ -137,36 +158,6 @@ public class MainActivity extends AppCompatActivity
             }
         });}
 
-    private void loadDataOrder() {
-        if (OrderActivity.orders.isEmpty() == true){
-            mData.child("ORDER").child(mAuth.getCurrentUser().getUid()).addChildEventListener(new FBDatabase() {
-                @Override
-                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    Order order = dataSnapshot.getValue(Order.class);
-                    OrderActivity.orders.add(new Order(order.getTen(), order.getThoiGian(), order.getMail(), order.getHinh(), order.getSoLuong(), order.getGia()));
-
-//                    if (OrderActivity.orders.isEmpty() == true){
-//                        OrderActivity.orders.add(new Order(order.getTen(), order.getThoiGian(), order.getMail(), order.getHinh(), order.getSoLuong(), order.getGia()));
-//                    }else {
-//                        int tmp = 0;
-//                        for (Order i : OrderActivity.orders){
-//                            if (i.getTen().equals(order.getTen())){
-//                                i.setSoLuong(i.getSoLuong() + order.getSoLuong());
-//                            }else {
-//                                tmp++;
-//                            }
-//                        }
-//                        if (tmp > (OrderActivity.orders.size()-1)){
-//                            OrderActivity.orders.add(new Order(order.getTen(), order.getThoiGian(), order.getMail(), order.getHinh(), order.getSoLuong(), order.getGia()));
-//                        }
-//                    }
-
-                }
-            });
-        }
-
-    }
-
     private void loadDataProduct() {
         progressDialog.setMessage("Đang tải");
         progressDialog.show();
@@ -179,14 +170,19 @@ public class MainActivity extends AppCompatActivity
                 adapterProduct.notifyDataSetChanged();
             }
         });
+        progressDialog.hide();
+    }
+
+    private void loadDataDepot(){
+        dsDepot.clear();
         mData.child("DEPOT").addChildEventListener(new FBDatabase() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Depot item = dataSnapshot.getValue(Depot.class);
                 dsDepot.add(new Depot(item.getTenTraiCay(), item.getThoiGian(), item.getGia(), item.getSoLuong()));
+                adapterProduct.notifyDataSetChanged();
             }
         });
-        progressDialog.hide();
     }
 
     private void addControls() {
@@ -240,7 +236,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void addEvents() {
-
     }
 
     @Override
@@ -307,8 +302,9 @@ public class MainActivity extends AppCompatActivity
         builder.setNegativeButton("CÓ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+                onDestroy();
                 mAuth.signOut();
-                OrderActivity.orders.clear();
+                orders.clear();
                 HistoryActivity.dsHistory.clear();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 dialogInterface.dismiss();
@@ -336,7 +332,7 @@ public class MainActivity extends AppCompatActivity
         mIntent.putExtra("P_HSD", dsProduct.get(p).gethSD());
         mIntent.putExtra("P_HINH", dsProduct.get(p).getHinh());
         startActivityForResult(mIntent, 3);
-        //Toast.makeText(MainActivity.this, "Chi tiết sp"+dsProduct.get(p).getTen(), Toast.LENGTH_SHORT).show();
+
     }
 
 

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.woo.quanlytraicay.fruitmanager.MainActivity;
 import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
 import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.ui.IFruit;
@@ -48,7 +49,7 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FruitViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final FruitViewHolder holder, final int position) {
         holder.tv_fName.setText(dsFruit.get(position).getTen());
         holder.tv_fPrice.setText(dcf.format(dsFruit.get(position).getGia()));
         holder.tv_fOrigin.setText(dsFruit.get(position).getXuatXu());
@@ -58,11 +59,16 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
                 holder.tv_fExist.setText("Còn hàng");
                 holder.btn_fBuy.setVisibility(View.VISIBLE);
             }
+            if ((i.getSoLuong() > 0) && (i.getSoLuong() <= 5) && (i.getTenTraiCay().equals(dsFruit.get(position).getTen()))){
+                holder.tv_fExist.setText("Sắp hết hàng");
+                holder.btn_fBuy.setVisibility(View.VISIBLE);
+            }
 
             if ((i.getSoLuong() == 0) && (i.getTenTraiCay().equals(dsFruit.get(position).getTen()))){
                 holder.tv_fExist.setText("Hết hàng");
                 holder.btn_fBuy.setVisibility(View.INVISIBLE);
             }
+
         }
 
         Picasso.get().load(dsFruit.get(position).getHinh()).into(holder.img_fImage);
@@ -73,14 +79,20 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
         holder.btn_fBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (OrderActivity.orders.isEmpty() == true){
-                    OrderActivity.orders.add(new Order(dsFruit.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
+                if (MainActivity.orders.isEmpty() == true){
+                    MainActivity.orders.add(new Order(dsFruit.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
                     Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                 }else {
                     int tmp = 0;
-                    for (Order i : OrderActivity.orders){
+                    for (Order i : MainActivity.orders){
+                        int n = 0; //Số lượng còn lại trong kho
+                        for (Depot j : MainActivity.dsDepot){
+                            if (j.getTenTraiCay().equals(holder.tv_fName.getText())){
+                                n = j.getSoLuong();
+                            }
+                        }
                         if (i.getTen().equals(dsFruit.get(position).getTen())){
-                            if (i.getSoLuong() >= 10){
+                            if (i.getSoLuong() >= 10 || i.getSoLuong() >= n){
                                 Toast.makeText(context, R.string.toast_maximum, Toast.LENGTH_SHORT).show();
                             }else {
                                 i.setSoLuong(i.getSoLuong()+1);
@@ -90,8 +102,8 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
                             tmp++;
                         }
                     }
-                    if (tmp > (OrderActivity.orders.size()-1)){
-                        OrderActivity.orders.add(new Order(dsFruit.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
+                    if (tmp > (MainActivity.orders.size()-1)){
+                        MainActivity.orders.add(new Order(dsFruit.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
                         Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                     }
                 }
