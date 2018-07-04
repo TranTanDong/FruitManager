@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class OrderActivity extends AppCompatActivity {
@@ -42,6 +42,8 @@ public class OrderActivity extends AppCompatActivity {
 
     private TextView tvOrderBigSum;
     private Button btnOrderPay, btnOrderBuyCont;
+
+    public static ArrayList<Order> orders = new ArrayList<>();
 
     private FirebaseAuth mAuth;
     private DatabaseReference mData;
@@ -77,12 +79,23 @@ public class OrderActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mAuth.getCurrentUser() != null){
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ORDER").child(mAuth.getCurrentUser().getUid());
+            databaseReference.removeValue();
+            for (Order i : orders){
+                mData.child("ORDER").child(mAuth.getCurrentUser().getUid()).push().setValue(i);
+            }
+           orders.clear();
+        }
+
+    }
     //Ánh xạ
     private void addControls() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_order);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
         mData = FirebaseDatabase.getInstance().getReference();
@@ -96,15 +109,13 @@ public class OrderActivity extends AppCompatActivity {
 
         rcvOrder = findViewById(R.id.rcv_order);
         rcvOrder.setLayoutManager(new LinearLayoutManager(this));
-        adapterOrder  = new AdapterOrder(OrderActivity.this, MainActivity.orders, tvOrderBigSum);
+        adapterOrder  = new AdapterOrder(OrderActivity.this,orders, tvOrderBigSum);
         rcvOrder.setAdapter(adapterOrder);
-
-        //Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
     }
 
     //Tình trạng giỏ hàng == Trống or Không trống
     public static void showStatusCart() {
-        if (MainActivity.orders.size() == 0){
+        if (orders.size() == 0){
             tvOrderIsEmpty.setVisibility(View.VISIBLE);
         }else tvOrderIsEmpty.setVisibility(View.INVISIBLE);
     }
@@ -121,7 +132,7 @@ public class OrderActivity extends AppCompatActivity {
         btnOrderBuyCont.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(OrderActivity.this, MainActivity.class));
+                //startActivity(new Intent(OrderActivity.this, MainActivity.class));
                 finish();
             }
         });
@@ -130,7 +141,7 @@ public class OrderActivity extends AppCompatActivity {
         btnOrderPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MainActivity.orders.size() > 0){
+                if (orders.size() > 0){
                     xuLyPay();
                 }else Toast.makeText(OrderActivity.this, "Giỏ hàng của bạn đang trống!", Toast.LENGTH_SHORT).show();
 
@@ -161,33 +172,26 @@ public class OrderActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                for (int j=0; j<MainActivity.orders.size(); j++){
-//                    for (int k=0; k<MainActivity.dsDepot.size(); k++){
-//                        if ((MainActivity.dsDepot.get(k).getTenTraiCay().equals(MainActivity.orders.get(j).getTen()) && (MainActivity.dsDepot.get(k).getSoLuong()>=MainActivity.orders.get(j).getSoLuong()))){
-//                            MainActivity.dsDepot.get(k).setSoLuong(MainActivity.dsDepot.get(k).getSoLuong()-MainActivity.orders.get(j).getSoLuong());
-//                            MainActivity.orders.get(j).setThoiGian(dcf.format(Calendar.getInstance().getTime()).toString());
-//                            mData.child("HISTORY").child(mAuth.getCurrentUser().getUid().toString()).push().setValue(MainActivity.orders.get(j));
-//                        }
-//                    }
-//                }
-                //Toast.makeText(getApplicationContext(), MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
                 for (Depot j : MainActivity.dsDepot){
-                    for (Order i : MainActivity.orders){
+                    for (Order i : orders){
                         if (i.getTen().equals(j.getTenTraiCay())){
                             j.setSoLuong(j.getSoLuong()-i.getSoLuong());
                         }
                     }
                 }
 
-                for (Order i : MainActivity.orders){
+                for (Order i : orders){
                     i.setThoiGian(dcf.format(Calendar.getInstance().getTime()).toString());
                     mData.child("HISTORY").child(mAuth.getCurrentUser().getUid().toString()).push().setValue(i);
                 }
-                MainActivity.orders.clear();
+
+                DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ORDER").child(mAuth.getCurrentUser().getUid());
+                databaseReference.removeValue();
+                orders.clear();
                 adapterOrder.notifyDataSetChanged();
 
-                DatabaseReference data = FirebaseDatabase.getInstance().getReference("DEPOT").child("NEW");
-                data.removeValue();
+                DatabaseReference databaseReference1 = FirebaseDatabase.getInstance().getReference("DEPOT");
+                databaseReference1.removeValue();
                 mData.child("DEPOT").setValue(MainActivity.dsDepot);
 
                 MainActivity.dsDepot.clear();

@@ -30,7 +30,7 @@
                 android:layout_width="105dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:paddingStart="5dp"
+                android:paddingLeft="5dp"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:text="Cam Sành Miền Tây"
@@ -42,7 +42,7 @@
                 android:id="@+id/tv_productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="5dp"
+                android:paddingLeft="5dp"
                 android:text="40.000đ/kg"
                 android:textColor="@color/colorAccent"
                 android:textSize="10dp"
@@ -55,7 +55,7 @@
                 android:gravity="end"
                 android:text="Sóc Trăng"
                 android:textSize="8dp"
-                android:paddingEnd="5dp" />
+                android:paddingRight="5dp" />
 
             <Button
                 android:id="@+id/btn_productBuy"

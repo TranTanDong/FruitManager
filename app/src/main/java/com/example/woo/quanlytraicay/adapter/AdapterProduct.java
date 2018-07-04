@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -33,6 +34,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
     private IProduct iProduct;
 
     private DecimalFormat dcf = new DecimalFormat("###,###");
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm | dd-MM-yyyy");
 
     public AdapterProduct(ArrayList<Product> dsProduct, Context context, IProduct iProduct, ArrayList<Depot> dsDepot) {
         this.dsProduct = dsProduct;
@@ -67,12 +69,12 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
         holder.btn_productBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MainActivity.orders.isEmpty() == true){
-                    MainActivity.orders.add(new Order(dsProduct.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
+                if (OrderActivity.orders.isEmpty() == true){
+                    OrderActivity.orders.add(new Order(dsProduct.get(position).getTen(), sdf.format(Calendar.getInstance().getTime().toString()), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
                     Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                 }else {
                     int tmp = 0;
-                    for (Order i : MainActivity.orders){
+                    for (Order i : OrderActivity.orders){
                         int n = 0; //Số lượng còn lại trong kho
                         for (Depot j : MainActivity.dsDepot){
                             if (j.getTenTraiCay().equals(holder.tv_productName.getText())){
@@ -90,8 +92,8 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
                             tmp++;
                         }
                     }
-                    if (tmp > (MainActivity.orders.size()-1)){
-                        MainActivity.orders.add(new Order(dsProduct.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
+                    if (tmp > (OrderActivity.orders.size()-1)){
+                        OrderActivity.orders.add(new Order(dsProduct.get(position).getTen(), sdf.format(Calendar.getInstance().getTime().toString()), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
                         Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                     }
                 }

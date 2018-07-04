@@ -36,6 +36,7 @@ import com.example.woo.quanlytraicay.model.Product;
 import com.example.woo.quanlytraicay.model.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -50,12 +51,22 @@ public class MainActivity extends AppCompatActivity
     private RecyclerView rcvProductList;
     private ArrayList<Product> dsProduct = new ArrayList<>();
     public static ArrayList<Depot> dsDepot = new ArrayList<>();
-    public static ArrayList<Order> orders = new ArrayList<>();
     private AdapterProduct adapterProduct;
     private ProgressDialog progressDialog;
     public static TextView tvHiUser;
     public static TextView tvShowMail;
     private ViewFlipper vfMain;
+
+    public static final int REQUEST_CODE_MAIN_ORDER = 3;
+    public static final int RESULT_CODE_MAIN_ORDER = 4;
+    public static final int REQUEST_CODE_MAIN_HISTORY = 5;
+    public static final int RESULT_CODE_MAIN_HISTORY = 6;
+    public static final int REQUEST_CODE_MAIN_FRUIT = 7;
+    public static final int RESULT_CODE_MAIN_FRUIT = 8;
+    public static final int REQUEST_CODE_MAIN_ACCOUNT = 9;
+    public static final int RESULT_CODE_MAIN_ACCOUNT = 10;
+    public static final int REQUEST_CODE_MAIN_DETAIL = 11;
+    public static final int RESULT_CODE_MAIN_DETAIL = 12;
 
     private DatabaseReference mData;
    // private FirebaseStorage mStorage;
@@ -66,30 +77,43 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         addControls();
         checkNetWork();
-        loadDataDepot();
         loadDataProduct();
+        loadDataOrder();
         proViewFlipper();
         hiUser();
         addEvents();
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        //loadDataDepot();
-//        Toast.makeText(this, dsDepot.size()+"", Toast.LENGTH_SHORT).show();
-//    }
+    private void loadDataOrder() {
+        OrderActivity.orders.clear();
+        mData.child("ORDER").child(mAuth.getCurrentUser().getUid()).addChildEventListener(new FBDatabase() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Order order = dataSnapshot.getValue(Order.class);
+                OrderActivity.orders.add(new Order(order.getTen(), order.getThoiGian(), order.getMail(), order.getHinh(), order.getSoLuong(), order.getGia()));
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadDataDepot();
+    }
 
     //Đưa dữ liệu lên FB
     @Override
     protected void onDestroy() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ORDER").child(mAuth.getCurrentUser().getUid());
-        databaseReference.removeValue();
-        for (Order i : orders){
-            mData.child("ORDER").child(mAuth.getCurrentUser().getUid()).push().setValue(i);
-        }
-        orders.clear();
         super.onDestroy();
+       if (mAuth.getCurrentUser() != null){
+           DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("ORDER").child(mAuth.getCurrentUser().getUid());
+           databaseReference.removeValue();
+           for (Order i : OrderActivity.orders){
+               mData.child("ORDER").child(mAuth.getCurrentUser().getUid()).push().setValue(i);
+           }
+           OrderActivity.orders.clear();
+       }
+
     }
 
     private void checkNetWork() {
@@ -170,6 +194,7 @@ public class MainActivity extends AppCompatActivity
                 adapterProduct.notifyDataSetChanged();
             }
         });
+        loadDataDepot();
         progressDialog.hide();
     }
 
@@ -183,6 +208,7 @@ public class MainActivity extends AppCompatActivity
                 adapterProduct.notifyDataSetChanged();
             }
         });
+
     }
 
     private void addControls() {
@@ -243,15 +269,36 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
         }
+    }
+
+    private void closeApp() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Bạn có muốn thoát không?");
+        builder.setCancelable(false);
+        builder.setNegativeButton("CÓ", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+                finish();
+            }
+        });
+
+        builder.setPositiveButton("KHÔNG", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_cart, menu);
+        getMenuInflater().inflate(R.menu.menu_cart_close, menu);
         return true;
     }
 
@@ -263,8 +310,10 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.ic_giohang) {
-            startActivityForResult(new Intent(MainActivity.this, OrderActivity.class), 2);
+        if (id == R.id.cart_main) {
+            startActivityForResult(new Intent(MainActivity.this, OrderActivity.class), REQUEST_CODE_MAIN_ORDER);
+        }else if (id == R.id.close_main){
+            closeApp();
         }
 
         return super.onOptionsItemSelected(item);
@@ -278,11 +327,11 @@ public class MainActivity extends AppCompatActivity
 
         // Handle the camera action
         if (id == R.id.nav_history) {
-            startActivityForResult(new Intent(MainActivity.this, HistoryActivity.class), 13);
+            startActivityForResult(new Intent(MainActivity.this, HistoryActivity.class), REQUEST_CODE_MAIN_HISTORY);
         } else if (id == R.id.nav_fruitList) {
-            startActivityForResult(new Intent(MainActivity.this, FruitListActivity.class), 5);
+            startActivityForResult(new Intent(MainActivity.this, FruitListActivity.class), REQUEST_CODE_MAIN_FRUIT);
         } else if (id == R.id.nav_info_account) {
-            startActivityForResult(new Intent(MainActivity.this, AccountActivity.class), 6);
+            startActivityForResult(new Intent(MainActivity.this, AccountActivity.class), REQUEST_CODE_MAIN_ACCOUNT);
         } else if (id == R.id.nav_logout) {
             showSigout();
         }
@@ -302,10 +351,9 @@ public class MainActivity extends AppCompatActivity
         builder.setNegativeButton("CÓ", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                onDestroy();
                 mAuth.signOut();
-                orders.clear();
                 HistoryActivity.dsHistory.clear();
+                OrderActivity.orders.clear();
                 startActivity(new Intent(MainActivity.this, LoginActivity.class));
                 dialogInterface.dismiss();
                 finish();
@@ -331,8 +379,7 @@ public class MainActivity extends AppCompatActivity
         mIntent.putExtra("P_MOTA", dsProduct.get(p).getMoTa());
         mIntent.putExtra("P_HSD", dsProduct.get(p).gethSD());
         mIntent.putExtra("P_HINH", dsProduct.get(p).getHinh());
-        startActivityForResult(mIntent, 3);
-
+        startActivityForResult(mIntent, REQUEST_CODE_MAIN_DETAIL);
     }
 
 

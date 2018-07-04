@@ -25,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
+import java.util.Collection;
 
 public class FruitListActivity extends AppCompatActivity implements IFruit {
     private ProgressDialog progressDialog;
@@ -42,9 +43,15 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fruit_list);
         addControls();
-        loadDataDepot();
         loadDataFromFB();
         addEvents();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadDataDepot();
+//        loadDataFromFB();
     }
 
     @Override
@@ -73,7 +80,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
     private void loadDataFromFB() {
         progressDialog.setMessage("Đang tải");
         progressDialog.show();
-        dsFruit.clear();
+       dsFruit.clear();
         mData.child("FRUIT").addChildEventListener(new FBDatabase() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -82,6 +89,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
                 adapterFruit.notifyDataSetChanged();
             }
         });
+        loadDataDepot();
         progressDialog.hide();
     }
 
@@ -117,6 +125,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
                 adapterFruit.notifyDataSetChanged();
             }
         });
+
     }
 
     //Xử lý click xem chi tiết sản phẩm

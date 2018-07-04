@@ -7,8 +7,7 @@
     android:orientation="vertical"
     android:background="#fff"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".fruitmanager.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:context=".fruitmanager.MainActivity">
 
     <ViewFlipper
         android:id="@+id/vf_main"

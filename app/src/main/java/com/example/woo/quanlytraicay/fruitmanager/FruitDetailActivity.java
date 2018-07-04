@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class FruitDetailActivity extends AppCompatActivity {
@@ -28,6 +29,7 @@ public class FruitDetailActivity extends AppCompatActivity {
     private String mName, mOrigin, mDescribe, mImage;
     private int mPrice, mExpiry;
     private DecimalFormat dcf = new DecimalFormat("###,###");
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm | dd-MM-yyyy");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,18 +61,18 @@ public class FruitDetailActivity extends AppCompatActivity {
                     n = i.getSoLuong();
                 }
             }
-            for (Order j : MainActivity.orders){
+            for (Order j : OrderActivity.orders){
                 if (j.getTen().equals(tvDetailName.getText())){
                     m = j.getSoLuong();
                 }
             }
             if (Integer.parseInt(tvDetailAmount.getText().toString()) > 0 && n > m){
-                if (MainActivity.orders.isEmpty() == true){//Giỏ hàng trống
-                    MainActivity.orders.add(new Order(mName, Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, Integer.parseInt(tvDetailAmount.getText().toString()), mPrice));//Thêm vào giỏ
+                if (OrderActivity.orders.isEmpty() == true){//Giỏ hàng trống
+                    OrderActivity.orders.add(new Order(mName, sdf.format(Calendar.getInstance().getTime().toString()), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, Integer.parseInt(tvDetailAmount.getText().toString()), mPrice));//Thêm vào giỏ
                     Toast.makeText(FruitDetailActivity.this, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                 }else {
                     int tmp = 0;
-                    for (Order i : MainActivity.orders){//Kiểm tra trong giỏ
+                    for (Order i : OrderActivity.orders){//Kiểm tra trong giỏ
                         if (i.getTen().equals(mName)){//Số lượng tồn tại >= 10
                             if (i.getSoLuong() >= 10){//Hiện thông báo đạt mức tối đa
                                 Toast.makeText(FruitDetailActivity.this, R.string.toast_maximum, Toast.LENGTH_SHORT).show();
@@ -82,13 +84,13 @@ public class FruitDetailActivity extends AppCompatActivity {
                             tmp++;//Biến kiểm tra sản phẩm đã tồn tại trong giỏ chưa
                         }
                     }
-                    if (tmp > (MainActivity.orders.size()-1)){//Kiểm tra sp chưa tồn tại trong giỏ thì thêm vào
-                        MainActivity.orders.add(new Order(mName, Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, 1, mPrice));
+                    if (tmp > (OrderActivity.orders.size()-1)){//Kiểm tra sp chưa tồn tại trong giỏ thì thêm vào
+                        OrderActivity.orders.add(new Order(mName, sdf.format(Calendar.getInstance().getTime().toString()), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, 1, mPrice));
                         Toast.makeText(FruitDetailActivity.this, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                     }
                 }
             }else {
-                Toast.makeText(this, "Hẹn bạn đợt hàng sau nhé", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.toast_effete, Toast.LENGTH_SHORT).show();
             }
             finish();
         }
@@ -126,7 +128,7 @@ public class FruitDetailActivity extends AppCompatActivity {
             tvDetailPrice.setText("Giá: "+dcf.format(mPrice)+"/kg");
             tvDetailDescribe.setText(mDescribe);
             tvDetailOrigin.setText("Xuất xứ: "+ mOrigin);
-            tvDetailExpiry.setText("HSD: "+ mExpiry);
+            tvDetailExpiry.setText("HSD: "+ mExpiry+" ngày");
             Picasso.get().load(mImage).into(imgDetailImage);
         }
         //Xử lý thêm vào giỏ hàng
@@ -177,13 +179,12 @@ public class FruitDetailActivity extends AppCompatActivity {
                         n = i.getSoLuong();
                     }
                 }
-                for (Order j : MainActivity.orders){
+                for (Order j : OrderActivity.orders){
                     if (j.getTen().equals(tvDetailName.getText())){
                         m = j.getSoLuong();
                     }
                 }
-                Log.i("NNNN", n+" "+m);
-                if ( a < 10 && a < n && (a+m) < n){//Số lượng < 10 thig tăng
+                if ( a < 10 && a < n && (a+m) < n){//Số lượng < 10, < còn lại trong kho thì tăng
                     a++;
                     tvDetailAmount.setText(a+"");
                 }else {//Số lượng = 10  or = n thông báo đã đạt tối đa

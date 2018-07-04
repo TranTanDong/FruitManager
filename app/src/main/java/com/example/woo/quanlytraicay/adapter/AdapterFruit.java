@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -32,6 +33,7 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
     private IFruit iFruit;
 
     private DecimalFormat dcf = new DecimalFormat("###,###,###");
+    private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm | dd-MM-yyyy");
 
 
     public AdapterFruit(Context context, ArrayList<Product> dsFruit, IFruit iFruit, ArrayList<Depot> dsDepot) {
@@ -79,12 +81,12 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
         holder.btn_fBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (MainActivity.orders.isEmpty() == true){
-                    MainActivity.orders.add(new Order(dsFruit.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
+                if (OrderActivity.orders.isEmpty() == true){
+                    OrderActivity.orders.add(new Order(dsFruit.get(position).getTen(), sdf.format(Calendar.getInstance().getTime().toString()), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
                     Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                 }else {
                     int tmp = 0;
-                    for (Order i : MainActivity.orders){
+                    for (Order i : OrderActivity.orders){
                         int n = 0; //Số lượng còn lại trong kho
                         for (Depot j : MainActivity.dsDepot){
                             if (j.getTenTraiCay().equals(holder.tv_fName.getText())){
@@ -102,8 +104,8 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
                             tmp++;
                         }
                     }
-                    if (tmp > (MainActivity.orders.size()-1)){
-                        MainActivity.orders.add(new Order(dsFruit.get(position).getTen(), Calendar.getInstance().getTime().toString(), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
+                    if (tmp > (OrderActivity.orders.size()-1)){
+                        OrderActivity.orders.add(new Order(dsFruit.get(position).getTen(), sdf.format(Calendar.getInstance().getTime().toString()), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
                         Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                     }
                 }

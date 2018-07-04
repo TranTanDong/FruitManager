@@ -69,4 +69,6 @@
     <string name="sign_up">Đăng ký</string>
     <string name="home">Trang chủ</string>
     <string name="delete_product">Bạn có muốn xóa sản phẩm này?</string>
+    <string name="toast_request_login">Nhập mật khẩu để đăng nhập</string>
+    <string name="toast_effete">Hết hàng! Hẹn bạn đợt hàng sau nhé</string>
 </resources>

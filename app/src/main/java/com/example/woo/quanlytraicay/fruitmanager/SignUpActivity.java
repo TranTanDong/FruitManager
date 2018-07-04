@@ -49,8 +49,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void addControls() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_SU);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -118,17 +118,17 @@ public class SignUpActivity extends AppCompatActivity {
                     User user1 = new User(name, phone, address, email);
                     mDatabase.child("USER").child(UID).setValue(user1);
                     String result = "Đăng ký thành công!";
-                    showDialogResult(result);
+                    showDialogResult(result, email);
                 }
                 else {
                     String result = "Email đã tồn tại. Vui lòng nhập email khác!";
-                    showDialogResult(result);
+                    showDialogResult(result, email);
                 }
             }
         });
     }
 
-    private void showDialogResult(final String result) {
+    private void showDialogResult(final String result, final String email) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.result_sign_up);
         builder.setMessage(result);
@@ -137,8 +137,9 @@ public class SignUpActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 if(result.equals("Đăng ký thành công!")) {
-                    Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                    startActivity(intent);
+                    Intent intent = getIntent();
+                    intent.putExtra("EMAIL", email);
+                    setResult(LoginActivity.RESULT_CODE_LOGIN_SIGNUP, intent);
                     finish();
                 }
                 dialogInterface.dismiss();
