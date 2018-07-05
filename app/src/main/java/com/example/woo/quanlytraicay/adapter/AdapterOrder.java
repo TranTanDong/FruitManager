@@ -12,12 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.woo.quanlytraicay.fruitmanager.MainActivity;
 import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
 import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.R;
-import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -45,7 +48,15 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
 
     @Override
     public void onBindViewHolder(@NonNull final OrderViewHolder holder, final int position) {
-        Picasso.get().load(orders.get(position).getHinh()).into(holder.img_orderImage);
+        //Picasso.get().load(orders.get(position).getHinh()).into(holder.img_orderImage);
+        Glide.with(context).load(orders.get(position).getHinh())
+                .apply(RequestOptions
+                        .overrideOf(120, 120)
+                        .placeholder(R.drawable.ic_errorimage)
+                        .error(R.drawable.ic_errorimage)
+                        .formatOf(DecodeFormat.PREFER_RGB_565)
+                        .timeout(3000)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)).into(holder.img_orderImage);
         holder.tv_orderName.setText(orders.get(position).getTen());
         holder.tv_orderPrice.setText(dcf.format(orders.get(position).getGia())+"");
         holder.tv_orderAmount.setText(dcf.format(orders.get(position).getSoLuong())+"");

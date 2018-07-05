@@ -11,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.woo.quanlytraicay.fruitmanager.MainActivity;
 import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
 import com.example.woo.quanlytraicay.model.Depot;
@@ -19,7 +23,6 @@ import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.model.Product;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -54,7 +57,15 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
     public void onBindViewHolder(@NonNull final ProductViewHolder holder, final int position) {
         holder.tv_productName.setText(dsProduct.get(position).getTen());
         holder.tv_productPrice.setText(dcf.format(dsProduct.get(position).getGia())+"/kg");
-        Picasso.get().load(dsProduct.get(position).getHinh()).into(holder.img_Product);
+        //Picasso.get().load(dsProduct.get(position).getHinh()).into(holder.img_Product);
+        Glide.with(context).load(dsProduct.get(position).getHinh())
+                .apply(RequestOptions
+                        .overrideOf(105, 105)
+                        .placeholder(R.drawable.ic_errorimage)
+                        .error(R.drawable.ic_errorimage)
+                        .formatOf(DecodeFormat.PREFER_RGB_565)
+                        .timeout(3000)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)).into(holder.img_Product);
         holder.tv_productSource.setText(dsProduct.get(position).getXuatXu());
         //Kiểm tra Kho
         for (Depot i : dsDepot){
@@ -70,7 +81,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
             @Override
             public void onClick(View v) {
                 if (OrderActivity.orders.isEmpty() == true){
-                    OrderActivity.orders.add(new Order(dsProduct.get(position).getTen(), sdf.format(Calendar.getInstance().getTime().toString()), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
+                    OrderActivity.orders.add(new Order(dsProduct.get(position).getTen(), sdf.format(Calendar.getInstance().getTime())+"", FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
                     Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                 }else {
                     int tmp = 0;
@@ -93,7 +104,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
                         }
                     }
                     if (tmp > (OrderActivity.orders.size()-1)){
-                        OrderActivity.orders.add(new Order(dsProduct.get(position).getTen(), sdf.format(Calendar.getInstance().getTime().toString()), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
+                        OrderActivity.orders.add(new Order(dsProduct.get(position).getTen(), sdf.format(Calendar.getInstance().getTime())+"", FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsProduct.get(position).getHinh(), 1, dsProduct.get(position).getGia()));
                         Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                     }
                 }

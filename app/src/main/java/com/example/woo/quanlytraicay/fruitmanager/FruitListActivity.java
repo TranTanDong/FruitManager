@@ -13,7 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.woo.quanlytraicay.adapter.AdapterFruit;
-import com.example.woo.quanlytraicay.firebase.FBDatabase;
+import com.example.woo.quanlytraicay.abstracts.FBDatabase;
 import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.ui.IFruit;
 import com.example.woo.quanlytraicay.model.Product;
@@ -25,7 +25,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class FruitListActivity extends AppCompatActivity implements IFruit {
     private ProgressDialog progressDialog;
@@ -78,9 +77,9 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
 
     //Lấy dữ liệu từ Firebase về đưa vào list
     private void loadDataFromFB() {
-        progressDialog.setMessage("Đang tải");
-        progressDialog.show();
-       dsFruit.clear();
+//        progressDialog.setMessage("Đang tải");
+//        progressDialog.show();
+        dsFruit.clear();
         mData.child("FRUIT").addChildEventListener(new FBDatabase() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
@@ -90,7 +89,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
             }
         });
         loadDataDepot();
-        progressDialog.hide();
+//        progressDialog.hide();
     }
 
     //Ánh xạ

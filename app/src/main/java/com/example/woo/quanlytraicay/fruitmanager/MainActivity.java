@@ -16,7 +16,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,11 +23,10 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.example.woo.quanlytraicay.adapter.AdapterProduct;
-import com.example.woo.quanlytraicay.firebase.FBDatabase;
+import com.example.woo.quanlytraicay.abstracts.FBDatabase;
 import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.ui.IProduct;
 import com.example.woo.quanlytraicay.model.Order;
@@ -36,7 +34,6 @@ import com.example.woo.quanlytraicay.model.Product;
 import com.example.woo.quanlytraicay.model.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -183,8 +180,8 @@ public class MainActivity extends AppCompatActivity
         });}
 
     private void loadDataProduct() {
-        progressDialog.setMessage("Đang tải");
-        progressDialog.show();
+//        progressDialog.setMessage("Đang tải");
+//        progressDialog.show();
         dsProduct.clear();
         mData.child("FRUIT").limitToLast(6).addChildEventListener(new FBDatabase() {
             @Override
@@ -195,7 +192,7 @@ public class MainActivity extends AppCompatActivity
             }
         });
         loadDataDepot();
-        progressDialog.hide();
+//        progressDialog.hide();
     }
 
     private void loadDataDepot(){

@@ -12,7 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.woo.quanlytraicay.adapter.AdapterHistory;
-import com.example.woo.quanlytraicay.firebase.FBDatabase;
+import com.example.woo.quanlytraicay.abstracts.FBDatabase;
 import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,25 +38,25 @@ public class HistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
         addControls();
+        loadDataHistory();
         addEvents();
     }
 
 
     private void loadDataHistory() {
-        progressDialog.setMessage("Đang tải");
-        progressDialog.show();
+//        progressDialog.setMessage("Đang tải");
+//        progressDialog.show();
         dsHistory.clear();
         mData.child("HISTORY").child(mAuth.getCurrentUser().getUid()).addChildEventListener(new FBDatabase() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 Order his = dataSnapshot.getValue(Order.class);
-                dsHistory.add(new Order(his.getTen(), his.getThoiGian(), his.getMail(), his.getHinh(), his.getSoLuong(), his.getGia()));
-                Collections.reverse(dsHistory);
+                dsHistory.add(0, new Order(his.getTen(), his.getThoiGian(), his.getMail(), his.getHinh(), his.getSoLuong(), his.getGia()));
                 adapterHistory.notifyDataSetChanged();
             }
         });
         showStatusHistory();
-        progressDialog.hide();
+//        progressDialog.hide();
     }
 
     private void addControls() {
@@ -71,12 +71,12 @@ public class HistoryActivity extends AppCompatActivity {
         tvHistoryIsEmpty = findViewById(R.id.tv_hisIsEmpty);
         progressDialog = new ProgressDialog(this);
 
-        loadDataHistory();
         //Set list History
         rcvHistory = findViewById(R.id.rcv_history);
         rcvHistory.setLayoutManager(new LinearLayoutManager(this));
         adapterHistory  = new AdapterHistory(HistoryActivity.this, dsHistory, tvHistoryTotal);
         rcvHistory.setAdapter(adapterHistory);
+
     }
     public static void showStatusHistory() {
         if (dsHistory.size() == 0){

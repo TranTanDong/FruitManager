@@ -10,6 +10,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.woo.quanlytraicay.fruitmanager.MainActivity;
 import com.example.woo.quanlytraicay.fruitmanager.OrderActivity;
 import com.example.woo.quanlytraicay.model.Depot;
@@ -18,7 +22,6 @@ import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.model.Product;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
@@ -73,7 +76,15 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
 
         }
 
-        Picasso.get().load(dsFruit.get(position).getHinh()).into(holder.img_fImage);
+        Glide.with(context).load(dsFruit.get(position).getHinh())
+                .apply(RequestOptions
+                .overrideOf(120, 120)
+                .placeholder(R.drawable.ic_errorimage)
+                .error(R.drawable.ic_errorimage)
+                .formatOf(DecodeFormat.PREFER_RGB_565)
+                .timeout(3000)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)).into(holder.img_fImage);
+        //Picasso.get().load(dsFruit.get(position).getHinh()).into(holder.img_fImage);
 
         holder.btn_fBuy.setTag(position);
         holder.itemView.setTag(position);
@@ -82,7 +93,7 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
             @Override
             public void onClick(View v) {
                 if (OrderActivity.orders.isEmpty() == true){
-                    OrderActivity.orders.add(new Order(dsFruit.get(position).getTen(), sdf.format(Calendar.getInstance().getTime().toString()), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
+                    OrderActivity.orders.add(new Order(dsFruit.get(position).getTen(), sdf.format(Calendar.getInstance().getTime())+"", FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
                     Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                 }else {
                     int tmp = 0;
@@ -105,7 +116,7 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
                         }
                     }
                     if (tmp > (OrderActivity.orders.size()-1)){
-                        OrderActivity.orders.add(new Order(dsFruit.get(position).getTen(), sdf.format(Calendar.getInstance().getTime().toString()), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
+                        OrderActivity.orders.add(new Order(dsFruit.get(position).getTen(), sdf.format(Calendar.getInstance().getTime())+"", FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), dsFruit.get(position).getHinh(), 1, dsFruit.get(position).getGia()));
                         Toast.makeText(context, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                     }
                 }

@@ -1,4 +1,4 @@
-package com.example.woo.quanlytraicay.firebase;
+package com.example.woo.quanlytraicay.abstracts;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

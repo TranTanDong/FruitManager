@@ -29,7 +29,7 @@
                 android:id="@+id/tv_hName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingStart="5dp"
+                android:paddingLeft="5dp"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:text="Dâu tây"
@@ -41,7 +41,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="5dp"
+                android:paddingLeft="5dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -60,7 +60,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="đ/kg"
+                    android:text="đ/Kg"
                     android:textSize="16dp"
                     android:textColor="@color/colorAccent"/>
 
@@ -71,7 +71,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingStart="5dp">
+                android:paddingLeft="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
                     android:gravity="right"
                     android:text="140.000đ"
                     android:textColor="@color/colorAccent"
-                    android:paddingEnd="5dp"
+                    android:paddingRight="5dp"
                     android:textSize="20dp" />
 
 

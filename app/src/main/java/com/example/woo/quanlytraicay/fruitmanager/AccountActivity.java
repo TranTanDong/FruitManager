@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.woo.quanlytraicay.firebase.FBDatabase;
+import com.example.woo.quanlytraicay.abstracts.FBDatabase;
 import com.example.woo.quanlytraicay.model.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.firebase.auth.FirebaseAuth;

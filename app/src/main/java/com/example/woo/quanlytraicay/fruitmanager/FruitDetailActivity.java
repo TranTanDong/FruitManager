@@ -68,7 +68,7 @@ public class FruitDetailActivity extends AppCompatActivity {
             }
             if (Integer.parseInt(tvDetailAmount.getText().toString()) > 0 && n > m){
                 if (OrderActivity.orders.isEmpty() == true){//Giỏ hàng trống
-                    OrderActivity.orders.add(new Order(mName, sdf.format(Calendar.getInstance().getTime().toString()), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, Integer.parseInt(tvDetailAmount.getText().toString()), mPrice));//Thêm vào giỏ
+                    OrderActivity.orders.add(new Order(mName, sdf.format(Calendar.getInstance().getTime())+"", FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, Integer.parseInt(tvDetailAmount.getText().toString()), mPrice));//Thêm vào giỏ
                     Toast.makeText(FruitDetailActivity.this, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                 }else {
                     int tmp = 0;
@@ -85,7 +85,7 @@ public class FruitDetailActivity extends AppCompatActivity {
                         }
                     }
                     if (tmp > (OrderActivity.orders.size()-1)){//Kiểm tra sp chưa tồn tại trong giỏ thì thêm vào
-                        OrderActivity.orders.add(new Order(mName, sdf.format(Calendar.getInstance().getTime().toString()), FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, 1, mPrice));
+                        OrderActivity.orders.add(new Order(mName, sdf.format(Calendar.getInstance().getTime())+"", FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, 1, mPrice));
                         Toast.makeText(FruitDetailActivity.this, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                     }
                 }

@@ -64,7 +64,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="đ/kg"
+                    android:text="đ/Kg"
                     android:textSize="16dp"
                     android:textColor="@color/colorAccent"/>
 
@@ -74,7 +74,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingStart="5dp">
+                android:paddingRight="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -97,7 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingStart="5dp">
+                android:paddingRight="5dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -134,7 +134,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Còn hàng"
-                    android:paddingStart="5dp"
+                    android:paddingRight="5dp"
                     android:textStyle="italic"
                     android:textColor="#000"/>
 

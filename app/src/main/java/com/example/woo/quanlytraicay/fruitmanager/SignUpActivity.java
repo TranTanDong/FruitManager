@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AutoCompleteTextView;
@@ -17,6 +18,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.woo.quanlytraicay.abstracts.DrawableClickListener;
+import com.example.woo.quanlytraicay.abstracts.TextChangeListener;
 import com.example.woo.quanlytraicay.model.User;
 import com.example.woo.quanlytraicay.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -68,7 +71,55 @@ public class SignUpActivity extends AppCompatActivity {
 
         tvSULogin = findViewById(R.id.tv_SU_Login);
         tvSULogin.setPaintFlags(tvSULogin.getPaintFlags() |   Paint.UNDERLINE_TEXT_FLAG);
+
+        delEditText(edtSUName, R.drawable.ic_person, R.drawable.ic_del);
+        delEditText(edtSUPhone, R.drawable.ic_phone, R.drawable.ic_del);
+        delEditText(edtSUAddress, R.drawable.ic_address, R.drawable.ic_del);
+        delEditText(edtSUEmail, R.drawable.ic_mail, R.drawable.ic_del);
+        showPassword(edtSUPass, R.drawable.ic_lock, R.drawable.ic_show, R.drawable.ic_show_off);
+        showPassword(edtSURePass, R.drawable.ic_repass, R.drawable.ic_show, R.drawable.ic_show_off);
     }
+
+    private void delEditText(final EditText editText, final int leftDrawable, final int rightDrawable){
+        editText.setOnTouchListener(new DrawableClickListener.RightDrawableClickListener(editText) {
+            @Override
+            public boolean onDrawableClick() {
+                editText.setText("");
+                return true;
+            }
+        });
+
+        editText.addTextChangedListener(new TextChangeListener() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() == 0){
+                    editText.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, 0, 0);
+                }else {
+                    editText.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, rightDrawable, 0);
+                }
+                super.onTextChanged(s, start, before, count);
+            }
+        });
+
+        editText.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, 0, 0);
+    }
+
+    private void showPassword(final EditText editText, final int leftDrawable, final int rightDrawable, final int rightDrawableOff){
+        editText.setOnTouchListener(new DrawableClickListener.RightDrawableClickListener(editText) {
+            @Override
+            public boolean onDrawableClick() {
+                if (editText.getInputType() == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD){
+                    editText.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
+                    editText.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, rightDrawableOff, 0);
+                }else {
+                    editText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    editText.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, rightDrawable, 0);
+                }
+                return true;
+            }
+        });
+    }
+
 
     private void addEvents() {
         //Về trang đăng nhập

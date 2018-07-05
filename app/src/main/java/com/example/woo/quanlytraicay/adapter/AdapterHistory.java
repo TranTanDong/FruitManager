@@ -9,9 +9,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.R;
-import com.squareup.picasso.Picasso;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -42,10 +45,18 @@ public class AdapterHistory extends  RecyclerView.Adapter<AdapterHistory.History
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, final int position) {
         holder.tv_hName.setText(dsHistory.get(position).getTen());
         holder.tv_hPrice.setText(dcf.format(dsHistory.get(position).getGia())+"");
-        holder.tv_hAmount.setText(dsHistory.get(position).getSoLuong()+"");
+        holder.tv_hAmount.setText(dsHistory.get(position).getSoLuong()+"Kg");
         holder.tv_hTime.setText(dsHistory.get(position).getThoiGian()+"");
         holder.tv_hTotal.setText(dcf.format(dsHistory.get(position).getSoLuong()*dsHistory.get(position).getGia())+"đ");
-        Picasso.get().load(dsHistory.get(position).getHinh()).into(holder.img_hImage);
+        //Picasso.get().load(dsHistory.get(position).getHinh()).into(holder.img_hImage);
+        Glide.with(context).load(dsHistory.get(position).getHinh())
+                .apply(RequestOptions
+                        .overrideOf(120, 120)
+                        .placeholder(R.drawable.ic_errorimage)
+                        .error(R.drawable.ic_errorimage)
+                        .formatOf(DecodeFormat.PREFER_RGB_565)
+                        .timeout(3000)
+                        .diskCacheStrategy(DiskCacheStrategy.ALL)).into(holder.img_hImage);
         xuLySumHis(dsHistory);
         showStatusHistory();
 
