@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,13 +29,16 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
-public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHolder> {
+public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHolder> implements Filterable {
 
     private Context context;
     private ArrayList<Product> dsFruit;
     private ArrayList<Depot> dsDepot;
     private IFruit iFruit;
+    private ValueFilter valueFilter;
+    private ArrayList<Product> dsFilter;
 
     private DecimalFormat dcf = new DecimalFormat("###,###,###");
     private SimpleDateFormat sdf = new SimpleDateFormat("HH:mm | dd-MM-yyyy");
@@ -44,6 +49,7 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
         this.dsFruit = dsFruit;
         this.iFruit = iFruit;
         this.dsDepot = dsDepot;
+        this.dsFilter = new ArrayList<Product>();
     }
 
     @NonNull
@@ -135,6 +141,63 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
     public int getItemCount() {
         return dsFruit.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        if(valueFilter == null) {
+
+            valueFilter = new ValueFilter();
+        }
+
+        return valueFilter;
+    }
+
+    private class ValueFilter extends Filter {
+
+        //Invoked in a worker thread to filter the data according to the constraint.
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results=new FilterResults();
+            if (dsFilter.isEmpty()){
+                dsFilter.addAll(dsFruit);
+            }
+
+            if(constraint!=null && constraint.length()>0){
+                ArrayList<Product> filterList=new ArrayList<Product>();
+                for(int i=0;i<dsFilter.size();i++){
+                    if((dsFilter.get(i).getTen().toUpperCase())
+                            .contains(constraint.toString().toUpperCase())) {
+                        Product product = new Product(
+                                dsFilter.get(i).getTen(),
+                                dsFilter.get(i).getHinh(),
+                                dsFilter.get(i).getMoTa(),
+                                dsFilter.get(i).getXuatXu(),
+                                dsFilter.get(i).getGia(),
+                                dsFilter.get(i).gethSD()
+                        );
+                        filterList.add(product);
+                    }
+                }
+                results.count=filterList.size();
+                results.values=filterList;
+            }else{
+                results.count=dsFilter.size();
+                results.values=dsFilter;
+            }
+            return results;
+        }
+
+
+        //Invoked in the UI thread to publish the filtering results in the user interface.
+        @SuppressWarnings("unchecked")
+        @Override
+        protected void publishResults(CharSequence constraint,
+                                      FilterResults results) {
+            dsFruit=(ArrayList<Product>) results.values;
+            notifyDataSetChanged();
+        }
+    }
+
 
     public class FruitViewHolder extends RecyclerView.ViewHolder{
         private ImageView btn_fBuy, img_fImage;

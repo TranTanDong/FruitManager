@@ -27,7 +27,9 @@
         <activity
             android:name=".fruitmanager.FruitListActivity"
             android:label="@string/title_fruit_list"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+
+        </activity>
         <activity
             android:name=".fruitmanager.OrderActivity"
             android:label="@string/title_cart"
@@ -35,7 +37,8 @@
         <activity
             android:name=".fruitmanager.FruitDetailActivity"
             android:label="@string/title_fruit_detail"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait">
+        </activity>
         <activity android:name=".fruitmanager.HistoryActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".fruitmanager.LoadingActivity"

@@ -59,9 +59,16 @@ public class AccountActivity extends AppCompatActivity {
     //Ánh xạ
     private void addControls() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_Account);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mAuth   = FirebaseAuth.getInstance();
         mData   = FirebaseDatabase.getInstance().getReference();

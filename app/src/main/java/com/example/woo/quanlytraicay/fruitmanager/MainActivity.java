@@ -23,6 +23,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.example.woo.quanlytraicay.adapter.AdapterProduct;
@@ -46,8 +47,8 @@ public class MainActivity extends AppCompatActivity
 
     private FirebaseAuth mAuth;
     private RecyclerView rcvProductList;
-    private ArrayList<Product> dsProduct = new ArrayList<>();
-    public static ArrayList<Depot> dsDepot = new ArrayList<>();
+    private ArrayList<Product> dsProduct = new ArrayList<Product>();
+    public static ArrayList<Depot> dsDepot = new ArrayList<Depot>();
     private AdapterProduct adapterProduct;
     private ProgressDialog progressDialog;
     public static TextView tvHiUser;
@@ -191,7 +192,7 @@ public class MainActivity extends AppCompatActivity
                 adapterProduct.notifyDataSetChanged();
             }
         });
-        loadDataDepot();
+        //loadDataDepot();
 //        progressDialog.hide();
     }
 
@@ -205,6 +206,7 @@ public class MainActivity extends AppCompatActivity
                 adapterProduct.notifyDataSetChanged();
             }
         });
+        Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -239,17 +241,6 @@ public class MainActivity extends AppCompatActivity
         mData       = FirebaseDatabase.getInstance().getReference();
         progressDialog = new ProgressDialog(this);
         vfMain = findViewById(R.id.vf_main);
-
-
-//        dsProduct.add(new Product("1", "Cam", R.drawable.ic_cam, "Mô tả cam", "Xuất xứ cam", 40000, 10));
-//        dsProduct.add(new Product("2","Xoài", R.drawable.ic_xoai, "Mô tả Xoài", "Xuất xứ Xoài", 25000, 9));
-//        dsProduct.add(new Product("3", "Mận", R.drawable.ic_man, "Mô tả Mận", "Xuất xứ Mận", 15000, 8));
-//        dsProduct.add(new Product("4", "Dâu", R.drawable.dau, "Mô tả Dâu", "Xuất xứ Dâu", 70000, 11));
-//        dsProduct.add(new Product("5", "Cam", R.drawable.ic_cam, "Mô tả cam", "Xuất xứ cam", 40000, 15));
-//        dsProduct.add(new Product("6", "Xoài", R.drawable.ic_xoai, "Mô tả Xoài", "Xuất xứ Xoài", 25000, 22));
-//        dsProduct.add(new Product("7", "Mận", R.drawable.ic_man, "Mô tả Mận", "Xuất xứ Mận", 15000, 14));
-//        dsProduct.add(new Product("8", "Dâu", R.drawable.dau, "Mô tả Dâu", "Xuất xứ Dâu", 70000, 3));
-
 
         //Setup RecyclerView
         rcvProductList = findViewById(R.id.rcv_productList);

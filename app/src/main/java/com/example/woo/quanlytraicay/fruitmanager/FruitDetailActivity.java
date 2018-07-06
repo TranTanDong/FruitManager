@@ -97,10 +97,20 @@ public class FruitDetailActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     //Ánh xạ
     private void addControls() {
         android.support.v7.widget.Toolbar toolbar = findViewById(R.id.tb_fruitDetail);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
 
         tvDetailName = findViewById(R.id.tv_detailName);
@@ -133,6 +143,7 @@ public class FruitDetailActivity extends AppCompatActivity {
         }
         //Xử lý thêm vào giỏ hàng
         xuLyAddtoCart();
+        Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
     }
 
     private void xuLyAddtoCart() {

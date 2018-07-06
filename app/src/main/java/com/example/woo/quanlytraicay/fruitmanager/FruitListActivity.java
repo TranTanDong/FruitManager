@@ -8,9 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.woo.quanlytraicay.adapter.AdapterFruit;
 import com.example.woo.quanlytraicay.abstracts.FBDatabase;
@@ -26,16 +30,16 @@ import com.google.firebase.storage.FirebaseStorage;
 
 import java.util.ArrayList;
 
-public class FruitListActivity extends AppCompatActivity implements IFruit {
+public class FruitListActivity extends AppCompatActivity implements IFruit, SearchView.OnQueryTextListener {
     private ProgressDialog progressDialog;
     private RecyclerView rcvFruitList;
     public static ArrayList<Product> dsFruit = new ArrayList<>();
     private AdapterFruit adapterFruit;
+    private SearchView searchView;
 
     private DatabaseReference mData;
     private FirebaseStorage mStorage;
     private FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +61,13 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_cart, menu);
+        MenuItem itemSearch = menu.findItem(R.id.search_view);
+        searchView = (SearchView) itemSearch.getActionView();
+        searchView.setOnQueryTextListener(this);
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -75,6 +84,17 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        adapterFruit.getFilter().filter(newText.trim());
+        return true;
+    }
+
     //Lấy dữ liệu từ Firebase về đưa vào list
     private void loadDataFromFB() {
 //        progressDialog.setMessage("Đang tải");
@@ -88,16 +108,23 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
                 adapterFruit.notifyDataSetChanged();
             }
         });
-        loadDataDepot();
+        //loadDataDepot();
 //        progressDialog.hide();
     }
 
     //Ánh xạ
     private void addControls() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_fruitlist);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
         setSupportActionBar(toolbar);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mData = FirebaseDatabase.getInstance().getReference();
         mAuth       = FirebaseAuth.getInstance();
@@ -108,7 +135,10 @@ public class FruitListActivity extends AppCompatActivity implements IFruit {
         rcvFruitList.setLayoutManager(new LinearLayoutManager(this));
         adapterFruit = new AdapterFruit(FruitListActivity.this, dsFruit, this, MainActivity.dsDepot);
         rcvFruitList.setAdapter(adapterFruit);
+
+        Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
     }
+
 
     private void addEvents() {
 

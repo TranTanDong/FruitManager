@@ -95,7 +95,16 @@ public class OrderActivity extends AppCompatActivity {
     //Ánh xạ
     private void addControls() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_order);
+        toolbar.setNavigationIcon(R.drawable.ic_back);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mAuth = FirebaseAuth.getInstance();
         mData = FirebaseDatabase.getInstance().getReference();
@@ -111,6 +120,8 @@ public class OrderActivity extends AppCompatActivity {
         rcvOrder.setLayoutManager(new LinearLayoutManager(this));
         adapterOrder  = new AdapterOrder(OrderActivity.this,orders, tvOrderBigSum);
         rcvOrder.setAdapter(adapterOrder);
+
+        Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
     }
 
     //Tình trạng giỏ hàng == Trống or Không trống
@@ -174,7 +185,7 @@ public class OrderActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 for (Depot j : MainActivity.dsDepot){
                     for (Order i : orders){
-                        if (i.getTen().equals(j.getTenTraiCay())){
+                        if (i.getTen().equals(j.getTenTraiCay()) && j.getSoLuong() >= i.getSoLuong()){
                             j.setSoLuong(j.getSoLuong()-i.getSoLuong());
                         }
                     }
