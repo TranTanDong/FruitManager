@@ -49,7 +49,7 @@ public class SignUpActivity extends AppCompatActivity {
     public void onBackPressed() {
         super.onBackPressed();
     }
-
+    //Ánh xạ
     private void addControls() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_SU);
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -80,6 +80,12 @@ public class SignUpActivity extends AppCompatActivity {
         showPassword(edtSURePass, R.drawable.ic_repass, R.drawable.ic_show, R.drawable.ic_show_off);
     }
 
+    /**
+     * Xóa toàn bộ string trong EditText
+     * @param editText tham sô truyền vào EditText
+     * @param leftDrawable tham số truyền vào hình
+     * @param rightDrawable tham số truyền vào hình xóa Text
+     */
     private void delEditText(final EditText editText, final int leftDrawable, final int rightDrawable){
         editText.setOnTouchListener(new DrawableClickListener.RightDrawableClickListener(editText) {
             @Override
@@ -103,7 +109,13 @@ public class SignUpActivity extends AppCompatActivity {
 
         editText.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, 0, 0, 0);
     }
-
+    /**
+     * Hiển thị hoặc ẩn Password
+     * @param editText thông sô truyền vào EditText (Password)
+     * @param leftDrawable tham số truyền vào hình bên trái
+     * @param rightDrawable tham số truyền vào hình hiển thị Password
+     * @param rightDrawableOff tham số truyền vào hình ẩn Password
+     */
     private void showPassword(final EditText editText, final int leftDrawable, final int rightDrawable, final int rightDrawableOff){
         editText.setOnTouchListener(new DrawableClickListener.RightDrawableClickListener(editText) {
             @Override
@@ -120,7 +132,7 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
-
+    //Các sự kiện click
     private void addEvents() {
         //Về trang đăng nhập
         tvSULogin.setOnClickListener(new View.OnClickListener() {
@@ -159,6 +171,14 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Đăng ký tài khoản mới
+     * @param email tham số truyền vào Email
+     * @param password tham số truyền vào Mật khẩu
+     * @param name tham số truyền vào tên
+     * @param phone tham số truyền vào số điện thoại
+     * @param address tham số truyền vào địa chỉ
+     */
     private void signUp(final String email, String password, final String name, final String phone, final String address) {
         mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
@@ -179,6 +199,11 @@ public class SignUpActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Hiển thị kết quả đăng ký nếu thành công thì gửi Email sang LoginActivity
+     * @param result tham số truyền vào kết quả
+     * @param email tham số truyền vào Email
+     */
     private void showDialogResult(final String result, final String email) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.result_sign_up);

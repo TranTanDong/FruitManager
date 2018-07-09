@@ -77,6 +77,8 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
                 holder.btn_productBuy.setVisibility(View.INVISIBLE);
             }
         }
+
+        //Xử lý click đặt hàng
         holder.btn_productBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -112,6 +114,7 @@ public class AdapterProduct extends RecyclerView.Adapter<AdapterProduct.ProductV
         });
 
 
+        //Xử lý click Item sản phẩm
         holder.itemView.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

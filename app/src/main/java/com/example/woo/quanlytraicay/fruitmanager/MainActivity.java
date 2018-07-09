@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity
         addEvents();
     }
 
+    //Load dữ liệu ORDER(Đặt hàng) từ Firebase và đưa vào list
     private void loadDataOrder() {
         OrderActivity.orders.clear();
         mData.child("ORDER").child(mAuth.getCurrentUser().getUid()).addChildEventListener(new FBDatabase() {
@@ -96,10 +97,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onResume() {
         super.onResume();
-        loadDataDepot();
+        loadDataDepot();//Load lại dữ liệu khi quay lại
     }
 
-    //Đưa dữ liệu lên FB
+    //Đưa dữ liệu ORDER lên Firebase
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    //Kiểm tra mạng
     private void checkNetWork() {
         if (!isNetWorkConnected()){
             showDialog();
@@ -122,8 +124,8 @@ public class MainActivity extends AppCompatActivity
 
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Lỗi mạng");
-        builder.setMessage("Không có mạng. Vui lòng kiểm tra lại!");
+        builder.setTitle(R.string.network_error);
+        builder.setMessage(R.string.check_network);
         builder.setCancelable(false);
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -139,7 +141,7 @@ public class MainActivity extends AppCompatActivity
         ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
     }
-
+    //Chạy quảng cáo
     private void proViewFlipper() {
         ArrayList<Integer> images = new ArrayList<>();
         images.add(R.drawable.ic_cam);
@@ -165,6 +167,7 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    //Load dữ liệu USER từ Firebase về và hiển thị
     private void hiUser() {
         mData.child("USER").addChildEventListener(new FBDatabase() {
             @Override
@@ -180,6 +183,7 @@ public class MainActivity extends AppCompatActivity
             }
         });}
 
+    //Load dữ liệu FRUIT từ Firebase về và đưa vào list
     private void loadDataProduct() {
 //        progressDialog.setMessage("Đang tải");
 //        progressDialog.show();
@@ -196,6 +200,7 @@ public class MainActivity extends AppCompatActivity
 //        progressDialog.hide();
     }
 
+    //Load dữ liệu DEPOT(Kho) từ Firebase về và đưa vào list
     private void loadDataDepot(){
         dsDepot.clear();
         mData.child("DEPOT").addChildEventListener(new FBDatabase() {
@@ -259,7 +264,7 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         }
     }
-
+    //Xử lý thoát App
     private void closeApp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Bạn có muốn thoát không?");

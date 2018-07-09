@@ -75,10 +75,12 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
 //        }
         holder.tv_orderTotal.setText(dcf.format(orders.get(position).getSoLuong()*orders.get(position).getGia())+"đ");
         xuLyBigSum(orders);
+
+        //Xử lý click tăng số lượng
         holder.btn_orderPlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int a = Integer.parseInt(holder.tv_orderAmount.getText().toString());
+                int a = Integer.parseInt(holder.tv_orderAmount.getText().toString());//Số lượng hiện tại
                 int n = 0; //Số lượng còn lại trong kho
                 for (Depot i : MainActivity.dsDepot){
                     if (i.getTenTraiCay().equals(holder.tv_orderName.getText())){
@@ -96,11 +98,11 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
                 }else Toast.makeText(context, R.string.toast_maximum, Toast.LENGTH_SHORT).show();
             }
         });
-
+        //Xử lý click giảm số lượng
         holder.btn_orderMinus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int a = Integer.parseInt(holder.tv_orderAmount.getText().toString());
+                int a = Integer.parseInt(holder.tv_orderAmount.getText().toString());//Số lượng hiện tại
                 if (a > 0){
                     a--;
                     int p = orders.get(position).getGia();
@@ -126,6 +128,10 @@ public class AdapterOrder extends RecyclerView.Adapter<AdapterOrder.OrderViewHol
 
     }
 
+    /**
+     * Xử lý xóa đặt hàng
+     * @param pos tham sô truyền vào vị trí xóa
+     */
     private void delItem(final int pos) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setMessage(R.string.delete_product);

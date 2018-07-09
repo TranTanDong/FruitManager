@@ -24,7 +24,7 @@ public class LoadingActivity extends AppCompatActivity {
 
             }
 
-        }, 3000);
+        }, 3000);//Delay 3s trước khi vào đăng nhập
 
     }
 }

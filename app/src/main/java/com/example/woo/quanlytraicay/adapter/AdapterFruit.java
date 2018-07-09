@@ -65,6 +65,7 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
         holder.tv_fPrice.setText(dcf.format(dsFruit.get(position).getGia()));
         holder.tv_fOrigin.setText(dsFruit.get(position).getXuatXu());
         holder.tv_fExpiry.setText(dsFruit.get(position).gethSD()+"");
+        //Set tình trạng hàng
         for (Depot i : dsDepot){
             if((i.getSoLuong() > 0) && (i.getTenTraiCay().equals(dsFruit.get(position).getTen()))){
                 holder.tv_fExist.setText("Còn hàng");
@@ -82,6 +83,7 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
 
         }
 
+        //Load hình
         Glide.with(context).load(dsFruit.get(position).getHinh())
                 .apply(RequestOptions
                 .overrideOf(120, 120)
@@ -95,6 +97,7 @@ public class AdapterFruit extends RecyclerView.Adapter<AdapterFruit.FruitViewHol
         holder.btn_fBuy.setTag(position);
         holder.itemView.setTag(position);
 
+        //Xử lý click thêm vào giỏ
         holder.btn_fBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

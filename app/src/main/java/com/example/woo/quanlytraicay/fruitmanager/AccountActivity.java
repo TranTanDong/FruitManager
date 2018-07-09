@@ -39,7 +39,7 @@ public class AccountActivity extends AppCompatActivity {
         addEvents();
     }
 
-    //Set thông tin Account
+    //Load dữ liệu USER từ Firebase về và set thông tin cho người dùng
     private void loadInfoUser() {
         mData.child("USER").addChildEventListener(new FBDatabase() {
             @Override
@@ -94,7 +94,11 @@ public class AccountActivity extends AppCompatActivity {
         });
     }
 
-    //Xử lý cập nhật User
+
+    /**
+     * Xử lý cập nhật User: Hiển thị AlertDialog để nhập thông tin cần thay đổi
+     * Những thông tin có thể thay đổi: Tên, số điện thoại và địa chỉ
+     */
     private void xuLyEdit() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = this.getLayoutInflater();

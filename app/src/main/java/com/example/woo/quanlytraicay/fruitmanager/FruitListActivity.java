@@ -50,6 +50,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit, Sear
         addEvents();
     }
 
+    //Cập nhật kho mỗi khi quay lại activity này
     @Override
     protected void onResume() {
         super.onResume();
@@ -57,6 +58,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit, Sear
 //        loadDataFromFB();
     }
 
+    //Tạo SearchView và Button xem giỏ hàng
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -143,7 +145,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit, Sear
     private void addEvents() {
 
     }
-
+    //Load dữ liệu DEPOT(Kho) từ Firebase
     private void loadDataDepot(){
         MainActivity.dsDepot.clear();
         mData.child("DEPOT").addChildEventListener(new FBDatabase() {
@@ -157,7 +159,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit, Sear
 
     }
 
-    //Xử lý click xem chi tiết sản phẩm
+    //Xử lý click xem chi tiết sản phẩm => Gửi dữ liệu sang FruitDetailActivity
     @Override
     public void ClickItemFruit(int p) {
         Intent mIntent = new Intent(FruitListActivity.this, FruitDetailActivity.class);

@@ -42,7 +42,7 @@ public class HistoryActivity extends AppCompatActivity {
         addEvents();
     }
 
-
+    //Load dữ liệu HISTORY(Lịch sử mua hàng) từ Firebase và đưa vào list
     private void loadDataHistory() {
 //        progressDialog.setMessage("Đang tải");
 //        progressDialog.show();
@@ -59,6 +59,7 @@ public class HistoryActivity extends AppCompatActivity {
 //        progressDialog.hide();
     }
 
+    //Ánh xạ
     private void addControls() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb_history);
         toolbar.setNavigationIcon(R.drawable.ic_back);
@@ -85,6 +86,8 @@ public class HistoryActivity extends AppCompatActivity {
         rcvHistory.setAdapter(adapterHistory);
 
     }
+
+    //Hiển thị tình trạng Lịch sử mua hàng
     public static void showStatusHistory() {
         if (dsHistory.size() == 0){
             tvHistoryIsEmpty.setVisibility(View.VISIBLE);

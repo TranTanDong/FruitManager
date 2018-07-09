@@ -69,6 +69,10 @@ public class AdapterHistory extends  RecyclerView.Adapter<AdapterHistory.History
 //        });
     }
 
+    /**
+     * Xử lý tính tổng tiền trong Lịch sử mua hàng
+     * @param dsHistory tham sô truyền vào danh sách các lịch sử mua hàng
+     */
     private void xuLySumHis(ArrayList<Order> dsHistory) {
         int s = 0;
         int sl, gia;

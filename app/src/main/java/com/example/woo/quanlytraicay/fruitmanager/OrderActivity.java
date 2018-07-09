@@ -225,7 +225,14 @@ public class OrderActivity extends AppCompatActivity {
 
     }
 
-    //Set thông tin thanh toán
+
+
+    /**
+     *  Set thông tin thanh toán
+     * @param name tham sô truyền vào tên
+     * @param phone tham sô truyền vào số điện thoại
+     * @param address tham sô truyền vào địa chỉ
+     */
     private void setInfPay(final EditText name, final EditText phone, final EditText address) {
         //Set thông tin Account
         mData.child("USER").addChildEventListener(new ChildEventListener() {

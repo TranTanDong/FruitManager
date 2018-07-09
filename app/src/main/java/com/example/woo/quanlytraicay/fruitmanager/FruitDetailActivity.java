@@ -124,7 +124,7 @@ public class FruitDetailActivity extends AppCompatActivity {
         btnDetailPlus = findViewById(R.id.btn_detailPlus);
         imgDetailImage = findViewById(R.id.img_detailImage);
 
-        //Set dữ liệu
+        //Nhận dữ liệu từ Intent và hiển thị
         dIntent = getIntent();
         if (dIntent != null){
             mName = dIntent.getStringExtra("P_TEN");
@@ -146,6 +146,13 @@ public class FruitDetailActivity extends AppCompatActivity {
         Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Xử lý thêm sản phẩm vào giỏ hàng
+     * Kiểm tra số lượng còn lại trong kho:
+        * 0 => Hết hàng
+        * 1-5 => Sắp hết hàng
+        * >5 => Còn hàng
+     */
     private void xuLyAddtoCart() {
         for (Depot i : MainActivity.dsDepot){
             if((i.getSoLuong() > 0) && (i.getTenTraiCay().equals(mName))){
@@ -164,7 +171,7 @@ public class FruitDetailActivity extends AppCompatActivity {
 
         }
     }
-
+    //Các sự kiện click
     private void addEvents() {
         //Giảm số lượng
         btnDetailMinus.setOnClickListener(new View.OnClickListener() {
