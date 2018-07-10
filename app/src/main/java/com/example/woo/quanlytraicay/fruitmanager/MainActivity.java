@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity
                 adapterProduct.notifyDataSetChanged();
             }
         });
-        Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
 
     }
 

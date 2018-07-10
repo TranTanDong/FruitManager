@@ -121,7 +121,7 @@ public class OrderActivity extends AppCompatActivity {
         adapterOrder  = new AdapterOrder(OrderActivity.this,orders, tvOrderBigSum);
         rcvOrder.setAdapter(adapterOrder);
 
-        Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
     }
 
     //Tình trạng giỏ hàng == Trống or Không trống

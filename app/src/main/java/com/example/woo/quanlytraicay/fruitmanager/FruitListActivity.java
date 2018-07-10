@@ -138,7 +138,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit, Sear
         adapterFruit = new AdapterFruit(FruitListActivity.this, dsFruit, this, MainActivity.dsDepot);
         rcvFruitList.setAdapter(adapterFruit);
 
-        Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
+       // Toast.makeText(this, MainActivity.dsDepot.size()+"", Toast.LENGTH_SHORT).show();
     }
 
 
