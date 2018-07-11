@@ -79,7 +79,7 @@
                     android:text="Thời gian: "
                     android:textSize="16dp"
                     android:textStyle="italic"
-                    android:textColor="#000"/>
+                    android:textColor="@color/colorBlack"/>
                 <TextView
                     android:id="@+id/tv_hTime"
                     android:layout_width="wrap_content"
@@ -87,7 +87,7 @@
                     android:text="08:30 | 12-12-2018 "
                     android:textSize="16dp"
                     android:textStyle="italic"
-                    android:textColor="#000"/>
+                    android:textColor="@color/colorBlack"/>
 
             </LinearLayout>
 

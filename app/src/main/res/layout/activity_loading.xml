@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".fruitmanager.LoadingActivity"
-    android:background="#fff">
+    android:background="@color/colorWhite">
 
 
     <ImageView

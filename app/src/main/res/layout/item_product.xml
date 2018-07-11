@@ -7,7 +7,7 @@
     android:layout_margin="3dp"
     android:padding="2dp"
     app:cardCornerRadius="2dp"
-    android:background="#fff">
+    android:background="@color/colorWhite">
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -61,7 +61,7 @@
                 android:id="@+id/btn_productBuy"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="#f29898"
+                android:background="@color/colorButton"
                 android:text="Thêm vào giỏ hàng"
                 android:textSize="8dp" />
 

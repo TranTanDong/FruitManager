@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/colorWhite"
     tools:context=".fruitmanager.HistoryActivity">
 
     <LinearLayout
@@ -14,7 +14,7 @@
         <android.support.v7.widget.Toolbar
             android:id="@+id/tb_history"
             app:title="@string/title_history"
-            app:titleTextColor="#fff"
+            app:titleTextColor="@color/colorWhite"
             android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"></android.support.v7.widget.Toolbar>

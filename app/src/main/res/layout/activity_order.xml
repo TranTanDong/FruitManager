@@ -4,19 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
+    android:background="@color/colorWhite"
     tools:context=".fruitmanager.OrderActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="#fff">
+        android:background="@color/colorWhite">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/tb_order"
             app:title="@string/title_cart"
-            app:titleTextColor="#fff"
+            app:titleTextColor="@color/colorWhite"
             android:background="@color/colorPrimary"
             android:layout_width="match_parent"
             android:layout_height="?android:attr/actionBarSize"></android.support.v7.widget.Toolbar>
@@ -64,7 +64,7 @@
             android:layout_marginBottom="5dp"
             android:background="@color/colorPrimary"
             android:text="@string/button_pay"
-            android:textColor="#fff"/>
+            android:textColor="@color/colorWhite"/>
 
         <Button
             android:id="@+id/btn_orderBuyCont"
@@ -72,7 +72,7 @@
             android:layout_height="40dp"
             android:background="@color/colorPrimary"
             android:text="@string/button_continue"
-            android:textColor="#fff"/>
+            android:textColor="@color/colorWhite"/>
     </LinearLayout>
 
     <LinearLayout

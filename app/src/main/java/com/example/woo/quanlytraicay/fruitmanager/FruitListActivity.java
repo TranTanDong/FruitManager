@@ -1,7 +1,9 @@
 package com.example.woo.quanlytraicay.fruitmanager;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,11 +12,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.EditText;
 
 import com.example.woo.quanlytraicay.adapter.AdapterFruit;
 import com.example.woo.quanlytraicay.abstracts.FBDatabase;
@@ -59,12 +62,16 @@ public class FruitListActivity extends AppCompatActivity implements IFruit, Sear
     }
 
     //Tạo SearchView và Button xem giỏ hàng
+    @SuppressLint("ResourceAsColor")
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_cart, menu);
+        getMenuInflater().inflate(R.menu.menu_cart_search, menu);
         MenuItem itemSearch = menu.findItem(R.id.search_view);
         searchView = (SearchView) itemSearch.getActionView();
+        EditText se = searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+        se.setTextColor(Color.WHITE);
+        se.setHintTextColor(Color.WHITE);
         searchView.setOnQueryTextListener(this);
         return true;
     }

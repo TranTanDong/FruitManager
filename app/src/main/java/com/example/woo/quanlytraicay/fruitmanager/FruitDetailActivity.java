@@ -11,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DecodeFormat;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.woo.quanlytraicay.model.Depot;
 import com.example.woo.quanlytraicay.model.Order;
 import com.example.woo.quanlytraicay.R;
@@ -140,6 +144,15 @@ public class FruitDetailActivity extends AppCompatActivity {
             tvDetailOrigin.setText("Xuất xứ: "+ mOrigin);
             tvDetailExpiry.setText("HSD: "+ mExpiry+" ngày");
             Picasso.get().load(mImage).into(imgDetailImage);
+            Glide.with(this).load(mImage)
+                    .apply(RequestOptions
+                            .overrideOf(160, 160)
+                            .placeholder(R.drawable.ic_errorimage)
+                            .error(R.drawable.ic_errorimage)
+                            .formatOf(DecodeFormat.PREFER_RGB_565)
+                            .timeout(3000)
+                            .diskCacheStrategy(DiskCacheStrategy.ALL)).into(imgDetailImage);
+
         }
         //Xử lý thêm vào giỏ hàng
         xuLyAddtoCart();

@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:background="#fff"
+    android:background="@color/colorWhite"
     tools:context=".fruitmanager.LoginActivity">
 
     <!-- Login progress -->
@@ -73,7 +73,7 @@
                     android:drawableRight="@drawable/ic_show_off"
                     android:drawablePadding="8dp"
                     android:hint="@string/password"
-                    android:textColorHint="#fff"
+                    android:textColorHint="@color/colorWhite"
                     android:imeActionLabel="@string/action_sign_in_short"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
@@ -97,7 +97,7 @@
                     android:layout_gravity="center"
                     android:text="@string/login"
                     android:textSize="24dp"
-                    android:textColor="#fff"
+                    android:textColor="@color/colorWhite"
                     android:textStyle="bold" />
 
             </android.support.v7.widget.CardView>
@@ -123,6 +123,7 @@
                   android:layout_width="wrap_content"
                   android:gravity="center"
                   android:layout_height="wrap_content"
+                  android:paddingLeft="5dp"
                   android:text="@string/link_sign_up"
                   android:textSize="16dp"
                   android:textStyle="bold"

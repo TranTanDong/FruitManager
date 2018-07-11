@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#fff"
+    android:background="@color/colorWhite"
     tools:context=".fruitmanager.FruitDetailActivity">
 
     <android.support.v7.widget.Toolbar
@@ -14,7 +14,7 @@
         android:layout_height="?android:attr/actionBarSize"
         android:background="@color/colorPrimary"
         app:title="@string/title_fruit_detail"
-        app:titleTextColor="#fff"></android.support.v7.widget.Toolbar>
+        app:titleTextColor="@color/colorWhite"></android.support.v7.widget.Toolbar>
 
     <LinearLayout
         android:layout_margin="5dp"
@@ -65,7 +65,7 @@
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:textSize="16dp"
-                android:textColor="#000"
+                android:textColor="@color/colorBlack"
                 android:paddingLeft="5dp" />
             <TextView
                 android:id="@+id/tv_detailExpiry"
@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:text="HSD: 3"
                 android:textSize="16dp"
-                android:textColor="#000"
+                android:textColor="@color/colorBlack"
                 android:paddingLeft="5dp" />
 
 
@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Còn hàng"
-                android:textColor="#000"
+                android:textColor="@color/colorBlack"
                 android:textStyle="italic"
                 android:paddingLeft="5dp" />
 
@@ -158,7 +158,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
-            android:textColor="#000"
+            android:textColor="@color/colorBlack"
             android:paddingStart="5dp"
             android:paddingEnd="5dp"
             android:text="   Cam sành là một giống cây ăn quả thuộc chi Cam chanh có quả gần như quả cam, có nguồn gốc từ Việt Nam. Quả cam sành rất dễ nhận ra nhờ lớp vỏ dày, sần sùi giống bề mặt mảnh sành, và thường có màu lục nhạt (khi chín có sắc cam), các múi thịt có màu cam."

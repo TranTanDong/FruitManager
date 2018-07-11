@@ -212,7 +212,7 @@ public class SignUpActivity extends AppCompatActivity {
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(result.equals("Đăng ký thành công!")) {
+                if(result.equals(R.string.toast_sign_up_success)) {
                     Intent intent = getIntent();
                     intent.putExtra("EMAIL", email);
                     setResult(LoginActivity.RESULT_CODE_LOGIN_SIGNUP, intent);
