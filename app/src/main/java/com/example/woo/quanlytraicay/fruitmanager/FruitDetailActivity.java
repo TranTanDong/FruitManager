@@ -89,7 +89,7 @@ public class FruitDetailActivity extends AppCompatActivity {
                         }
                     }
                     if (tmp > (OrderActivity.orders.size()-1)){//Kiểm tra sp chưa tồn tại trong giỏ thì thêm vào
-                        OrderActivity.orders.add(new Order(mName, sdf.format(Calendar.getInstance().getTime())+"", FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, 1, mPrice));
+                        OrderActivity.orders.add(new Order(mName, sdf.format(Calendar.getInstance().getTime())+"", FirebaseAuth.getInstance().getCurrentUser().getEmail().toString(), mImage, Integer.parseInt(tvDetailAmount.getText().toString()), mPrice));
                         Toast.makeText(FruitDetailActivity.this, R.string.toast_added_product, Toast.LENGTH_SHORT).show();
                     }
                 }
@@ -215,7 +215,7 @@ public class FruitDetailActivity extends AppCompatActivity {
                         m = j.getSoLuong();
                     }
                 }
-                if ( a < 10 && a < n && (a+m) < n){//Số lượng < 10, < còn lại trong kho thì tăng
+                if (((a+m) < 10) && (a < n) && ((a+m) < n)){//Số lượng < 10, < còn lại trong kho thì tăng
                     a++;
                     tvDetailAmount.setText(a+"");
                 }else {//Số lượng = 10  or = n thông báo đã đạt tối đa
