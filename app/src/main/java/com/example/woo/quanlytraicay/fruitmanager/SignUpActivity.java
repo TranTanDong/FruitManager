@@ -192,7 +192,7 @@ public class SignUpActivity extends AppCompatActivity {
                     showDialogResult(result, email);
                 }
                 else {
-                    String result = "Email đã tồn tại. Vui lòng nhập email khác!";
+                    String result = "Email đã tồn tại hoặc sai định dạng. Vui lòng nhập lại email khác!";
                     showDialogResult(result, email);
                 }
             }
@@ -212,7 +212,7 @@ public class SignUpActivity extends AppCompatActivity {
         builder.setNegativeButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                if(result.equals(R.string.toast_sign_up_success)) {
+                if(result.equals("Đăng ký thành công!")) {
                     Intent intent = getIntent();
                     intent.putExtra("EMAIL", email);
                     setResult(LoginActivity.RESULT_CODE_LOGIN_SIGNUP, intent);

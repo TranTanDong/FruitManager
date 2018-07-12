@@ -15,9 +15,9 @@
         <ImageView
             android:id="@+id/img_fImage"
             android:src="@drawable/ic_oi"
-            android:layout_margin="5dp"
-            android:layout_width="120dp"
-            android:layout_height="120dp"/>
+            android:layout_margin="@dimen/layout_marin_padding_5"
+            android:layout_width="@dimen/item_fruit_image"
+            android:layout_height="@dimen/item_fruit_image"/>
 
 
         <LinearLayout
@@ -28,14 +28,14 @@
 
             <TextView
                 android:id="@+id/tv_fName"
-                android:layout_width="225dp"
+                android:layout_width="@dimen/item_fruit_width"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:paddingStart="5dp"
+                android:paddingStart="@dimen/layout_marin_padding_5"
                 android:text="Ổi Nếp"
                 android:textColor="@color/colorPrimary"
-                android:textSize="20dp"
+                android:textSize="@dimen/size_text_20"
                 android:textStyle="bold"
                 tools:ignore="RtlCompat" />
 
@@ -43,14 +43,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingStart="5dp"
-                android:paddingLeft="5dp">
+                android:paddingStart="@dimen/layout_marin_padding_5"
+                android:paddingLeft="@dimen/layout_marin_padding_5">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Giá: "
-                    android:textSize="16dp"
+                    android:textSize="@dimen/size_text_16"
                     android:textColor="@color/colorAccent"/>
 
                 <TextView
@@ -58,14 +58,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="15.000"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/size_text_16"
                     android:textColor="@color/colorAccent"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="đ/Kg"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/size_text_16"
                     android:textColor="@color/colorAccent"/>
 
             </LinearLayout>
@@ -74,13 +74,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="5dp">
+                android:paddingLeft="@dimen/layout_marin_padding_5">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Xuất xứ: "
-                    android:textSize="16dp"
+                    android:textSize="@dimen/size_text_16"
                     android:textColor="@color/colorBlack"/>
 
                 <TextView
@@ -88,7 +88,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Việt Nam"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/size_text_16"
                     android:textColor="@color/colorBlack"></TextView>
 
             </LinearLayout>
@@ -97,13 +97,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingLeft="5dp">
+                android:paddingLeft="@dimen/layout_marin_padding_5">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="HSD: "
-                    android:textSize="16dp"
+                    android:textSize="@dimen/size_text_16"
                     android:textColor="@color/colorBlack"/>
 
                 <TextView
@@ -111,14 +111,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="3"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/size_text_16"
                     android:textColor="@color/colorBlack"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" ngày"
-                    android:textSize="16dp"
+                    android:textSize="@dimen/size_text_16"
                     android:textColor="@color/colorBlack"/>
 
             </LinearLayout>
@@ -134,16 +134,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Còn hàng"
-                    android:paddingLeft="5dp"
+                    android:paddingLeft="@dimen/layout_marin_padding_5"
                     android:textStyle="italic"
                     android:textColor="@color/colorBlack"/>
 
                 <ImageView
                     android:id="@+id/btn_fBuy"
                     android:src="@drawable/ic_giohang_blue"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:layout_marginRight="10dp"/>
+                    android:layout_width="@dimen/item_fruit_image_button"
+                    android:layout_height="@dimen/item_fruit_image_button"
+                    android:layout_marginRight="@dimen/layout_marin_padding_10"/>
 
             </LinearLayout>
 

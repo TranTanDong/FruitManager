@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="3dp"
-    android:padding="2dp"
-    app:cardCornerRadius="2dp"
+    android:layout_margin="@dimen/item_product_marin"
+    android:padding="@dimen/item_product_padding"
+    app:cardCornerRadius="@dimen/item_product_padding"
     android:background="@color/colorWhite">
 
     <FrameLayout
@@ -14,38 +14,38 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="110dp"
+            android:layout_width="@dimen/item_product_width"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/img_product"
-                android:layout_width="105dp"
-                android:layout_height="105dp"
+                android:layout_width="@dimen/item_product_image"
+                android:layout_height="@dimen/item_product_image"
                 android:layout_gravity="center"
                 android:src="@drawable/ic_cam" />
 
             <TextView
                 android:id="@+id/tv_productName"
-                android:layout_width="105dp"
+                android:layout_width="@dimen/item_product_width_text"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:paddingLeft="5dp"
+                android:layout_marginTop="@dimen/layout_marin_padding_5"
+                android:paddingLeft="@dimen/layout_marin_padding_5"
                 android:maxLines="1"
                 android:ellipsize="end"
                 android:text="Cam Sành Miền Tây"
                 android:textColor="@color/colorPrimary"
-                android:textSize="12dp"
+                android:textSize="@dimen/size_text_12"
                 android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
+                android:paddingLeft="@dimen/layout_marin_padding_5"
                 android:text="40.000đ/kg"
                 android:textColor="@color/colorAccent"
-                android:textSize="10dp"
+                android:textSize="@dimen/size_text_10"
                 android:textStyle="bold" />
 
             <TextView
@@ -54,22 +54,22 @@
                 android:layout_height="wrap_content"
                 android:gravity="end"
                 android:text="Sóc Trăng"
-                android:textSize="8dp"
-                android:paddingRight="5dp" />
+                android:textSize="@dimen/size_text_8"
+                android:paddingRight="@dimen/layout_marin_padding_5" />
 
             <Button
                 android:id="@+id/btn_productBuy"
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="@dimen/item_product_view_30"
                 android:background="@color/colorButton"
                 android:text="Thêm vào giỏ hàng"
-                android:textSize="8dp" />
+                android:textSize="@dimen/size_text_8" />
 
         </LinearLayout>
 
         <ImageView
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="@dimen/item_product_view_30"
+            android:layout_height="@dimen/item_product_view_30"
             android:src="@drawable/ic_new"
             android:layout_gravity="right"/>
 

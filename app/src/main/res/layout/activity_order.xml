@@ -24,7 +24,7 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rcv_order"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="@dimen/order_height_recyclerView"
             tools:listitem="@layout/item_order">
         </android.support.v7.widget.RecyclerView>
 
@@ -41,7 +41,7 @@
                 android:layout_gravity="center"
                 android:textStyle="italic"
                 android:textColor="@color/colorAccent"
-                android:textSize="16dp"/>
+                android:textSize="@dimen/size_text_16"/>
 
             <TextView
                 android:id="@+id/tv_orderBigSum"
@@ -49,19 +49,19 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="right"
-                android:layout_marginRight="5dp"
+                android:layout_marginRight="@dimen/layout_marin_padding_5"
                 android:text="0đ"
                 android:textStyle="bold|italic"
                 android:textColor="@color/colorAccent"
-                android:textSize="18dp"/>
+                android:textSize="@dimen/size_text_18"/>
 
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_orderPay"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="5dp"
+            android:layout_height="@dimen/order_height_button"
+            android:layout_marginBottom="@dimen/layout_marin_padding_5"
             android:background="@color/colorPrimary"
             android:text="@string/button_pay"
             android:textColor="@color/colorWhite"/>
@@ -69,7 +69,7 @@
         <Button
             android:id="@+id/btn_orderBuyCont"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="@dimen/order_height_button"
             android:background="@color/colorPrimary"
             android:text="@string/button_continue"
             android:textColor="@color/colorWhite"/>
@@ -83,16 +83,16 @@
         android:gravity="center">
 
         <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_margin="5dp"
+            android:layout_width="@dimen/order_image_view"
+            android:layout_height="@dimen/order_image_view"
+            android:layout_margin="@dimen/layout_marin_padding_5"
             android:src="@drawable/ic_happy"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Giỏ hàng của bạn đang trống ^-^"
-            android:textSize="20dp"
+            android:text="@string/view_cart"
+            android:textSize="@dimen/size_text_20"
             android:gravity="center"
             android:textColor="@color/colorAccent"
             />

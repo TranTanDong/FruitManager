@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     private ArrayList<Product> dsProduct = new ArrayList<Product>();
     public static ArrayList<Depot> dsDepot = new ArrayList<Depot>();
     private AdapterProduct adapterProduct;
-    private ProgressDialog progressDialog;
+    private ProgressBar progressBar;
     public static TextView tvHiUser;
     public static TextView tvShowMail;
     private ViewFlipper vfMain;
@@ -194,8 +195,10 @@ public class MainActivity extends AppCompatActivity
                 Product prod = dataSnapshot.getValue(Product.class);
                 dsProduct.add(new Product(prod.getTen(), prod.getHinh(), prod.getMoTa(), prod.getXuatXu(), prod.getGia(), prod.gethSD()));
                 adapterProduct.notifyDataSetChanged();
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
+        //progressBar.setVisibility(View.INVISIBLE);
         //loadDataDepot();
 //        progressDialog.hide();
     }
@@ -244,7 +247,8 @@ public class MainActivity extends AppCompatActivity
         mAuth       = FirebaseAuth.getInstance();
         //mStorage    = FirebaseStorage.getInstance();
         mData       = FirebaseDatabase.getInstance().getReference();
-        progressDialog = new ProgressDialog(this);
+        progressBar = findViewById(R.id.pb_main);
+
         vfMain = findViewById(R.id.vf_main);
 
         //Setup RecyclerView

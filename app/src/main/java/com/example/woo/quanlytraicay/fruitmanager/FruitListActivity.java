@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 
 import com.example.woo.quanlytraicay.adapter.AdapterFruit;
 import com.example.woo.quanlytraicay.abstracts.FBDatabase;
@@ -34,15 +35,13 @@ import com.google.firebase.storage.FirebaseStorage;
 import java.util.ArrayList;
 
 public class FruitListActivity extends AppCompatActivity implements IFruit, SearchView.OnQueryTextListener {
-    private ProgressDialog progressDialog;
     private RecyclerView rcvFruitList;
     public static ArrayList<Product> dsFruit = new ArrayList<>();
     private AdapterFruit adapterFruit;
     private SearchView searchView;
+    private ProgressBar progressBar;
 
     private DatabaseReference mData;
-    private FirebaseStorage mStorage;
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +57,6 @@ public class FruitListActivity extends AppCompatActivity implements IFruit, Sear
     protected void onResume() {
         super.onResume();
         loadDataDepot();
-//        loadDataFromFB();
     }
 
     //Tạo SearchView và Button xem giỏ hàng
@@ -106,8 +104,6 @@ public class FruitListActivity extends AppCompatActivity implements IFruit, Sear
 
     //Lấy dữ liệu từ Firebase về đưa vào list
     private void loadDataFromFB() {
-//        progressDialog.setMessage("Đang tải");
-//        progressDialog.show();
         dsFruit.clear();
         mData.child("FRUIT").addChildEventListener(new FBDatabase() {
             @Override
@@ -115,10 +111,10 @@ public class FruitListActivity extends AppCompatActivity implements IFruit, Sear
                 Product fruit = dataSnapshot.getValue(Product.class);
                 dsFruit.add(new Product(fruit.getTen(), fruit.getHinh(), fruit.getMoTa(), fruit.getXuatXu(), fruit.getGia(), fruit.gethSD()));
                 adapterFruit.notifyDataSetChanged();
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
-        //loadDataDepot();
-//        progressDialog.hide();
+        progressBar.setVisibility(View.INVISIBLE);
     }
 
     //Ánh xạ
@@ -136,9 +132,7 @@ public class FruitListActivity extends AppCompatActivity implements IFruit, Sear
         });
 
         mData = FirebaseDatabase.getInstance().getReference();
-        mAuth       = FirebaseAuth.getInstance();
-        mStorage    = FirebaseStorage.getInstance();
-        progressDialog = new ProgressDialog(this);
+        progressBar  = findViewById(R.id.pb_fruitList);
 
         rcvFruitList = findViewById(R.id.rcv_fruitList);
         rcvFruitList.setLayoutManager(new LinearLayoutManager(this));

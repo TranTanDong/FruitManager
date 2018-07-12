@@ -11,20 +11,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/title_pay"
-        android:textSize="20dp"
+        android:textSize="@dimen/size_text_20"
         android:textAllCaps="true"
         android:gravity="center"
         android:textColor="@color/colorPrimary"
         android:textStyle="bold"
-        android:layout_margin="20dp"/>
+        android:layout_margin="@dimen/layout_marin_padding_20"/>
 
     <TextView
         android:id="@+id/tv_pTotal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="10dp"
+        android:paddingBottom="@dimen/layout_marin_padding_10"
         android:text="1.000.000đ"
-        android:textSize="20dp"
+        android:textSize="@dimen/size_text_20"
         android:textAllCaps="true"
         android:gravity="center"
         android:textColor="@color/colorAccent"
@@ -33,14 +33,14 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_margin="@dimen/layout_marin_padding_5">
 
         <EditText
             android:id="@+id/edt_p_Name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_person"
-            android:drawablePadding="8dp"
+            android:drawablePadding="@dimen/layout_marin_padding_10"
             android:hint="@string/name"
             android:imeOptions="actionNext"
             android:inputType="text"
@@ -52,14 +52,14 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_margin="@dimen/layout_marin_padding_5">
 
         <EditText
             android:id="@+id/edt_p_Phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_phone"
-            android:drawablePadding="8dp"
+            android:drawablePadding="@dimen/layout_marin_padding_10"
             android:hint="@string/phone"
             android:maxLength="10"
             android:imeOptions="actionNext"
@@ -72,14 +72,14 @@
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_margin="@dimen/layout_marin_padding_5">
 
         <EditText
             android:id="@+id/edt_p_Address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_address"
-            android:drawablePadding="8dp"
+            android:drawablePadding="@dimen/layout_marin_padding_10"
             android:hint="@string/address"
             android:imeOptions="actionNext"
             android:inputType="text"

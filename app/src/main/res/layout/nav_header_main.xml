@@ -14,11 +14,11 @@
 
     <ImageView
         android:id="@+id/img_userImage"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="@dimen/nav_image"
+        android:layout_height="@dimen/nav_image"
         android:layout_gravity="center"
         android:contentDescription="@string/nav_header_desc"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="@dimen/layout_marin_padding_20"
         app:srcCompat="@drawable/logo" />
 
     <TextView
@@ -27,8 +27,8 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:layout_gravity="bottom"
-        android:textSize="16dp"
-        android:layout_marginBottom="20dp"
+        android:textSize="@dimen/size_text_16"
+        android:layout_marginBottom="@dimen/layout_marin_padding_20"
         android:text="@string/no_access_network"
         android:textColor="@color/colorWhite" />
     <TextView
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:layout_gravity="bottom"
-        android:textSize="16dp"
+        android:textSize="@dimen/size_text_16"
         android:text="@string/please_check"
         android:textColor="@color/colorWhite" />
 

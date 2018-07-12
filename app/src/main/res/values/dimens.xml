@@ -5,4 +5,64 @@
     <dimen name="nav_header_vertical_spacing">8dp</dimen>
     <dimen name="nav_header_height">176dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    //=====  Common
+    <dimen name="layout_marin_padding_5">5dp</dimen>
+    <dimen name="layout_marin_padding_10">10dp</dimen>
+    <dimen name="layout_marin_padding_20">20dp</dimen>
+    <dimen name="view_1">1dp</dimen>
+    <dimen name="view_3">3dp</dimen>
+    <dimen name="size_text_8">8dp</dimen>
+    <dimen name="size_text_10">10dp</dimen>
+    <dimen name="size_text_12">12dp</dimen>
+    <dimen name="size_text_16">16dp</dimen>
+    <dimen name="size_text_18">18dp</dimen>
+    <dimen name="size_text_20">20dp</dimen>
+    <dimen name="size_text_24">24dp</dimen>
+    <dimen name="line_1">1</dimen>
+    //=====  Account
+    <dimen name="account_marinTop">20dp</dimen>
+    <dimen name="account_height">50dp</dimen>
+    //Fruit Detail
+    <dimen name="fruit_detail_image">160dp</dimen>
+    <dimen name="fruit_detail_width_name_fruit">185dp</dimen>
+    <dimen name="fruit_detail_image_button">30dp</dimen>
+    //History
+    <dimen name="history_image_view">80dp</dimen>
+    //Load
+    <dimen name="load_image">200dp</dimen>
+    <dimen name="load_marin_top">100dp</dimen>
+    <dimen name="load_marin_bottom">90dp</dimen>
+    //Login
+    <dimen name="login_image_height">200dp</dimen>
+    <dimen name="login_marin_top_button">30dp</dimen>
+    <dimen name="login_height_button">50dp</dimen>
+    //Order
+    <dimen name="order_height_recyclerView">400dp</dimen>
+    <dimen name="order_height_button">40dp</dimen>
+    <dimen name="order_image_view">80dp</dimen>
+    //SignUp
+    <dimen name="sign_up_height_button">50dp</dimen>
+    //Content main
+    <dimen name="content_main_image">200dp</dimen>
+    //Item Fruit
+    <dimen name="item_fruit_image">120dp</dimen>
+    <dimen name="item_fruit_width">225dp</dimen>
+    <dimen name="item_fruit_image_button">25dp</dimen>
+    //Item History
+    <dimen name="item_history_marin">2dp</dimen>
+    <dimen name="item_history_image">120dp</dimen>
+    //Item Order
+    <dimen name="item_order_marin">2dp</dimen>
+    <dimen name="item_order_image">120dp</dimen>
+    <dimen name="item_order_width_name">215dp</dimen>
+    <dimen name="item_order_image_button">20dp</dimen>
+    //Item Product
+    <dimen name="item_product_marin">3dp</dimen>
+    <dimen name="item_product_padding">2dp</dimen>
+    <dimen name="item_product_image">105dp</dimen>
+    <dimen name="item_product_width">110dp</dimen>
+    <dimen name="item_product_width_text">105dp</dimen>
+    <dimen name="item_product_view_30">30dp</dimen>
+    //Nav
+    <dimen name="nav_image">120dp</dimen>
 </resources>
